@@ -3,16 +3,17 @@
   <div class="header">
     <div class="header-left">
       <div class="logo">
-        <!-- <img src="../../assets/logo.png" alt="logo" /> -->
       </div>
       <div class="title">资源库系统</div>
     </div>
     <div class="header-right">
+      <!-- 关于页面 -->
+      <div class="about">关于</div>
+      <!-- 用户信息 -->
       <div class="user">
         <div class="username">{{ user.username }}</div>
       </div>
       <div class="logout">退出</div>
-      <!--  @click="handleLogout" -->
     </div>
   </div>
 </template>
@@ -66,10 +67,15 @@ export default {
 }
 
 .header-right {
+  height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  border: 1px solid red;
 }
-
+.about {
+  margin-right: 20px;
+}
 .username {
   margin-right: 20px;
 }

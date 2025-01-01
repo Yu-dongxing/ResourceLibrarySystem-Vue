@@ -39,12 +39,13 @@ export default {
   data () {
     return {
       zyk: [
-        { id: 1, name: '《移动应用设计开发（UI设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/wkr05l7ya6popqsl?singleDoc# 《移动应用设计开发（UI设计）》', createTime: '2024-12-21', author: 'Admin', tab: '文章' },
-        { id: 2, name: '《移动应用开发（开发设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/min9mvv0lnh99xz1?singleDoc# 《移动应用开发（开发设计）》', createTime: '2024-12-22', author: 'Admin', tab: '文章' },
-        { id: 3, name: 'Java 全栈知识体系', url: 'https://www.pdai.tech/md/java/basic/java-basic-oop.html', createTime: '2024-12-21', author: 'Admin', tab: '网站' },
-        { id: 4, name: '《学习路线图》', url: 'https://www.yuque.com/tianfangyetan-3iytl/tyqp3d/wvqb03npyns8gpsn?singleDoc# 《学习路线图》', createTime: '2024-12-21', author: 'Admin', tab: '文章' },
-        { id: 5, name: '《Git常用命令参考手册》', url: 'https://www.yuque.com/tianfangyetan-3iytl/gowu5g/readme?singleDoc# 《Git常用命令参考手册》', createTime: '2024-12-21', author: 'Admin', tab: '文章' },
-        { id: 6, name: '《CSS 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/alqinr2im2okntna?singleDoc# 《CSS 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章' }
+        { id: 1, name: '《移动应用设计开发（UI设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/wkr05l7ya6popqsl?singleDoc# 《移动应用设计开发（UI设计）》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"@/assets/depng/png.svg"},
+        { id: 2, name: '《移动应用开发（开发设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/min9mvv0lnh99xz1?singleDoc# 《移动应用开发（开发设计）》', createTime: '2024-12-22', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 3, name: 'Java 全栈知识体系', url: 'https://www.pdai.tech/md/java/basic/java-basic-oop.html', createTime: '2024-12-21', author: 'Admin', tab: '网站' ,img:"@/assets/depng/png.svg"},
+        { id: 4, name: '《学习路线图》', url: 'https://www.yuque.com/tianfangyetan-3iytl/tyqp3d/wvqb03npyns8gpsn?singleDoc# 《学习路线图》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 5, name: '《Git常用命令参考手册》', url: 'https://www.yuque.com/tianfangyetan-3iytl/gowu5g/readme?singleDoc# 《Git常用命令参考手册》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"@/assets/depng/png.svg"},
+        { id: 6, name: '《CSS 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/alqinr2im2okntna?singleDoc# 《CSS 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 7, name: '《HTML 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/ewg6gq?singleDoc# 《HTML 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
       ]
     }
   }
@@ -62,26 +63,32 @@ a {
     margin-top: 10px;
     box-sizing: border-box;
     padding: 10px;
-    height: calc(100vh - 70px - 40px - 10px);
+    // height: calc(100vh - 70px - 40px - 10px);
     width: 100%;
     background-color: var(--bg-100);
     // border: 1px solid #000000;
-    overflow: auto;
+    //网格布局，根据当前宽度调整列数，最小宽度500px，最大宽度1fr，最大高度1fr
+    // grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-gap: 10px;
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    // grid-gap: 10px;
     .item{
         margin-top: 15px;
         margin-bottom: 5px;
         margin-left: 2.5%;
         width: 95% ;
         height: auto;
-        // background-color: var(--bg-100);
-        background-image:
-        -webkit-gradient(linear, left top, right top, from(var(--bg-100)), to(var(--bg-200))),
-        linear-gradient(to right, var(--bg-100), var(--bg-200));
         border-radius: 10px;
         box-sizing: border-box;
         padding: 10px;
         display: flex;
         box-shadow: var(--box-shadow-de);
+        background-image:
+        // -webkit-gradient(linear, left top, right top, from(var(--bg-100)), to(var(--bg-200))),
+        linear-gradient(to right, var(--bg-100), var(--bg-200));
         .item-img{
             width: 100px;
             height: 100px;
@@ -168,6 +175,9 @@ a {
 @media screen and (max-width: 500px) {
   .item-img{
     display: none;
+  }
+  .main-index{
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 </style>
