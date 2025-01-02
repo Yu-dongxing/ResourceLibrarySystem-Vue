@@ -1,9 +1,8 @@
 <template>
     <div class="main-index">
-        <div class="item" v-for="item in zyk" :key="item.id">
-            <!-- v-for="item in 10" :key="item" -->
+        <div class="item" v-for="item in reversedItems" :key="item.id">
             <div class="item-img">
-                <img src="@/assets/depng/png.svg" alt="depng">
+                <img src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="depng">
             </div>
             <div class="item-right" >
                 <div class="item-right-title">
@@ -31,6 +30,7 @@
                 </div>
             </div>
         </div>
+        <!-- 加载中 -->
     </div>
 </template>
 <script>
@@ -40,13 +40,26 @@ export default {
     return {
       zyk: [
         { id: 1, name: '《移动应用设计开发（UI设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/wkr05l7ya6popqsl?singleDoc# 《移动应用设计开发（UI设计）》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"@/assets/depng/png.svg"},
-        { id: 2, name: '《移动应用开发（开发设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/min9mvv0lnh99xz1?singleDoc# 《移动应用开发（开发设计）》', createTime: '2024-12-22', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 2, name: '《移动应用开发（开发设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/min9mvv0lnh99xz1?singleDoc# 《移动应用开发（开发设计）》', createTime: '2025-01-01 20:18:10', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
         { id: 3, name: 'Java 全栈知识体系', url: 'https://www.pdai.tech/md/java/basic/java-basic-oop.html', createTime: '2024-12-21', author: 'Admin', tab: '网站' ,img:"@/assets/depng/png.svg"},
         { id: 4, name: '《学习路线图》', url: 'https://www.yuque.com/tianfangyetan-3iytl/tyqp3d/wvqb03npyns8gpsn?singleDoc# 《学习路线图》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
         { id: 5, name: '《Git常用命令参考手册》', url: 'https://www.yuque.com/tianfangyetan-3iytl/gowu5g/readme?singleDoc# 《Git常用命令参考手册》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"@/assets/depng/png.svg"},
         { id: 6, name: '《CSS 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/alqinr2im2okntna?singleDoc# 《CSS 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
         { id: 7, name: '《HTML 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/ewg6gq?singleDoc# 《HTML 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
       ]
+    }
+  },
+  methods: {
+    // 获取数据
+    getData () {
+    // 发送请求获取数据
+    // this.zyk = res.data
+    }
+  },
+  computed: {
+    //通过计算属性实现倒序
+    reversedItems() {
+      return this.zyk.slice().reverse();
     }
   }
 }
@@ -68,13 +81,10 @@ a {
     background-color: var(--bg-100);
     // border: 1px solid #000000;
     //网格布局，根据当前宽度调整列数，最小宽度500px，最大宽度1fr，最大高度1fr
-    // grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     grid-gap: 10px;
     grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
     grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     display: grid;
-    // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    // grid-gap: 10px;
     .item{
         margin-top: 15px;
         margin-bottom: 5px;
