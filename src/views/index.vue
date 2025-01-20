@@ -37,7 +37,7 @@
 </template>
 <script>
 export default {
-  name: 'MainIndex',
+  name: 'ViewIndex',
   components: {
   },
   data () {
@@ -45,16 +45,15 @@ export default {
         isLoading: true,
         tme:null,
         zyk: [
-        { id: 1, name: '《移动应用设计开发（UI设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/wkr05l7ya6popqsl?singleDoc# 《移动应用设计开发（UI设计）》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"https://www.yuque.com/favicon.ico"},
-        { id: 2, name: '《移动应用开发（开发设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/min9mvv0lnh99xz1?singleDoc# 《移动应用开发（开发设计）》', createTime: '2025-01-01 20:18:10', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 3, name: 'Java 全栈知识体系', url: 'https://www.pdai.tech/md/java/basic/java-basic-oop.html', createTime: '2024-12-21', author: 'Admin', tab: '网站' ,img:"https://www.yuque.com/favicon.ico"},
-        { id: 4, name: '《学习路线图》', url: 'https://www.yuque.com/tianfangyetan-3iytl/tyqp3d/wvqb03npyns8gpsn?singleDoc# 《学习路线图》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 5, name: '《Git常用命令参考手册》', url: 'https://www.yuque.com/tianfangyetan-3iytl/gowu5g/readme?singleDoc# 《Git常用命令参考手册》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"https://www.yuque.com/favicon.ico"},
-        { id: 6, name: '《CSS 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/alqinr2im2okntna?singleDoc# 《CSS 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 7, name: '《HTML 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/ewg6gq?singleDoc# 《HTML 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 8, name: '微服务架构设计与实战(vtwy)', url: 'https://www.yuque.com/jiagouyizhan/yvgusq/lb7rl5hy6vcyf299#', createTime: '2025-1-5', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 9, name: '数据结构与算法教程', url: 'https://www.hello-algo.com/chapter_hello_algo/', createTime: '2025-1-6', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 10, name: 'Java基础常见面试题总结', url: 'https://topjavaer.cn/java/java-basic.html', createTime: '2025-01-01 20:18:10', author: 'Admin', tab: '文章',img:"https://topjavaer.cn/favicon.ico" },
+        { id: 1, name: '《移动应用设计开发（UI设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/wkr05l7ya6popqsl?singleDoc# 《移动应用设计开发（UI设计）》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"@/assets/depng/png.svg"},
+        { id: 2, name: '《移动应用开发（开发设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/min9mvv0lnh99xz1?singleDoc# 《移动应用开发（开发设计）》', createTime: '2025-01-01 20:18:10', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 3, name: 'Java 全栈知识体系', url: 'https://www.pdai.tech/md/java/basic/java-basic-oop.html', createTime: '2024-12-21', author: 'Admin', tab: '网站' ,img:"@/assets/depng/png.svg"},
+        { id: 4, name: '《学习路线图》', url: 'https://www.yuque.com/tianfangyetan-3iytl/tyqp3d/wvqb03npyns8gpsn?singleDoc# 《学习路线图》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 5, name: '《Git常用命令参考手册》', url: 'https://www.yuque.com/tianfangyetan-3iytl/gowu5g/readme?singleDoc# 《Git常用命令参考手册》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"@/assets/depng/png.svg"},
+        { id: 6, name: '《CSS 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/alqinr2im2okntna?singleDoc# 《CSS 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 7, name: '《HTML 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/ewg6gq?singleDoc# 《HTML 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 8, name: '微服务架构设计与实战(vtwy)', url: 'https://www.yuque.com/jiagouyizhan/yvgusq/lb7rl5hy6vcyf299#', createTime: '2025-1-5', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
+        { id: 9, name: '数据结构与算法教程', url: 'https://www.hello-algo.com/chapter_hello_algo/', createTime: '2025-1-6', author: 'Admin', tab: '文章',img:"@/assets/depng/png.svg" },
         ],
     }
   },

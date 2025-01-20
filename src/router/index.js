@@ -1,11 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// import App from '../App.vue'
+import MainIndex from '@/components/main/MainIndex.vue'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
+  {
+    path:'/',
+    name:'MainIndex',
+    component: MainIndex,
+    //子路由-view/index
+    // children:[
+    //   {
+    //     path:'main',
+    //     name:'MainIndex',
+    //     component: MainIndex
+    //   }
+    // ]
+  },
+  {
+    path:'/about',
+    name:'About',
+    component: () => import('@/components/updataPage/updata.vue')
+  }
   // {
   //   path: '/about',
   //   name: 'about',

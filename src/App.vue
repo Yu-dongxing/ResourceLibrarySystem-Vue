@@ -1,9 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <HeaderIndex/>
     <div class="MAIN">
       <!-- <updata/> -->
-        <MainIndex/>
+        <!-- <MainIndex/> -->
+        <router-view></router-view>
     </div>
     <FooterIndex/>
   </div>
@@ -12,14 +13,14 @@
 <script>
 import HeaderIndex from './components/header/HeaderIndex.vue'
 import FooterIndex from './components/footer/FooterIndex.vue'
-import MainIndex from './components/main/MainIndex.vue'
+// import MainIndex from './components/main/MainIndex.vue'
 import updata from './components/updataPage/updata.vue'
 export default {
   name: 'app',
   components: {
     HeaderIndex,
     FooterIndex,
-    MainIndex,
+    // MainIndex,
     updata
   }
 }
@@ -27,7 +28,7 @@ export default {
 
 <style>
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: var(--el-font-family);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
@@ -37,6 +38,19 @@ export default {
     --border-radius-max: 20px;
     --box-shadow-de: 0 2px 4px rgba(0, 0, 0, .1);
     transition: all 3s ease;
+    
+}
+/* 取消 router-link 的点击文字效果 */
+.no-link-style {
+  text-decoration: none; /* 取消下划线 */
+  color: inherit; /* 继承父元素的颜色 */
+  cursor: pointer; /* 鼠标悬停时显示指针 */
+}
+
+/* 可选：取消 hover 时的样式 */
+.no-link-style:hover {
+  text-decoration: none;
+  color: inherit;
 }
 .MAIN{
     transition: all 3s ease;
