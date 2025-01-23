@@ -4,18 +4,21 @@
     <div class="header-left">
       <div class="logo">
       </div>
-      <router-link to="/" class="title no-link-style">资源库系统</router-link>
+      <router-link to="/" class="title no-link-style">资源库</router-link>
     </div>
     <div class="header-right">
-      <!-- <router-link to="/home" class="right-item"></router-link> -->
+      <router-link to="/add" class="right-item no-link-style">
+        <img src="@/assets/header-right/up2.svg" alt="">
+        <span>添加资源</span>
+      </router-link>
       <router-link to="/about" class="right-item no-link-style">
         <img src="@/assets/UpdateLog/log.svg" alt="">
         <span>更新日志</span>
       </router-link>
-      <div class="right-item">
+      <router-link to="/user" class="right-item no-link-style">
         <img src="@/assets/user/header-user.svg" alt="">
-        <span>登录</span>
-      </div>
+        <span class="item-t">用户</span>
+      </router-link>
     </div>
     <div class="header-right-app">
       <img src="@/assets/header-right/list.svg" alt="">
@@ -79,12 +82,17 @@ export default {
     align-items: center;
     border-radius: var(--border-radius-de);
     img{
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
     }
     span{
+      margin-left: 5px;
       font-weight: bold;
       line-height: 40px;
+      // display: none;
+    }
+    .item-t{
+
     }
   }
   .right-item:hover{

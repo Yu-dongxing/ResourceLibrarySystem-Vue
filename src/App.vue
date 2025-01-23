@@ -1,11 +1,11 @@
 <template>
   <div id="app" >
     <HeaderIndex/>
-    <div class="MAIN">
+    <el-scrollbar height="calc(100vh - 70px - 40px - 10px)" class="MAIN">
       <!-- <updata/> -->
         <!-- <MainIndex/> -->
         <router-view></router-view>
-    </div>
+    </el-scrollbar>
     <FooterIndex/>
   </div>
 </template>
@@ -14,14 +14,14 @@
 import HeaderIndex from './components/header/HeaderIndex.vue'
 import FooterIndex from './components/footer/FooterIndex.vue'
 // import MainIndex from './components/main/MainIndex.vue'
-import updata from './components/updataPage/updata.vue'
+// import updata from './components/updataPage/updata.vue'
 export default {
   name: 'app',
   components: {
     HeaderIndex,
     FooterIndex,
     // MainIndex,
-    updata
+    // updata
   }
 }
 </script>
@@ -61,5 +61,6 @@ export default {
     width: 100%;
     background-color: var(--bg-100);
     overflow: auto;
+    border-radius: 10px;
 }
 </style>
