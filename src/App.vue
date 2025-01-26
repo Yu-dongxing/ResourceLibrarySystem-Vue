@@ -22,6 +22,9 @@ export default {
     FooterIndex,
     // MainIndex,
     // updata
+  },
+  beforeCreate() {
+    console.log('App.vue beforeCreate')
   }
 }
 </script>
@@ -60,7 +63,7 @@ export default {
     height: calc(100vh - 70px - 40px - 10px);
     width: 100%;
     background-color: var(--bg-100);
-    overflow: auto;
+    /* overflow: auto; */
     border-radius: 10px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <!-- -->
-    <div class="main-index" v-loading="isLoading"  element-loading-text="Loading...">
+    <!-- v-loading.fullscreen.lock="fullscreenLoading"-->
+    <div class="main-index" v-loading.fullscreen.lock="isLoading"  element-loading-text="Loading...">
         <div class="item" v-for="item in reversedItems" :key="item.id" @click="getData()">
             <div class="item-img">
                 <img src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="depng">
@@ -12,16 +12,16 @@
                 </div>
                 <div class="item-right-content">
                     <div class="content-time" title="创建时间">
-                        <img ref="img" src="@/assets/time/time.svg"/>
-                        <p>{{ item.createTime }}</p>
+                        <!-- <img ref="img" src="@/assets/time/time.svg"/> -->
+                        <el-tag type="primary">{{ item.createTime }}</el-tag>
                     </div>
                     <div class="content-user" title="作者">
-                        <img ref="img" src="@/assets/user/user.svg"/>
-                        <p>{{ item.author }}</p>
+                        <!-- <img ref="img" src="@/assets/user/user.svg"/> -->
+                        <el-tag type="primary">{{ item.author }}</el-tag>
                     </div>
                     <div class="content-tab" title="分类">
-                        <img ref="img" src="@/assets/tab/tab.svg"/>
-                        <p>{{ item.tab }}</p>
+                        <!-- <img ref="img" src="@/assets/tab/tab.svg"/> -->
+                        <el-tag type="primary">{{ item.tab }}</el-tag>
                     </div>
                 </div>
                 <div class="item-right-button">
@@ -97,20 +97,20 @@ a {
     transition: all 3s ease;
     margin-top: 4px;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 5px;
     width: 100%;
     background-color: var(--bg-100);
     display: grid;
     gap: 10px; /* 使用 gap 替代 grid-gap */
     grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
     .item{
         margin: 15px 0 5px 2.5%; /* 合并 margin */
         width: 95%;
         height: auto;
         border-radius: 10px;
         box-sizing: border-box;
-        padding: 10px;
+        padding: 5px;
         display: flex;
         box-shadow: var(--box-shadow-de);
         background-image: linear-gradient(to right, var(--bg-100), var(--bg-200));
@@ -127,16 +127,16 @@ a {
         .item-right{
             flex: 1;
             margin-left: 10px;
-            padding: 10px;
+            // padding: 10px;
             box-sizing: border-box;
             .item-right-title{
                 padding: 10px;
                 padding-left: 0;
-                border-bottom: 1px solid var(--primary-200);
+                // border-bottom: 1px solid var(--primary-200);
                 p{
                     min-width: 200px;
-                    font-size: 18px;
-                    font-weight: 600;
+                    font-size: 20px;
+                    font-weight: bold;
                     color: var(--text-100);
                     margin: 0;
                 }

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>添加资源</h1>
+    <div class="addResource">
+      <el-text>资源上传</el-text>
+    </div>
   </div>
 </template>
 
