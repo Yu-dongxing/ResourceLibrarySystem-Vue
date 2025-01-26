@@ -95,49 +95,41 @@ a {
 }
 .main-index {
     transition: all 3s ease;
-    margin-top: 10px;
+    margin-top: 4px;
     box-sizing: border-box;
     padding: 10px;
-    // height: calc(100vh - 70px - 40px - 10px);
     width: 100%;
     background-color: var(--bg-100);
-    // border: 1px solid #000000;
-    //网格布局，根据当前宽度调整列数，最小宽度500px，最大宽度1fr，最大高度1fr
-    grid-gap: 10px;
-    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     display: grid;
+    gap: 10px; /* 使用 gap 替代 grid-gap */
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
     .item{
-        margin-top: 15px;
-        margin-bottom: 5px;
-        margin-left: 2.5%;
-        width: 95% ;
+        margin: 15px 0 5px 2.5%; /* 合并 margin */
+        width: 95%;
         height: auto;
         border-radius: 10px;
         box-sizing: border-box;
         padding: 10px;
         display: flex;
         box-shadow: var(--box-shadow-de);
-        background-image:
-        // -webkit-gradient(linear, left top, right top, from(var(--bg-100)), to(var(--bg-200))),
-        linear-gradient(to right, var(--bg-100), var(--bg-200));
-        .item-img{
+        background-image: linear-gradient(to right, var(--bg-100), var(--bg-200));
+        .item-img {
             width: 100px;
             height: 100px;
-            // background-color: var(--primary-100);
             border-radius: var(--border-radius-de);
-            img{
+            img {
                 width: 100%;
                 height: 100%;
+                object-fit: cover; /* 确保图片填充 */
             }
         }
         .item-right{
             flex: 1;
             margin-left: 10px;
-            box-sizing: border-box;
             padding: 10px;
+            box-sizing: border-box;
             .item-right-title{
-                box-sizing: border-box;
                 padding: 10px;
                 padding-left: 0;
                 border-bottom: 1px solid var(--primary-200);
@@ -151,16 +143,17 @@ a {
             }
             .item-right-content{
                 display: flex;
+                align-items: center;
                 .content-time,.content-user,.content-tab{
                     display: flex;
                     align-items: center;
+                    margin-left: 10px; /* 统一 margin */
                     img{
                         width: 20px;
                         height: 20px;
                     }
                     p{
-                        margin-left:0;
-                        // margin: 10px;
+                        margin-left: 0px; /* 统一 margin */
                         font-size: 14px;
                         font-weight: 100;
                         color: rgb(92, 125, 171);
@@ -168,6 +161,9 @@ a {
                 }
                 .content-user,.content-tab{
                     margin-left: 10px;
+                }
+                .content-time{
+                    margin-left: 0px;
                 }
 
             }
@@ -178,11 +174,8 @@ a {
                     width: 100px;
                     height: 30px;
                     border-radius: var(--border-radius-de);
-                    background-color: #ffffff00;
-                    border-bottom: 3px solid var(--primary-200);
-                    border-top: 0px solid var(--primary-200);
-                    border-left: 0px solid var(--primary-200);
-                    border-right: 0px solid var(--primary-200);
+                    border: 1.5px solid var(--primary-200); /* 简化 border */
+                    background-color: transparent;
                     color: var(--text-100);
                     font-size: 14px;
                     font-weight: 600;

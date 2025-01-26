@@ -21,7 +21,19 @@
       </router-link>
     </div>
     <div class="header-right-app">
-      <img src="@/assets/header-right/list.svg" alt="">
+      <el-dropdown trigger="click">
+        <span class="header-right-app-ii">
+          <img src="@/assets/header-right/list.svg" alt="">
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item v-for="(item,index) in header_link" :key="index">
+              <!-- <el-icon v-if="item.icon" :component="item.icon" /> -->
+              <router-link :to="item.link" class="no-link-style" style="width: 100%;">{{ item.title }}</router-link>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -29,6 +41,16 @@
 <script>
 export default {
   name: 'HeaderIndex',
+  data() {
+    return {
+      header_link:[
+      {id:1,icon:"",link:'/',title:'首页'},
+      {id:2,icon:"/assets/header-right/up2.svg",link:'/add',title:'添加资源'},
+      {id:3,icon:"@/assets/header-right/log.svg",link:'/about',title:'更新日志'},
+      {id:4,icon:"@/assets/header-right/header-user.svg",link:'/user',title:'用户'}
+    ]
+    }
+  },
   computed: {
   },
   methods: {
@@ -115,7 +137,7 @@ export default {
     height: 40px;
   }
 }
-.header-right-app:hover{
+.header-right-app:focus{
   background-color: var(--primary-200);
 }
 .about {

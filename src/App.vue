@@ -54,9 +54,9 @@ export default {
 }
 .MAIN{
     transition: all 3s ease;
-    margin-top: 10px;
+    margin-top: 0px;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 5px;
     height: calc(100vh - 70px - 40px - 10px);
     width: 100%;
     background-color: var(--bg-100);

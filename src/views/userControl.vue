@@ -1,5 +1,5 @@
 <template>
-  用户中心
+    个人中心
 </template>
 
 <script>

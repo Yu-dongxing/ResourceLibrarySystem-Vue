@@ -1,11 +1,12 @@
 <template>
   <div class="footer">
     <div class="title">
-      <p>
+      <el-text>
         2025 © YuDongXing
         <br>
-        资源库系统前端版本_{{ version }}--后端版本_0.1.0
-      </p>
+        皖公网安备34170202000557号·皖ICP备2024037036号
+        <br>
+      </el-text>
     </div>
   </div>
 </template>

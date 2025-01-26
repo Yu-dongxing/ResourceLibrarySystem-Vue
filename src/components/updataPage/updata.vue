@@ -15,9 +15,11 @@ export default {
   data() {
     return {
       UpdataLog:[
-        {id:1, date:'2024/12/25',content:'更新样式',desc:"添加emui 1.1版本",type:"warning",hollow:"true"},
-        {id:2,date:'2024/12/25',content:'更新样式',desc:"添加emui 1.1版本",type:"info",hollow:"false"},
-        {id:3,date:'2025/1/2',content:'更新样式',desc:"添加emui 1.1版本",type:"success",hollow:"true"},
+        {id:1, date:'2024/11/21',content:'创建前端项目',desc:"完成资源库功能设计",type:"success",hollow:"true"},
+        {id:2,date:'2024/12/25',content:'创建后端项目',desc:"完成后端开发设计",type:"info",hollow:"false"},
+        {id:3,date:'2025/1/2',content:'更新样式',desc:"完善UI功能设计",type:"success",hollow:"true"},
+        {id:4,date:'2025/1/12',content:'完成后端模块',desc:"完成后端用户功能模块设计",type:"success",hollow:"true"},
+
       ]
     }
   },

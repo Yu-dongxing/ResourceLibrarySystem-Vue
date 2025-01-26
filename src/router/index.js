@@ -35,7 +35,7 @@ const routes = [
   {
     path:'/user',
     name:'User',
-    component:()=>import('@/views/index.vue')
+    component:()=>import('@/views/userControl.vue')
   },
    // 添加 404 错误页面路由
   {

@@ -69,7 +69,7 @@
                 <el-button class="button" type="primary" @click="loginOrsign()">{{isLoginOrSign?"登录":"注册" }}</el-button>
             </div>
             <div class="from-isLoginOrSign" @click="SetisLoginOrSign()">
-                <p>没有账号？点击注册！</p>
+                <p>{{isLoginOrSign?"没有账号？点击注册！":"已有账号，点击登录！" }}</p>
             </div>
         </div>
         <div class="login-right-contion">
@@ -111,7 +111,7 @@ export default {
                 if(this.checkPassword()){
                     console.log("注册"+this.sign_from.username,this.sign_from.password,this.sign_from.phone);
                 }else{
-                    clearForm();
+                    this.clearForm();
                 }
             }
         },
@@ -119,6 +119,24 @@ export default {
         checkPassword(){
             if(this.sign_from.password != this.sign_from.aspassword){
                 this.$message.error('两次密码不一致');
+                return false;
+            }else{
+                return true;
+            }
+        },
+        //登录检查
+        checkLogin(){
+            if(this.login_from.phone == '' || this.login_from.password == ''){
+                this.$message.error('请输入完整信息');
+                return false;
+            }else{
+                return true;
+            }
+        },
+        //注册检查
+        checkSign(){
+            if(this.sign_from.username == '' || this.sign_from.password == '' || this.sign_from.aspassword == '' || this.sign_from.phone == ''){
+                this.$message.error('请输入完整信息');
                 return false;
             }else{
                 return true;
