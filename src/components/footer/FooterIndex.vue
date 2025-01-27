@@ -5,7 +5,10 @@
         <el-tag type="warning">2025 © YuDongXing</el-tag>
       <br/>
         <el-tag type="danger">
-          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=34170202000557" rel="noreferrer" target="_blank">皖公网安备34170202000557号</a> 
+          <el-link :underline="false" href="https://beian.mps.gov.cn/#/query/webSearch?code=34170202000557" rel="noreferrer" target="_blank">
+            <img src="../../assets/baanImg/baanIMG.png" style="width: 15px;height: 15px;">
+            皖公网安备34170202000557号
+          </el-link> 
           <span>&nbsp;·&nbsp;皖ICP备2024037036号-2</span>
         </el-tag>
       </el-text>
@@ -30,18 +33,18 @@ export default {
 
 <style lang="less" scoped>
 //a链接，不显示下划线，不显示颜色
-a:link {
-    text-decoration: none;
-}
-a:visited {
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: none;
-}
-a {
-    text-decoration: none;
-}
+// a:link {
+//     text-decoration: none;
+// }
+// a:visited {
+//     text-decoration: none;
+// }
+// a:hover {
+//     text-decoration: none;
+// }
+// a {
+//     text-decoration: none;
+// }
 //底部版权栏目，使用绝对定位
 .footer {
     height: auto(50px);

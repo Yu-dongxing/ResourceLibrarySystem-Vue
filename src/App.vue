@@ -4,7 +4,7 @@
     <el-scrollbar height="calc(100vh - 70px - 40px - 10px)" class="MAIN">
       <!-- <updata/> -->
         <!-- <MainIndex/> -->
-        <router-view></router-view>
+        <router-view></router-view> <!-- 使用Vue Router的router-view组件，用于展示当前路由对应的组件内容 -->
     </el-scrollbar>
     <FooterIndex/>
   </div>
@@ -13,15 +13,11 @@
 <script>
 import HeaderIndex from './components/header/HeaderIndex.vue'
 import FooterIndex from './components/footer/FooterIndex.vue'
-// import MainIndex from './components/main/MainIndex.vue'
-// import updata from './components/updataPage/updata.vue'
 export default {
   name: 'app',
   components: {
     HeaderIndex,
     FooterIndex,
-    // MainIndex,
-    // updata
   },
   beforeCreate() {
     console.log('App.vue beforeCreate')
