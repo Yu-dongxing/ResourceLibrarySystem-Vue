@@ -11,7 +11,7 @@
             <el-input v-model="from.url" placeholder="请输入资源地址" />
           </el-form-item>
           <el-form-item label="标签">
-            <el-input v-model="from.tag" placeholder="请输入标签" />
+            <el-input-tag v-model="from.tag" placeholder="请输入标签" tag-type="success"/>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -32,13 +32,20 @@ export default {
         from:{
           name:"",
           url:"",
-          tag:""
+          tag:[]
         }
       }
     },
     methods:{
       onSubmit(){
         console.log(this.from)
+      },
+      resetSubmit(){
+        this.from = {
+          name:"",
+          url:"",
+          tag:""
+        }
       }
     }
 
