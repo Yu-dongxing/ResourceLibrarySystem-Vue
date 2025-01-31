@@ -3,7 +3,8 @@ import { ElMessage } from 'element-plus'
 
 // 创建axios实例
 const request = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API || 'http://localhost:8080', // API的base_url
+  // baseURL: process.env.VUE_APP_BASE_API || 'http://localhost:8080', // API的base_url
+  baseURL:'http://localhost:8081/api/resources', // API的base_url
   timeout: 5000 // 请求超时时间
 })
 
