@@ -80,10 +80,6 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-
 export default {
     name: 'login',
     data(){
@@ -113,23 +109,24 @@ export default {
                 
                 try {
                     const loginData = {
-                        phone: this.login_from.phone,
-                        password: this.login_from.password
+                        phoneNumber: this.login_from.phone.toString(),
+                        password: this.login_from.password.toString()
                     }
                     
                     console.log('发送登录请求:', loginData)
                     const res = await this.$store.dispatch('user/login', loginData)
+                    console.log('登录响应:', res)
                     
                     if (res.code === 200) {
                         await this.$store.dispatch('user/getUserInfo')
                         this.$message.success('登录成功')
                         this.$router.push('/')
                     } else {
-                        this.$message.error(res.message || '登录失败')
+                        this.$message.error(res.msg || '登录失败')
                     }
                 } catch (error) {
                     console.error('登录错误:', error)
-                    this.$message.error(error.message || '登录失败')
+                    this.$message.error(error.msg || '登录失败')
                 }
             } else {
                 // 注册逻辑
@@ -140,7 +137,7 @@ export default {
                     const signData = {
                         username: this.sign_from.username,
                         password: this.sign_from.password,
-                        phone: this.sign_from.phone
+                        phoneNumber: this.sign_from.phone
                     }
                     
                     await this.$store.dispatch('user/register', signData)
@@ -148,7 +145,7 @@ export default {
                     this.isLoginOrSign = true
                     this.clearForm()
                 } catch (error) {
-                    this.$message.error(error.message || '注册失败')
+                    this.$message.error(error.msg || '注册失败')
                 }
             }
         },

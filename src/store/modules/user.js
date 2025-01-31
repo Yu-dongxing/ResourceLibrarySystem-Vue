@@ -27,7 +27,7 @@ const actions = {
       console.log('登录响应:', res)
       
       if (res.code === 200) {
-        commit('SET_TOKEN', res.data.token)
+        commit('SET_TOKEN', res.data)
         return res
       } else {
         throw new Error(res.msg || '登录失败')

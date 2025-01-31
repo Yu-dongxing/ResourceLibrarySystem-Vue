@@ -7,9 +7,12 @@ export const userApi = {
     return request({
       url: '/login',
       method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
       data: {
-        phoneNumber: Number(data.phone), // 转换为数字类型
-        password: Number(data.password) // 转换为数字类型
+        phoneNumber: data.phoneNumber.toString(), // 确保是字符串类型
+        password: data.password.toString()  // 确保是字符串类型
       }
     })
   },
@@ -30,7 +33,7 @@ export const userApi = {
   // 获取用户信息
   getUserInfo() {
     return request({
-      url: '/user/info',
+      url: '/user/details',
       method: 'get'
     })
   },
