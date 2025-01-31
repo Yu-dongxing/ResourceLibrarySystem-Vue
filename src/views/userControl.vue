@@ -2,23 +2,50 @@
      <div class="container">
         <el-card :body-style="{display: 'flex'}">
             <div class="header-avatar">
-                <el-avatar :size="60" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                <el-avatar 
+                    :size="60" 
+                    :src="userInfo?.avatar || 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'"
+                />
             </div>
             <div class="header-userinfo">
                 <div class="userinfo-name">
-                    <el-text>用户</el-text>
+                    <el-text>{{ userInfo?.username || '未登录' }}</el-text>
                 </div>
                 <div class="userinfo-id">
-                    <el-tag>用户id</el-tag>
+                    <el-tag>ID: {{ userInfo?.id || 'N/A' }}</el-tag>
                 </div>
+            </div>
+            <div class="header-actions">
+                <el-button type="danger" @click="handleLogout">退出登录</el-button>
             </div>
         </el-card>
     </div>
 </template>
 
 <script>
-export default {
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
+export default {
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    
+    const userInfo = computed(() => store.state.user.userInfo)
+
+    const handleLogout = () => {
+      store.dispatch('user/logout')
+      router.push('/login')
+      ElMessage.success('已退出登录')
+    }
+
+    return {
+      userInfo,
+      handleLogout
+    }
+  }
 }
 </script>
 

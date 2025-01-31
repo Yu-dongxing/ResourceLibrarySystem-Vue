@@ -70,6 +70,8 @@
     </div>
 </template>
 <script>
+import { resourceApi } from '@/api/resource'
+
 export default {
   name: 'MainIndex',
   components: {
@@ -79,31 +81,20 @@ export default {
         isDev:false,
         isLoading: true,
         tme:null,
-        zyk: [
-        { id: 1, name: '《移动应用设计开发（UI设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/wkr05l7ya6popqsl?singleDoc# 《移动应用设计开发（UI设计）》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"https://www.yuque.com/favicon.ico"},
-        { id: 2, name: '《移动应用开发（开发设计）》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/min9mvv0lnh99xz1?singleDoc# 《移动应用开发（开发设计）》', createTime: '2025-01-01 20:18:10', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 3, name: 'Java 全栈知识体系', url: 'https://www.pdai.tech/md/java/basic/java-basic-oop.html', createTime: '2024-12-21', author: 'Admin', tab: '网站' ,img:"https://www.yuque.com/favicon.ico"},
-        { id: 4, name: '《学习路线图》', url: 'https://www.yuque.com/tianfangyetan-3iytl/tyqp3d/wvqb03npyns8gpsn?singleDoc# 《学习路线图》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 5, name: '《Git常用命令参考手册》', url: 'https://www.yuque.com/tianfangyetan-3iytl/gowu5g/readme?singleDoc# 《Git常用命令参考手册》', createTime: '2024-12-21', author: 'Admin', tab: '文章' ,img:"https://www.yuque.com/favicon.ico"},
-        { id: 6, name: '《CSS 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/alqinr2im2okntna?singleDoc# 《CSS 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 7, name: '《HTML 属性的速查列表》', url: 'https://www.yuque.com/tianfangyetan-3iytl/vs9n8l/ewg6gq?singleDoc# 《HTML 属性的速查列表》', createTime: '2024-12-21', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 8, name: '微服务架构设计与实战(vtwy)', url: 'https://www.yuque.com/jiagouyizhan/yvgusq/lb7rl5hy6vcyf299#', createTime: '2025-1-5', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 9, name: '数据结构与算法教程', url: 'https://www.hello-algo.com/chapter_hello_algo/', createTime: '2025-1-6', author: 'Admin', tab: '文章',img:"https://www.yuque.com/favicon.ico" },
-        { id: 10, name: 'Java基础常见面试题总结', url: 'https://topjavaer.cn/java/java-basic.html', createTime: '2025-01-01 20:18:10', author: 'Admin', tab: '网站',img:"https://topjavaer.cn/favicon.ico" },
-        ],
+        zyk: [],
     }
   },
   methods: {
-    // 获取数据
-    getData () {
-        this.tme=setTimeout(() => { // 设置一个定时器，模拟数据加载过程
-            this.isLoading = false; // 数据加载完成后，将isLoading状态设置为false
-            console.log('数据加载完成'); // 控制台输出数据加载完成的信息
-            this.tme=null; // 清除定时器
-            this.zyk.forEach(item => { // 遍历zyk数组，并输出每个元素
-                console.log(item);
-            })
-        }, 20); // 定时器延迟2秒执行
+    async getData() {
+      try {
+        this.isLoading = true
+        const res = await resourceApi.getResources()
+        this.zyk = res.data
+      } catch (error) {
+        console.error('获取资源列表失败:', error)
+      } finally {
+        this.isLoading = false
+      }
     },
     setisloading(){ // 设置isLoading状态
         this.isLoading = !this.isLoading; // 切换isLoading状态

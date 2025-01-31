@@ -85,7 +85,6 @@ export default {
     data(){
         return{
             login_from:{
-                // username: '',
                 phone:'',
                 password: ''
             },
@@ -93,7 +92,6 @@ export default {
                 username:'',
                 password:'',
                 aspassword:'',
-                // email:'',
                 phone:'',
             },
             isLoginOrSign:true,
@@ -102,45 +100,81 @@ export default {
     methods:{
         SetisLoginOrSign(){
             this.isLoginOrSign = !this.isLoginOrSign
+            this.clearForm()
         },
-        loginOrsign(){
-            if(this.isLoginOrSign){
-                console.table(this.login_from);
-                console.log("登录"+this.login_from.phone,this.login_from.password);
-            }else{
-                if(this.checkPassword()){
-                    console.log("注册"+this.sign_from.username,this.sign_from.password,this.sign_from.phone);
-                }else{
-                    this.clearForm();
+        async loginOrsign(){
+            if (this.isLoginOrSign) {
+                // 登录逻辑
+                if (!this.checkLogin()) return
+                
+                try {
+                    const loginData = {
+                        phoneNumber: this.login_from.phone.toString(),
+                        password: this.login_from.password.toString()
+                    }
+                    
+                    console.log('发送登录请求:', loginData)
+                    const res = await this.$store.dispatch('user/login', loginData)
+                    console.log('登录响应:', res)
+                    
+                    if (res.code === 200) {
+                        await this.$store.dispatch('user/getUserInfo')
+                        this.$message.success('登录成功')
+                        this.$router.push('/')
+                    } else {
+                        this.$message.error(res.msg || '登录失败')
+                    }
+                } catch (error) {
+                    console.error('登录错误:', error)
+                    this.$message.error(error.msg || '登录失败')
+                }
+            } else {
+                // 注册逻辑
+                if (!this.checkSign()) return
+                if (!this.checkPassword()) return
+
+                try {
+                    const signData = {
+                        username: this.sign_from.username,
+                        password: this.sign_from.password,
+                        phoneNumber: this.sign_from.phone
+                    }
+                    
+                    await this.$store.dispatch('user/register', signData)
+                    this.$message.success('注册成功')
+                    this.isLoginOrSign = true
+                    this.clearForm()
+                } catch (error) {
+                    this.$message.error(error.msg || '注册失败')
                 }
             }
         },
         //检查注册时两个密码是否一致
         checkPassword(){
             if(this.sign_from.password != this.sign_from.aspassword){
-                this.$message.error('两次密码不一致');
-                return false;
-            }else{
-                return true;
+                this.$message.error('两次密码不一致')
+                return false
             }
+            return true
         },
         //登录检查
         checkLogin(){
             if(this.login_from.phone == '' || this.login_from.password == ''){
-                this.$message.error('请输入完整信息');
-                return false;
-            }else{
-                return true;
+                this.$message.error('请输入完整信息')
+                return false
             }
+            return true
         },
         //注册检查
         checkSign(){
-            if(this.sign_from.username == '' || this.sign_from.password == '' || this.sign_from.aspassword == '' || this.sign_from.phone == ''){
-                this.$message.error('请输入完整信息');
-                return false;
-            }else{
-                return true;
+            if(this.sign_from.username == '' || 
+               this.sign_from.password == '' || 
+               this.sign_from.aspassword == '' || 
+               this.sign_from.phone == ''){
+                this.$message.error('请输入完整信息')
+                return false
             }
+            return true
         },
         //清空表单
         clearForm(){
@@ -221,5 +255,14 @@ p{
         }
         // border: 1px solid red;
     }
+}
+/* 当屏幕宽度小于500px */
+@media screen and (max-width: 500px) {
+  .login-right-contion{
+    display: none;
+  }
+  .login .login-lift-from {
+    width: 100%;
+}
 }
 </style>
