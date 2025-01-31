@@ -2,21 +2,28 @@ import request from '@/utils/request'
 
 // 用户相关接口
 export const userApi = {
-  // 用户注册
-  register(data) {
-    return request({
-      url: '/sign',
-      method: 'post',
-      data
-    })
-  },
-
   // 用户登录
   login(data) {
     return request({
       url: '/login',
       method: 'post',
-      data
+      data: {
+        username: data.username,
+        password: data.password
+      }
+    })
+  },
+
+  // 用户注册
+  register(data) {
+    return request({
+      url: '/sign',
+      method: 'post',
+      data: {
+        username: data.username,
+        password: data.password,
+        phone: data.phone
+      }
     })
   },
 

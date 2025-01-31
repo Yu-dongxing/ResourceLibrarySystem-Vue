@@ -80,6 +80,9 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus'
+
 export default {
     name: 'login',
     data(){
@@ -154,7 +157,74 @@ export default {
                 aspassword:'',
                 phone:'',
             }
-        }
+        },
+        // 登录方法
+        async handleLogin() {
+            if (!this.validateLoginForm()) return
+            
+            try {
+                // 构造登录参数
+                const loginData = {
+                    username: this.login_from.phone, // 使用手机号作为用户名
+                    password: this.login_from.password
+                }
+                
+                // 调用vuex的登录action
+                await this.$store.dispatch('user/login', loginData)
+                // 获取用户信息
+                await this.$store.dispatch('user/getUserInfo')
+                
+                ElMessage.success('登录成功')
+                this.$router.push('/')
+            } catch (error) {
+                ElMessage.error(error.message || '登录失败')
+            }
+        },
+
+        // 注册方法
+        async handleSignUp() {
+            if (!this.validateSignForm()) return
+            
+            if (this.sign_from.password !== this.sign_from.aspassword) {
+                ElMessage.error('两次输入的密码不一致')
+                return
+            }
+
+            try {
+                const signData = {
+                    username: this.sign_from.username,
+                    password: this.sign_from.password,
+                    phone: this.sign_from.phone
+                }
+                
+                await this.$store.dispatch('user/register', signData)
+                ElMessage.success('注册成功')
+                this.clearForm()
+            } catch (error) {
+                ElMessage.error(error.message || '注册失败')
+            }
+        },
+
+        // 登录表单验证
+        validateLoginForm() {
+            if (this.login_from.phone === '' || this.login_from.password === '') {
+                ElMessage.error('请输入完整信息')
+                return false
+            }
+            return true
+        },
+
+        // 注册表单验证
+        validateSignForm() {
+            if (this.sign_from.username === '' || 
+                this.sign_from.password === '' || 
+                this.sign_from.aspassword === '' || 
+                this.sign_from.phone === '') {
+                ElMessage.error('请输入完整信息')
+                return false
+            }
+            return true
+        },
     },
     mounted(){
     }
