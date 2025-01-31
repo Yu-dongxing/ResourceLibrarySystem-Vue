@@ -14,12 +14,13 @@ request.interceptors.request.use(
   config => {
     const token = store.state.user.token
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`
+      // 根据实际需求修改header格式
+      config.headers['Authorization'] = token.startsWith('Bearer ') ? token : `Bearer ${token}`
     }
     return config
   },
   error => {
-    console.error('请求错误:', error)
+    console.error('请求错误:', error) 
     return Promise.reject(error)
   }
 )

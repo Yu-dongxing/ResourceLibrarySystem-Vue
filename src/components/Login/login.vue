@@ -256,4 +256,13 @@ p{
         // border: 1px solid red;
     }
 }
+/* 当屏幕宽度小于500px */
+@media screen and (max-width: 500px) {
+  .login-right-contion{
+    display: none;
+  }
+  .login .login-lift-from {
+    width: 100%;
+}
+}
 </style>

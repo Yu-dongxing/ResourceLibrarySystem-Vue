@@ -167,7 +167,7 @@ export default {
 }
 /* 当屏幕宽度小于500px */
 @media screen and (max-width: 500px) {
-  .logo,.header-right{
+  .logo,.header-right,.header-search{
     display: none;
   }
 }

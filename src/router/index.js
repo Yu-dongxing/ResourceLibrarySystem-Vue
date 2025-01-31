@@ -30,7 +30,8 @@ const routes = [
   {
     path:'/add',
     name:'AddResouce',
-    component: ()=>import('@/components/AddResouce/index.vue')
+    component: ()=>import('@/components/AddResouce/index.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path:'/user',
@@ -43,6 +44,12 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: 'Err404',
     component: ()=>import('@/components/Err404/index.vue') 
+  },
+  //
+  {
+    path:'/500',
+    name:'Err500',
+    component:()=>import('@/components/Err500/index.vue')
   }
 ]
 
