@@ -17,8 +17,24 @@
 </template>
 
 <script>
-export default {
+import { userApi } from '@/api/user'
+import { ElMessage } from 'element-plus'
 
+export default {
+  data() {
+    return {
+      userInfo: {}
+    }
+  },
+  async created() {
+    try {
+      const res = await userApi.getUserInfo()
+      this.userInfo = res.data
+    } catch (error) {
+      ElMessage.error('获取用户信息失败')
+      console.error('获取用户信息失败:', error)
+    }
+  }
 }
 </script>
 

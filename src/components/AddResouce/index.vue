@@ -25,26 +25,44 @@
 </template>
 
 <script>
+import { resourceApi } from '@/api/resource'
+import { ElMessage } from 'element-plus'
+
 export default {
     name: 'AddResouce',
     data() {
       return {
-        from:{
-          name:"",
-          url:"",
-          tag:[]
+        from: {
+          name: '',
+          url: '',
+          tag: [],
+          author: 'Admin', // 默认作者
+          img: '@/assets/depng/png.svg' // 默认图片
         }
       }
     },
     methods:{
-      onSubmit(){
-        console.log(this.from)
+      async onSubmit() {
+        try {
+          const submitData = {
+            ...this.from,
+            tab: this.from.tag.join(',') // 将标签数组转换为字符串
+          }
+          await resourceApi.addResource(submitData)
+          ElMessage.success('添加成功')
+          this.$router.push('/')
+        } catch (error) {
+          ElMessage.error('添加失败')
+          console.error('添加资源失败:', error)
+        }
       },
       resetSubmit(){
         this.from = {
-          name:"",
-          url:"",
-          tag:""
+          name: '',
+          url: '',
+          tag: [],
+          author: 'Admin',
+          img: '@/assets/depng/png.svg'
         }
       }
     }
