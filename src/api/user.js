@@ -34,7 +34,7 @@ export const userApi = {
   getUserInfo() {
     return request({
       url: '/user/details',
-      method: 'get'
+      method: 'get',
     })
   },
 

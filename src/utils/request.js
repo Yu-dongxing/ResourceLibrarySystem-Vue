@@ -31,7 +31,7 @@ request.interceptors.response.use(
     console.log('响应数据:', res) // 添加调试日志
     
     // 这里可以根据后端的响应结构统一处理
-    if (res.code === 401) {
+    if (res.code === 0) {
       // token过期
       store.dispatch('user/logout')
       router.push('/login')

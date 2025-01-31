@@ -42,6 +42,7 @@ const actions = {
   async getUserInfo({ commit }) {
     try {
       const res = await userApi.getUserInfo()
+      console.log('获取用户信息响应:', res)
       if (res.code === 200 && res.data) {
         commit('SET_USER_INFO', res.data)
         return res.data
