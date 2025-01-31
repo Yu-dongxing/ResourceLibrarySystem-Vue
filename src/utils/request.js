@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import store from '@/store'
+import router from '@/router'
 
 // 创建axios实例
 const request = axios.create({
@@ -28,7 +30,16 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   response => {
     const res = response.data
+    
     // 这里可以根据后端的响应结构统一处理
+    if (res.code === 401) {
+      // token过期
+      store.dispatch('user/logout')
+      router.push('/login')
+      ElMessage.error('登录已过期，请重新登录')
+      return Promise.reject(new Error('登录已过期'))
+    }
+    
     return res
   },
   error => {
