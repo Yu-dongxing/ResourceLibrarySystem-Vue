@@ -8,7 +8,7 @@ export const userApi = {
       url: '/login',
       method: 'post',
       data: {
-        username: data.username,
+        phoneNumber: data.username,  // 使用手机号登录
         password: data.password
       }
     })

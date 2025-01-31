@@ -81,6 +81,7 @@
 
 <script>
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
 export default {
@@ -105,45 +106,77 @@ export default {
     methods:{
         SetisLoginOrSign(){
             this.isLoginOrSign = !this.isLoginOrSign
+            this.clearForm()
         },
-        loginOrsign(){
-            if(this.isLoginOrSign){
-                console.table(this.login_from);
-                console.log("登录"+this.login_from.phone,this.login_from.password);
-            }else{
-                if(this.checkPassword()){
-                    console.log("注册"+this.sign_from.username,this.sign_from.password,this.sign_from.phone);
-                }else{
-                    this.clearForm();
+        async loginOrsign(){
+            if (this.isLoginOrSign) {
+                // 登录逻辑
+                if (!this.checkLogin()) return
+                
+                try {
+                    const loginData = {
+                        username: this.login_from.phone,
+                        password: this.login_from.password
+                    }
+                    
+                    const res = await this.$store.dispatch('user/login', loginData)
+                    if (res.code === 200) {
+                        await this.$store.dispatch('user/getUserInfo')
+                        this.$message.success('登录成功')
+                        this.$router.push('/')
+                    } else {
+                        this.$message.error(res.message || '登录失败')
+                    }
+                } catch (error) {
+                    this.$message.error(error.message || '登录失败')
+                }
+            } else {
+                // 注册逻辑
+                if (!this.checkSign()) return
+                if (!this.checkPassword()) return
+                
+                try {
+                    const signData = {
+                        username: this.sign_from.username,
+                        password: this.sign_from.password,
+                        phone: this.sign_from.phone
+                    }
+                    
+                    await this.$store.dispatch('user/register', signData)
+                    this.$message.success('注册成功')
+                    this.isLoginOrSign = true // 切换到登录界面
+                    this.clearForm()
+                } catch (error) {
+                    this.$message.error(error.message || '注册失败')
                 }
             }
         },
         //检查注册时两个密码是否一致
         checkPassword(){
             if(this.sign_from.password != this.sign_from.aspassword){
-                this.$message.error('两次密码不一致');
-                return false;
-            }else{
-                return true;
+                this.$message.error('两次密码不一致')
+                return false
             }
+            return true
         },
         //登录检查
         checkLogin(){
             if(this.login_from.phone == '' || this.login_from.password == ''){
-                this.$message.error('请输入完整信息');
-                return false;
-            }else{
-                return true;
+                this.$message.error('请输入完整信息')
+                return false
             }
+            return true
         },
         //注册检查
         checkSign(){
-            if(this.sign_from.username == '' || this.sign_from.password == '' || this.sign_from.aspassword == '' || this.sign_from.phone == ''){
-                this.$message.error('请输入完整信息');
-                return false;
-            }else{
-                return true;
+            if(this.sign_from.username == '' || 
+               this.sign_from.password == '' || 
+               this.sign_from.aspassword == '' || 
+               this.sign_from.phone == ''){
+                this.$message.error('请输入完整信息')
+                return false
             }
+            return true
         },
         //清空表单
         clearForm(){

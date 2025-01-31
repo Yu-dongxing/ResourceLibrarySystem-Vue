@@ -24,8 +24,13 @@ const actions = {
   async login({ commit }, loginForm) {
     try {
       const res = await userApi.login(loginForm)
-      const { token } = res.data
-      commit('SET_TOKEN', token)
+      // 根据实际的响应格式获取token
+      // 假设返回格式是 { code: 200, data: { token: 'xxx' } }
+      if (res.code === 200 && res.data) {
+        commit('SET_TOKEN', res.data)
+      } else {
+        throw new Error(res.message || '登录失败')
+      }
       return res
     } catch (error) {
       console.error('登录失败:', error)
@@ -37,8 +42,12 @@ const actions = {
   async getUserInfo({ commit }) {
     try {
       const res = await userApi.getUserInfo()
-      commit('SET_USER_INFO', res.data)
-      return res.data
+      if (res.code === 200 && res.data) {
+        commit('SET_USER_INFO', res.data)
+        return res.data
+      } else {
+        throw new Error(res.message || '获取用户信息失败')
+      }
     } catch (error) {
       console.error('获取用户信息失败:', error)
       throw error
