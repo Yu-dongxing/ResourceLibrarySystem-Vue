@@ -5,23 +5,21 @@ import router from '@/router'
 
 // 创建axios实例
 const request = axios.create({
-  // baseURL: process.env.VUE_APP_BASE_API || 'http://localhost:8080', // API的base_url
-  baseURL:'http://localhost:8081/api/resources', // API的base_url
+  baseURL: 'http://localhost:8081/api/resources',
   timeout: 5000 // 请求超时时间
 })
 
 // 请求拦截器
 request.interceptors.request.use(
   config => {
-    // 从localStorage获取token
-    const token = localStorage.getItem('token')
+    const token = store.state.user.token
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
     }
     return config
   },
   error => {
-    console.log(error)
+    console.error('请求错误:', error)
     return Promise.reject(error)
   }
 )
@@ -30,6 +28,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   response => {
     const res = response.data
+    console.log('响应数据:', res) // 添加调试日志
     
     // 这里可以根据后端的响应结构统一处理
     if (res.code === 401) {
@@ -43,7 +42,7 @@ request.interceptors.response.use(
     return res
   },
   error => {
-    console.log('err' + error)
+    console.error('响应错误:', error)
     ElMessage({
       message: error.message,
       type: 'error',

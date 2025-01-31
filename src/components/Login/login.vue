@@ -89,7 +89,6 @@ export default {
     data(){
         return{
             login_from:{
-                // username: '',
                 phone:'',
                 password: ''
             },
@@ -97,7 +96,6 @@ export default {
                 username:'',
                 password:'',
                 aspassword:'',
-                // email:'',
                 phone:'',
             },
             isLoginOrSign:true,
@@ -115,11 +113,13 @@ export default {
                 
                 try {
                     const loginData = {
-                        username: this.login_from.phone,
+                        phone: this.login_from.phone,
                         password: this.login_from.password
                     }
                     
+                    console.log('发送登录请求:', loginData)
                     const res = await this.$store.dispatch('user/login', loginData)
+                    
                     if (res.code === 200) {
                         await this.$store.dispatch('user/getUserInfo')
                         this.$message.success('登录成功')
@@ -128,13 +128,14 @@ export default {
                         this.$message.error(res.message || '登录失败')
                     }
                 } catch (error) {
+                    console.error('登录错误:', error)
                     this.$message.error(error.message || '登录失败')
                 }
             } else {
                 // 注册逻辑
                 if (!this.checkSign()) return
                 if (!this.checkPassword()) return
-                
+
                 try {
                     const signData = {
                         username: this.sign_from.username,
@@ -144,7 +145,7 @@ export default {
                     
                     await this.$store.dispatch('user/register', signData)
                     this.$message.success('注册成功')
-                    this.isLoginOrSign = true // 切换到登录界面
+                    this.isLoginOrSign = true
                     this.clearForm()
                 } catch (error) {
                     this.$message.error(error.message || '注册失败')
@@ -190,74 +191,7 @@ export default {
                 aspassword:'',
                 phone:'',
             }
-        },
-        // 登录方法
-        async handleLogin() {
-            if (!this.validateLoginForm()) return
-            
-            try {
-                // 构造登录参数
-                const loginData = {
-                    username: this.login_from.phone, // 使用手机号作为用户名
-                    password: this.login_from.password
-                }
-                
-                // 调用vuex的登录action
-                await this.$store.dispatch('user/login', loginData)
-                // 获取用户信息
-                await this.$store.dispatch('user/getUserInfo')
-                
-                ElMessage.success('登录成功')
-                this.$router.push('/')
-            } catch (error) {
-                ElMessage.error(error.message || '登录失败')
-            }
-        },
-
-        // 注册方法
-        async handleSignUp() {
-            if (!this.validateSignForm()) return
-            
-            if (this.sign_from.password !== this.sign_from.aspassword) {
-                ElMessage.error('两次输入的密码不一致')
-                return
-            }
-
-            try {
-                const signData = {
-                    username: this.sign_from.username,
-                    password: this.sign_from.password,
-                    phone: this.sign_from.phone
-                }
-                
-                await this.$store.dispatch('user/register', signData)
-                ElMessage.success('注册成功')
-                this.clearForm()
-            } catch (error) {
-                ElMessage.error(error.message || '注册失败')
-            }
-        },
-
-        // 登录表单验证
-        validateLoginForm() {
-            if (this.login_from.phone === '' || this.login_from.password === '') {
-                ElMessage.error('请输入完整信息')
-                return false
-            }
-            return true
-        },
-
-        // 注册表单验证
-        validateSignForm() {
-            if (this.sign_from.username === '' || 
-                this.sign_from.password === '' || 
-                this.sign_from.aspassword === '' || 
-                this.sign_from.phone === '') {
-                ElMessage.error('请输入完整信息')
-                return false
-            }
-            return true
-        },
+        }
     },
     mounted(){
     }

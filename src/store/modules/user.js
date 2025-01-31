@@ -24,14 +24,14 @@ const actions = {
   async login({ commit }, loginForm) {
     try {
       const res = await userApi.login(loginForm)
-      // 根据实际的响应格式获取token
-      // 假设返回格式是 { code: 200, data: { token: 'xxx' } }
-      if (res.code === 200 && res.data) {
-        commit('SET_TOKEN', res.data)
+      console.log('登录响应:', res)
+      
+      if (res.code === 200) {
+        commit('SET_TOKEN', res.data.token)
+        return res
       } else {
-        throw new Error(res.message || '登录失败')
+        throw new Error(res.msg || '登录失败')
       }
-      return res
     } catch (error) {
       console.error('登录失败:', error)
       throw error

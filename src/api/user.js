@@ -8,8 +8,8 @@ export const userApi = {
       url: '/login',
       method: 'post',
       data: {
-        phoneNumber: data.username,  // 使用手机号登录
-        password: data.password
+        phoneNumber: Number(data.phone), // 转换为数字类型
+        password: Number(data.password) // 转换为数字类型
       }
     })
   },
@@ -17,12 +17,12 @@ export const userApi = {
   // 用户注册
   register(data) {
     return request({
-      url: '/sign',
+      url: '/user/sign',
       method: 'post',
       data: {
         username: data.username,
         password: data.password,
-        phone: data.phone
+        phoneNumber: data.phone
       }
     })
   },
@@ -30,7 +30,7 @@ export const userApi = {
   // 获取用户信息
   getUserInfo() {
     return request({
-      url: '/userInfo',
+      url: '/user/info',
       method: 'get'
     })
   },
