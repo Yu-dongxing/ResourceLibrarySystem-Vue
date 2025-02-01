@@ -15,7 +15,7 @@ request.interceptors.request.use(
     const token = store.state.user.token
     if (token) {
       // 根据实际需求修改header格式
-      config.headers['Authorization'] = token.startsWith('Bearer ') ? token : `Bearer ${token}`
+       config.headers.Authorization = `Bearer ${encodeURIComponent(token)}`
     }
     return config
   },
