@@ -1,7 +1,7 @@
 <template>
   <div id="app" >
     <HeaderIndex/>
-    <el-scrollbar height="calc(100vh - 70px - 40px - 10px)" class="MAIN">
+    <el-scrollbar height="calc(100vh - 110px)" class="MAIN">
       <!-- <updata/> -->
         <!-- <MainIndex/> -->
         <router-view></router-view> <!-- 使用Vue Router的router-view组件，用于展示当前路由对应的组件内容 -->
@@ -56,7 +56,7 @@ export default {
     margin-top: 0px;
     box-sizing: border-box;
     padding: 5px;
-    height: calc(100vh - 70px - 40px - 10px);
+    /* height: calc(100vh - 70px - 40px - 10px); */
     width: 100%;
     background-color: var(--bg-100);
     /* overflow: auto; */

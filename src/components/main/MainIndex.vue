@@ -1,72 +1,78 @@
 <template>
     <!-- v-loading.fullscreen.lock="fullscreenLoading"   v-for="item in reversedItems" :key="item.id" @click="getData()"-->
-    <div class="main-index" v-loading.fullscreen.lock="isLoading"  element-loading-text="Loading...">
-        <div class="item" v-for="item in reversedItems" :key="item.id">
-            <div class="item-img">
-                <img src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="depng">
-            </div>
-            <div class="item-right" >
-                <div class="item-right-title">
-                    <p>{{ item.name }}</p>
+    <div  v-loading.fullscreen.lock="isLoading"  element-loading-text="Loading...">
+        <div class="devOrpro">
+            <el-switch v-model="isDev" />
+        </div>
+        <div class="main-index" v-if="!isDev">
+            <div class="item" v-for="item in reversedItems" :key="item.id">
+                <div class="item-img">
+                    <img src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="depng">
                 </div>
-                <div class="item-right-content">
-                    <div class="content-time" title="创建时间">
-                        <!-- <img ref="img" src="@/assets/time/time.svg"/> -->
-                        <el-tag type="primary">{{ item.createTime }}</el-tag>
+                <div class="item-right" >
+                    <div class="item-right-title">
+                        <p>{{ item.name }}</p>
                     </div>
-                    <div class="content-user" title="作者">
-                        <!-- <img ref="img" src="@/assets/user/user.svg"/> -->
-                        <el-tag type="primary">{{ item.author }}</el-tag>
+                    <div class="item-right-content">
+                        <div class="content-time" title="创建时间">
+                            <!-- <img ref="img" src="@/assets/time/time.svg"/> -->
+                            <el-tag type="primary">{{ item.createTime }}</el-tag>
+                        </div>
+                        <div class="content-user" title="作者">
+                            <!-- <img ref="img" src="@/assets/user/user.svg"/> -->
+                            <el-tag type="primary">{{ item.author }}</el-tag>
+                        </div>
+                        <div class="content-tab" title="分类">
+                            <!-- <img ref="img" src="@/assets/tab/tab.svg"/> -->
+                            <el-tag type="primary">{{ item.tab }}</el-tag>
+                        </div>
                     </div>
-                    <div class="content-tab" title="分类">
-                        <!-- <img ref="img" src="@/assets/tab/tab.svg"/> -->
-                        <el-tag type="primary">{{ item.tab }}</el-tag>
+                    <div class="item-right-button">
+                        <a class="button" :href="item.url" target="_blank">
+                            <img src="@/assets/info/info.svg" alt="info">
+                            查看
+                        </a>
                     </div>
-                </div>
-                <div class="item-right-button">
-                    <a class="button" :href="item.url" target="_blank">
-                        <img src="@/assets/info/info.svg" alt="info">
-                        查看
-                    </a>
                 </div>
             </div>
         </div>
-        <el-card shadow="always"  class="card"  v-if="isDev">
-            <div class="card-lift">
-                <el-image src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="" class="lift-img"></el-image>
-            </div>
-            <div class="card-right">
-                <div class="right-contion">
-                    <div class="contion-title">
-                        <span class="text">{{ item.name }}</span>
-                    </div>
-                    <div class="contion-tags">
-                        <el-tag>
-                            <img ref="img" src="@/assets/time/time.svg"  />
-                            {{ item.createTime }} | 
-                            <img ref="img" src="@/assets/user/user.svg"/>
-                            {{ item.author }} | 
-                            <img ref="img" src="@/assets/tab/tab.svg"/>
-                            {{ item.tab }}</el-tag> 
+        <div class="main-index"  v-if="isDev">
+            <el-card shadow="always"  class="card"  v-for="item in reversedItems" :key="item.id">
+                <div class="card-lift">
+                    <el-image src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="" class="lift-img"></el-image>
+                </div>
+                <div class="card-right">
+                    <div class="right-contion">
+                        <div class="contion-title">
+                            <span class="text">{{ item.name }}</span>
+                        </div>
+                        <div class="contion-tags">
+                            <el-tag>
+                                <img ref="img" src="@/assets/time/time.svg"  />
+                                {{ item.createTime }} | 
+                                <img ref="img" src="@/assets/user/user.svg"/>
+                                {{ item.author }} | 
+                                <img ref="img" src="@/assets/tab/tab.svg"/>
+                                {{ item.tab }}</el-tag> 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <template #footer>
-                <div class="card-button">
-                    
-                        <!-- <a class="button" :href="item.url" target="_blank">
-                            <img src="@/assets/info/info.svg" alt="info">
-                            查看
-                        </a> -->
-                        <el-link class="bu" :underline="false" :href="item.url" target="_blank">
-                            <span><img src="@/assets/info/info.svg" alt="info"></span>
-                            <span>查看</span>
-                        </el-link>
-                    
-                </div>
-            </template>
-        </el-card>
-        <!-- 加载中 -->
+                <template #footer>
+                    <div class="card-button">
+                        
+                            <!-- <a class="button" :href="item.url" target="_blank">
+                                <img src="@/assets/info/info.svg" alt="info">
+                                查看
+                            </a> -->
+                            <el-link class="bu" :underline="false" :href="item.url" target="_blank">
+                                <span><img src="@/assets/info/info.svg" alt="info"></span>
+                                <span>查看</span>
+                            </el-link>
+                        
+                    </div>
+                </template>
+            </el-card>
+        </div>
     </div>
 </template>
 <script>
@@ -78,7 +84,7 @@ export default {
   },
   data () {
     return {
-        isDev:false,
+        isDev:true,
         isLoading: true,
         tme:null,
         zyk: [],
@@ -300,5 +306,10 @@ a {
   .main-index{
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+}
+.devOrpro{
+    position: absolute;
+    right: 10px;
+    background-color: var(--bg-100);
 }
 </style>

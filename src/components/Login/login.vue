@@ -39,7 +39,6 @@
                     <p>手机:</p>
                 </div>
                 <el-input class="input" 
-                type="password" 
                 v-model="sign_from.phone"  
                 placeholder="请输入手机号" 
                 clearable
@@ -62,7 +61,9 @@
                 clearable
                 show-password
                 />
-                
+                <el-radio-group v-model="sign_from.roleId">
+                    <el-radio v-for="(item,index) in roles" :key="index" :value="item.id" >{{ item.name }}</el-radio>
+                </el-radio-group>
                 
             </div>
             <div class="from-button">
@@ -80,6 +81,7 @@
 </template>
 
 <script>
+import {roleApi} from '@/api/role'
 export default {
     name: 'login',
     data(){
@@ -93,14 +95,27 @@ export default {
                 password:'',
                 aspassword:'',
                 phone:'',
+                roleId:0
             },
+            roles:[],
             isLoginOrSign:true,
         }
     },
     methods:{
         SetisLoginOrSign(){
+            this.getRoles()
             this.isLoginOrSign = !this.isLoginOrSign
             this.clearForm()
+        },
+        async getRoles(){
+            try {
+                const res = await roleApi.getAllRole()
+                console.log('角色列表:', res.data)
+                this.roles = res.data
+                console.log(this.roles);
+            } catch (error) {
+                console.error('获取角色列表错误:', error)
+            }
         },
         async loginOrsign(){
             if (this.isLoginOrSign) {
@@ -137,9 +152,10 @@ export default {
                     const signData = {
                         username: this.sign_from.username,
                         password: this.sign_from.password,
-                        phoneNumber: this.sign_from.phone
+                        phoneNumber: this.sign_from.phone,
+                        roleId: this.sign_from.roleId
                     }
-                    
+                    console.log("发送注册请求：",signData);
                     await this.$store.dispatch('user/register', signData)
                     this.$message.success('注册成功')
                     this.isLoginOrSign = true
