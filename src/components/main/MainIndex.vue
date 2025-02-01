@@ -1,7 +1,9 @@
 <template>
     <!-- v-loading.fullscreen.lock="fullscreenLoading"   v-for="item in reversedItems" :key="item.id" @click="getData()"-->
     <div  v-loading.fullscreen.lock="isLoading"  element-loading-text="Loading...">
-        <el-switch v-model="isDev" />
+        <div class="devOrpro">
+            <el-switch v-model="isDev" />
+        </div>
         <div class="main-index" v-if="!isDev">
             <div class="item" v-for="item in reversedItems" :key="item.id">
                 <div class="item-img">
@@ -304,5 +306,10 @@ a {
   .main-index{
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+}
+.devOrpro{
+    position: absolute;
+    right: 10px;
+    background-color: var(--bg-100);
 }
 </style>
