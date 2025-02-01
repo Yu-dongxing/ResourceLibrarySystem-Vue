@@ -6,7 +6,7 @@
       </div>
       <router-link to="/" class="title no-link-style">资源库</router-link>
     </div>
-    <div class="header-search">
+    <!-- <div class="header-search">
       <el-input
         v-model="input1"
         style="width: 240px"
@@ -14,7 +14,7 @@
         placeholder="Please Input"
         :prefix-icon="Search"
       />
-    </div>
+    </div> -->
     <div class="header-right">
       <router-link to="/add" class="right-item no-link-style">
         <img src="@/assets/header-right/up2.svg" alt="">

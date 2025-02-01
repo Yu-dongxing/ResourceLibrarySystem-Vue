@@ -5,7 +5,7 @@ import router from '@/router'
 
 // 创建axios实例
 const request = axios.create({
-  baseURL: 'http://localhost:8081/api/resources',
+  baseURL: 'http://192.168.122.145:8081/api/resources',
   timeout: 5000 // 请求超时时间
 })
 
@@ -49,6 +49,7 @@ request.interceptors.response.use(
       type: 'error',
       duration: 5 * 1000
     })
+    router.push('/500')
     return Promise.reject(error)
   }
 )

@@ -20,12 +20,13 @@ export const userApi = {
   // 用户注册
   register(data) {
     return request({
-      url: '/user/sign',
+      url: '/sign',
       method: 'post',
       data: {
         username: data.username,
         password: data.password,
-        phoneNumber: data.phone
+        phoneNumber: data.phoneNumber,
+        roleId:data.roleId
       }
     })
   },

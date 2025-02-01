@@ -36,7 +36,22 @@ const actions = {
       throw error
     }
   },
-
+  //用户注册register
+  async register({ commit }, registerForm) {
+    try {
+      const res = await userApi.register(registerForm)
+      console.log('注册响应:', res)
+      if (res.code === 200) {
+        commit('SET_TOKEN', res.data)
+        return res
+      } else {
+        throw new Error(res.msg || '注册失败')
+      }
+    } catch (error) {
+      console.error('注册失败:', error)
+      throw error
+    }
+  },
   // 获取用户信息
   async getUserInfo({ commit }) {
     try {
