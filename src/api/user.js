@@ -55,5 +55,11 @@ export const userApi = {
       method: 'put',
       data
     })
+  },
+  getAllUsers(){
+    return request({
+      url: '/admin/users',
+      method: 'get',
+    })
   }
 } 
