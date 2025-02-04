@@ -5,7 +5,7 @@ import router from '@/router'
 
 // 创建axios实例
 const request = axios.create({
-  baseURL: 'http://192.168.122.145:8081/api/resources',
+  baseURL: 'http://localhost:8081/api/resources',
   timeout: 5000 // 请求超时时间
 })
 
@@ -32,7 +32,7 @@ request.interceptors.response.use(
     console.log('响应数据:', res) // 添加调试日志
     
     // 这里可以根据后端的响应结构统一处理
-    if (res.code === 0) {
+    if (res.code === 101) {
       // token过期
       store.dispatch('user/logout')
       router.push('/login')

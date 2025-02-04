@@ -11,7 +11,9 @@
       </el-table-column>
       <el-table-column prop="url" label="资源地址" >
         <template #default="scope">
-          <el-link :href="scope.row.url" target="_blank">点击跳转</el-link>
+          <el-link :href="scope.row.url" target="_blank">
+            <el-button>点击跳转</el-button>
+          </el-link>
         </template>
       </el-table-column>
       

@@ -25,11 +25,28 @@
         <div class="control-main"></div> -->
         <el-card>
             <el-tabs v-model="active"  @tab-click="handleClick">
-            <el-tab-pane label="资源管理" name='1' v-if="userInfo?.roleName === 'admin'">
-                <admin_Resouce_data></admin_Resouce_data>
-            </el-tab-pane>
-            <el-tab-pane label="用户管理" name='2'>Config</el-tab-pane>
-        </el-tabs>
+                <el-tab-pane label="个人中心" name='1'>
+                    <!-- <userControlServer></userControlServer> -->
+                    <el-form :model="user_from" label-position="top">
+                        <el-form-item label="用户名">
+                            <el-input v-model="user_from.username"  autocomplete="off" />
+                        </el-form-item>
+                        <el-form-item label="用户邮箱">
+                            <el-input v-model="user_from.email"  autocomplete="off" />
+                        </el-form-item>
+                        <el-form-item label="用户手机号">
+                            <el-input v-model="user_from.phoneNumber"  autocomplete="off" />
+                        </el-form-item>
+                        <el-button @click="updateUserInfo(user_from,userInfo.id)">更新</el-button>
+                    </el-form>
+                </el-tab-pane>
+                <el-tab-pane label="资源管理" name='2' v-if="userInfo?.roleName === 'admin'">
+                    <admin_Resouce_data></admin_Resouce_data>
+                </el-tab-pane>
+                <el-tab-pane label="用户管理" name='3' v-if="userInfo?.roleName === 'admin'">
+                    <admin_Users_data></admin_Users_data>
+                </el-tab-pane>
+            </el-tabs>
         </el-card>
         
     </div>
@@ -40,25 +57,53 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import {userApi} from '@/api/user'
 import admin_Resouce_data from '../components/admin_Resouce_data/index.vue'
+import admin_Users_data from '../components/admin_Users_data/index.vue'
+import userControlServer from "@/components/userControlServer/index.vue"
 export default {
     components: {
         admin_Resouce_data,
+        admin_Users_data,
+        userControlServer
     },
     data(){
         return {
-            active:'1'
+            active:'1',
+            user_from:{
+                username:this.userInfo?.username || '',
+                email:this.userInfo?.email || '',
+                phoneNumber:this.userInfo?.phoneNumber || '',
+                roleId: this.userInfo?.roleId || '',
+            }
         }
     },
     methods:{
         handleClick(tab, event){
             console.log(tab, event)
-        }
+        },
+        async updateUserInfo(data,userId){
+            try{
+                const res = await userApi.updateUserInfo(data, userId)
+                if(res.code == 400){
+                  this.$message.error('更新失败'+ res.message)
+                }else{
+                  console.log('更新用户信息:', res.data)
+                  this.$message.success('更新成功')
+                  
+                }
+            } catch (error) {
+                console.log('更新用户信息错误:', error);
+                
+            }
+        },
     },
   setup() {
     const store = useStore()
     const router = useRouter()
     const userInfo = computed(() => store.state.user.userInfo)
+    // this.user_from.email = userInfo.value.email
+    // this.user_from.phone = userInfo.value.phone
     const handleLogout = () => {
       store.dispatch('user/logout')
       router.push('/login')
