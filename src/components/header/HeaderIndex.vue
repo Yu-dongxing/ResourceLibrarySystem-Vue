@@ -6,15 +6,17 @@
       </div>
       <router-link to="/" class="title no-link-style">资源库</router-link>
     </div>
-    <!-- <div class="header-search">
-      <el-input
-        v-model="input1"
-        style="width: 240px"
-        size="large"
-        placeholder="Please Input"
-        :prefix-icon="Search"
-      />
-    </div> -->
+    <div class="header-search">
+        <el-input
+          v-model="search_keyword"
+          placeholder="请输入关键字"
+          autofocus
+        >
+        </el-input>
+        <el-button  type="primary" @click="search()">
+              <el-icon><Search /></el-icon>
+        </el-button>
+    </div>
     <div class="header-right">
       <router-link to="/add" class="right-item no-link-style">
         <img src="@/assets/header-right/up2.svg" alt="">
@@ -48,7 +50,6 @@
 </template>
 
 <script>
-import { Search } from '@element-plus/icons-vue'
 export default {
   name: 'HeaderIndex',
   data() {
@@ -58,12 +59,16 @@ export default {
       {id:2,icon:"/assets/header-right/up2.svg",link:'/add',title:'添加资源'},
       {id:3,icon:"@/assets/header-right/log.svg",link:'/about',title:'更新日志'},
       {id:4,icon:"@/assets/header-right/header-user.svg",link:'/user',title:'用户'}
-    ]
+    ],
+    search_keyword:'',
     }
   },
   computed: {
   },
   methods: {
+    search(){
+      this.$router.push({ path: '/search', query: { keyword: this.search_keyword } });
+    }
   }
 }
 </script>
@@ -83,7 +88,11 @@ export default {
   display: flex;
   align-items: center;
 }
-
+.header-search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .logo img {
   height: 40px;
   margin-right: 10px;
@@ -167,7 +176,7 @@ export default {
 }
 /* 当屏幕宽度小于500px */
 @media screen and (max-width: 500px) {
-  .logo,.header-right,.header-search{
+  .logo,.header-right,.header-search,.header-left{
     display: none;
   }
 }

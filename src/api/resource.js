@@ -19,7 +19,7 @@ export const resourceApi = {
     })
   },
 
-  // 删除资源
+  // 根据id删除资源
   deleteResource(id) {
     return request({
       url: `/admin/delete/${id}`,
@@ -28,11 +28,30 @@ export const resourceApi = {
   },
 
   // 更新资源
-  updateResource(data) {
+  updateResource(data,id) {
     return request({
-      url: '/admin/update',
+      url: '/admin/update/'+id,
       method: 'put',
-      data
+      data:{
+        name: data.name,
+        url: data.url,
+        tab: data.tab,
+        img: data.img
+      }
+    })
+  },
+  // 根据id获取资源/public/get/{id}
+  getResourceById(id) {
+    return request({
+      url: '/public/get/'+id,
+      method: 'get'
+    })
+  },
+  // 关键字搜索/public/search/keyword?keyword=UI
+  searchResource(keyword) {
+    return request({
+      url: '/public/search/keyword?keyword='+keyword,
+      method: 'get'
     })
   }
 } 

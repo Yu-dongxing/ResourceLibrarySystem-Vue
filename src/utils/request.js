@@ -6,8 +6,8 @@ import router from '@/router'
 // 创建axios实例
 const request = axios.create({
   // https://resourcelibrarysystem.api.yuxs.top/
-  // http://localhost:8081/
-  baseURL: 'https://resourcelibrarysystem.api.yuxs.top/api/resources',
+  baseURL: 'http://localhost:8081/api/resources',
+  // baseURL: 'https://resourcelibrarysystem.api.yuxs.top/api/resources',
   timeout: 5000 // 请求超时时间
 })
 
