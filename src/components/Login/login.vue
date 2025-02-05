@@ -62,7 +62,7 @@
                 show-password
                 />
                 <el-radio-group v-model="sign_from.roleId">
-                    <el-radio v-for="(item,index) in roles" :key="index" :value="item.id" >{{ item.name }}</el-radio>
+                    <el-radio v-for="(item,index) in roles" :key="index" :value="item.id" >{{ item.description }}</el-radio>
                 </el-radio-group>
                 
             </div>

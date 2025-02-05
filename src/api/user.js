@@ -40,14 +40,25 @@ export const userApi = {
   },
 
   // 更新用户信息
-  updateUserInfo(data) {
+  updateUserInfo(data, userId) {
     return request({
-      url: '/user/update',
+      url: '/admin/users/'+userId,
       method: 'put',
-      data
+      data:{
+        username:data.username,
+        phoneNumber:data.phoneNumber,
+        email:  data.email,
+        roleId:data.roleId
+    }
     })
   },
-
+  //删除用户
+  deleteUser(userId){
+    return request({
+      url: '/admin/users/'+userId,
+      method: 'delete',
+    })
+  },
   // 修改密码
   updatePassword(data) {
     return request({
