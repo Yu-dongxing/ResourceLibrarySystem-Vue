@@ -4,6 +4,7 @@
         <div class="devOrpro">
             <el-switch v-model="isDev" />
         </div>
+        <!-- 自己设计的卡片布局 -->
         <div class="main-index" v-if="!isDev">
             <div class="item" v-for="item in reversedItems" :key="item.id">
                 <div class="item-img">
@@ -16,7 +17,7 @@
                     <div class="item-right-content">
                         <div class="content-time" title="创建时间">
                             <!-- <img ref="img" src="@/assets/time/time.svg"/> -->
-                            <el-tag type="primary">{{ item.createTime }}</el-tag>
+                            <el-tag type="primary">{{ item.updateTime }}</el-tag>
                         </div>
                         <div class="content-user" title="作者">
                             <!-- <img ref="img" src="@/assets/user/user.svg"/> -->
@@ -36,6 +37,7 @@
                 </div>
             </div>
         </div>
+        <!-- 所有框架的卡片布局 -->
         <div class="main-index"  v-if="isDev">
             <el-card shadow="always"  class="card"  v-for="item in reversedItems" :key="item.id">
                 <div class="card-lift">
@@ -49,7 +51,7 @@
                         <div class="contion-tags">
                             <el-tag>
                                 <img ref="img" src="@/assets/time/time.svg"  />
-                                {{ item.createTime }} | 
+                                {{ item.updateTime }} | 
                                 <img ref="img" src="@/assets/user/user.svg"/>
                                 {{ item.author }} | 
                                 <img ref="img" src="@/assets/tab/tab.svg"/>

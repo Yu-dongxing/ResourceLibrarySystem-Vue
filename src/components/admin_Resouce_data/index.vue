@@ -34,15 +34,39 @@
       </el-table-column>
     </el-table>
     <el-dialog v-model="dialogFormVisible" title="资源编辑" width="500">
+      <el-form :model="resouce_from" label-position="top">
+        <el-form-item label="资源名">
+          <el-input  v-model="resouce_from.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="资源地址">
+          <el-input v-model="resouce_from.url" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="资源图片">
+          <el-input v-model="resouce_from.img" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="资源标签">
+          <el-input v-model="resouce_from.tab" autocomplete="off" />
+        </el-form-item>
+      </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="dialogFormVisible = false">
-            Confirm
+          <el-button @click="dialogFormVisible = false">取消</el-button>
+          <el-button type="primary" @click="updateResource(this.resouce_from,this.resouce_update_id)">
+            提交
           </el-button>
         </div>
       </template>
     </el-dialog>
+    <!-- <el-dialog v-model="dialogdelentVisible" title="是否删除" width="500">
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogdelentVisible = false">取消</el-button>
+          <el-button type="primary" @click="dialogdelentVisible = false">
+            提交
+          </el-button>
+        </div>
+      </template>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -54,6 +78,14 @@ data(){
     return {
         resouce_data:[],
         dialogFormVisible:false,
+        resouce_from: {
+          name: '',
+          url: '',
+          tab: '',
+          img: '' 
+        },
+        resouce_update_id: '',
+        resouce_delete_id: '',
     }
 },
 methods:{
@@ -66,10 +98,63 @@ methods:{
       } finally {
       }
     },
-    handleEdit(id){
-      this.dialogFormVisible = true
+    // 更新资源 updateResource(data,id)
+    async updateResource(data,id){
+      
+      try{
+        const res = await resourceApi.updateResource(data,id)
+        if(res.code === 200){
+          console.log('更新资源成功',res)
+          this.$message.success('更新资源成功')
+        }else{
+          console.log('更新资源失败',res)
+          this.$message.success('更新资源失败')
+        }
+      } catch(erro) {
+
+      }
+      this.dialogFormVisible = false
       this.getData()
+    },
+    // 根据id删除资源 deleteResource(id)
+    async deleteResource(id){
+      try{
+        const res = await resourceApi.deleteResource(id)
+        if(res.code === 200){
+          console.log('删除资源成功',res)
+        }else{
+          console.log('删除资源失败',res)
+        }
+      } catch(erro) {
+
+      }
+      this.getData()
+    },
+    // 根据id获取资源 getResourceById(id)
+    async getResourceById(id){
+      try{
+        console.log('id',id);
+        const res = await resourceApi.getResourceById(id)
+        if(res.code === 200){
+          console.log('获取资源成功',res)
+          this.resouce_from.name = res.data.name
+          this.resouce_from.url = res.data.url
+          this.resouce_from.tab = res.data.tab
+          this.resouce_from.img = res.data.img
+          
+        }else{
+          console.log('获取资源失败',res)
+        }
+      } catch(erro) {
+          console.log("获取请求失败",erro);
+      }
+    },
+    handleEdit(id){
       console.log('编辑',id)
+      this.resouce_update_id = id
+      this.dialogFormVisible = true
+      this.getResourceById(id)
+      this.getData()
     },
     handleDelete(id){
       this.getData()
