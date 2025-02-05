@@ -110,7 +110,8 @@ export default {
   computed: {
     //通过计算属性实现倒序
     reversedItems() {
-      return this.zyk.slice().reverse(); // 返回zyk数组的倒序副本
+    //   return this.zyk.slice().reverse(); // 返回zyk数组的倒序副本
+      return this.zyk; // 返回zyk数组的倒序副本
     }
   },
   mounted () {
