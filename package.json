@@ -1,6 +1,6 @@
 {
   "name": "resource_integration_system",
-  "version": "0.5.3",
+  "version": "0.5.5",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

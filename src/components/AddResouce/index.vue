@@ -38,9 +38,9 @@ export default {
         from: {
           name: '',
           url: '',
-          tag: [],
-          author: 'Admin', // 默认作者
-          img: '@/assets/depng/png.svg' // 默认图片
+          tag: ['文章'],
+          author: 'Guest', // 默认作者
+          img: 'https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original' // 默认图片
         }
       }
     },
@@ -63,9 +63,9 @@ export default {
         this.from = {
           name: '',
           url: '',
-          tag: [],
-          author: 'Admin',
-          img: '@/assets/depng/png.svg'
+          tag: ['文章'],
+          author: 'Guest', // 默认作者
+          img: 'https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original' // 默认图片
         }
       }
     }
