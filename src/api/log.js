@@ -10,4 +10,11 @@ export const logApi = {
       data
     })
   },
+// 查询所有日志
+  getalllog(){
+    return request({
+      url: '/public/log/all',
+      method: 'get'
+    })
+  }
 }

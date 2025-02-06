@@ -165,8 +165,21 @@ methods:{
       this.getData()
     },
     handleDelete(id){
-      this.getData()
       console.log('删除',id)
+      this.resouce_delete_id = id
+      this.$confirm('此操作将永久删除该资源, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteResource(id)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      }).catch(() => {
+        this.$message
+      });
     }
 },
 
