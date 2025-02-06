@@ -10,6 +10,9 @@
           <el-form-item label="资源地址">
             <el-input v-model="from.url" placeholder="请输入资源地址" />
           </el-form-item>
+          <el-form-item label="资源图标">
+            <el-input v-model="from.img" placeholder="请输入资源展示图标" />
+          </el-form-item>
           <el-form-item label="标签">
             <el-input-tag v-model="from.tag" placeholder="请输入标签" tag-type="success"/>
           </el-form-item>
@@ -35,9 +38,9 @@ export default {
         from: {
           name: '',
           url: '',
-          tag: [],
-          author: 'Admin', // 默认作者
-          img: '@/assets/depng/png.svg' // 默认图片
+          tag: ['文章'],
+          author: 'Guest', // 默认作者
+          img: 'https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original' // 默认图片
         }
       }
     },
@@ -60,9 +63,9 @@ export default {
         this.from = {
           name: '',
           url: '',
-          tag: [],
-          author: 'Admin',
-          img: '@/assets/depng/png.svg'
+          tag: ['文章'],
+          author: 'Guest', // 默认作者
+          img: 'https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original' // 默认图片
         }
       }
     }

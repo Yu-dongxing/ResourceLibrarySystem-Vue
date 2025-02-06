@@ -13,15 +13,83 @@
 <script>
 import HeaderIndex from './components/header/HeaderIndex.vue'
 import FooterIndex from './components/footer/FooterIndex.vue'
+import axios from 'axios';
+import { logApi } from '@/api/log'
 export default {
   name: 'app',
+  data(){
+    return {
+      userIp:'',
+      data:{
+        sessionId:'',
+        refererUrl:'',
+        pageUrl:'',
+        ipAddress:'',
+        userAgent:'',
+        statusCode:'',
+        deviceType:'',
+        logDetails:'',
+      }
+    }
+  },
+  methods:{
+    // 获取IP地址api
+    getUserInfo() {
+      axios.get('https://ip.011102.xyz')
+        .then(response => {
+          console.log(response.data);
+          const ipData = response.data.IP;
+          const headers = response.data.Headers;
+          const security = response.data.Security;
+
+          this.data.ipAddress = ipData.IP;
+          this.data.sessionId = ipData.City;
+          this.data.refererUrl = ipData.Region
+          this.data.pageUrl = ipData.ASOrganization;
+          this.data.userAgent = headers['user-agent'];
+          this.data.statusCode = response.status; // 假设状态码是响应的状态码
+          this.data.deviceType = headers['sec-ch-ua-platform'] || 'Unknown'; // 假设设备类型可以从 sec-ch-ua-platform 获取
+          this.data.logDetails = JSON.stringify({
+            IP: ipData,
+            Headers: headers,
+            Security: security
+          });
+
+          this.onSubmit(this.data);
+        })
+        .catch(error => {
+          console.error('Failed to fetch IP:', error);
+        });
+    },
+    // 上传日志api-postLog(data)
+    async onSubmit(data) {
+        try {
+          const res = await logApi.postLog(data)
+          // console.log("上传成功",res);
+        } catch (error) {
+          // console.error('上传失败:', error)
+        }
+      },
+  },
+  // watch:{
+  //   userIp(newVal,oldVal){
+  //     if(newVal !== oldVal){
+        
+  //     }
+  //   }
+  // },
   components: {
     HeaderIndex,
     FooterIndex,
   },
   beforeCreate() {
-    console.log('App.vue beforeCreate')
+    console.log('创建前')
+  },
+  created() {
+    console.log('创建后')
+    this.getUserInfo()
   }
+
 }
 </script>
 

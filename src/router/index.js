@@ -40,11 +40,16 @@ const routes = [
     meta: { requiresAuth: true }
   },
   // 添加资源搜索页面路由
-
   {
     path:'/search',
     name:'resouce_search',
     component:()=>import('@/components/resouce_search/index.vue'),
+  },
+  // 添加资源详情页面
+  {
+    path:'/detail',
+    name:'resouce_detail',
+    component:()=>import('@/components/Resouce_Details/index.vue'),
   },
    // 添加 404 错误页面路由
   {

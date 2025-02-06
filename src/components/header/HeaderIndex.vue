@@ -11,9 +11,11 @@
           v-model="search_keyword"
           placeholder="请输入关键字"
           autofocus
+          size="small"
+          style="width: 100px"
         >
         </el-input>
-        <el-button  type="primary" @click="search()">
+        <el-button  type="primary" @click="search()" size="small">
               <el-icon><Search /></el-icon>
         </el-button>
     </div>
@@ -176,7 +178,7 @@ export default {
 }
 /* 当屏幕宽度小于500px */
 @media screen and (max-width: 500px) {
-  .logo,.header-right,.header-search,.header-left{
+  .logo,.header-right,.header-left{
     display: none;
   }
 }

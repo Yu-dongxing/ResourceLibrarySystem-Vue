@@ -8,7 +8,7 @@
         <div class="main-index" v-if="!isDev">
             <div class="item" v-for="item in reversedItems" :key="item.id">
                 <div class="item-img">
-                    <img src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="depng">
+                    <img :src="item.img" alt="depng">
                 </div>
                 <div class="item-right" >
                     <div class="item-right-title">
@@ -41,7 +41,7 @@
         <div class="main-index"  v-if="isDev">
             <el-card shadow="always"  class="card"  v-for="item in reversedItems" :key="item.id">
                 <div class="card-lift">
-                    <el-image src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="" class="lift-img"></el-image>
+                    <el-image :src="item.img" alt="" class="lift-img"></el-image>
                 </div>
                 <div class="card-right">
                     <div class="right-contion">
@@ -70,6 +70,7 @@
                                 <span><img src="@/assets/info/info.svg" alt="info"></span>
                                 <span>查看</span>
                             </el-link>
+                            <!-- <el-button type="primary" @click="goDetail(item.id)">查看</el-button> -->
                         
                     </div>
                 </template>
@@ -107,7 +108,11 @@ export default {
     setisloading(){ // 设置isLoading状态
         this.isLoading = !this.isLoading; // 切换isLoading状态
         this.zyk.p // 访问zyk数组的p属性（注意：这里可能存在错误，因为zyk是一个数组，没有p属性）
-    }
+    },
+    // 资源详情跳转
+    goDetail(id) {
+        this.$router.push({ path: '/detail', query:  { id: id } }) // 跳转到资源详情页面，并传递资源ID参数
+    },
   },
   computed: {
     //通过计算属性实现倒序
@@ -151,7 +156,9 @@ a {
         .card-lift{
             // border: 0.1px solid #000000;
             .lift-img{
-                aspect-ratio: 16/9;
+                aspect-ratio: 6/5;
+                border-radius: 25px;
+                margin-right: 5px;
             }
         }
         .card-right{
@@ -223,10 +230,13 @@ a {
             width: 100px;
             height: 100px;
             border-radius: var(--border-radius-de);
+            border-radius: 25px;
+            margin-right: 5px;
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover; /* 确保图片填充 */
+                border-radius: 25px;
             }
         }
         .item-right{

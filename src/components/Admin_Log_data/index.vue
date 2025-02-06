@@ -1,19 +1,23 @@
 <template>
-    <div class="detail">
-        
-    </div>
+  
 </template>
+
 <script>
+import { logApi } from '@/api/log'
 export default {
+    name: 'Admin_Log_data',
     data() {
         return {
-            
+
         }
     },
-    methods:{},
+    methods: {
+
+    }
 
 }
 </script>
-<style lang="less">
+
+<style>
 
 </style>
