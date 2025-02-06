@@ -3,7 +3,15 @@
     <el-table :data="resouce_data" height="250" style="width: 100%">
       <el-table-column prop="name" label="资源名称" width="180" />
       <el-table-column prop="author" label="作者" width="180" />
-      <el-table-column prop="img" label="资源图片" />
+      <el-table-column prop="img" label="资源图片">
+        <template #default="scope">
+          <!-- <el-link :href="scope.row.img" target="_blank">
+              <el-button>点击跳转</el-button>
+          </el-link> -->
+          <el-image :src="scope.row.img" fit="cover" style="width: 100px; height: 100px"></el-image>
+        </template>
+      </el-table-column>
+
       <el-table-column prop="tab" label="资源标签" >
         <template #default="scope">
               <el-tag>{{ scope.row.tab }}</el-tag>

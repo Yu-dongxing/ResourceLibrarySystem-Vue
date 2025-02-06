@@ -10,6 +10,9 @@
           <el-form-item label="资源地址">
             <el-input v-model="from.url" placeholder="请输入资源地址" />
           </el-form-item>
+          <el-form-item label="资源图标">
+            <el-input v-model="from.img" placeholder="请输入资源展示图标" />
+          </el-form-item>
           <el-form-item label="标签">
             <el-input-tag v-model="from.tag" placeholder="请输入标签" tag-type="success"/>
           </el-form-item>

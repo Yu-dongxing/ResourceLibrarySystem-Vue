@@ -8,7 +8,7 @@
         <div class="main-index" v-if="!isDev">
             <div class="item" v-for="item in reversedItems" :key="item.id">
                 <div class="item-img">
-                    <img src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="depng">
+                    <img :src="item.img" alt="depng">
                 </div>
                 <div class="item-right" >
                     <div class="item-right-title">
@@ -41,7 +41,7 @@
         <div class="main-index"  v-if="isDev">
             <el-card shadow="always"  class="card"  v-for="item in reversedItems" :key="item.id">
                 <div class="card-lift">
-                    <el-image src="https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original" alt="" class="lift-img"></el-image>
+                    <el-image :src="item.img" alt="" class="lift-img"></el-image>
                 </div>
                 <div class="card-right">
                     <div class="right-contion">
@@ -151,7 +151,9 @@ a {
         .card-lift{
             // border: 0.1px solid #000000;
             .lift-img{
-                aspect-ratio: 16/9;
+                aspect-ratio: 1 / 1;
+                border-radius: 25px;
+                margin-right: 5px;
             }
         }
         .card-right{
@@ -223,10 +225,13 @@ a {
             width: 100px;
             height: 100px;
             border-radius: var(--border-radius-de);
+            border-radius: 25px;
+            margin-right: 5px;
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover; /* 确保图片填充 */
+                border-radius: 25px;
             }
         }
         .item-right{
