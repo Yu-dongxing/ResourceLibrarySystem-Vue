@@ -4,16 +4,16 @@
       <el-card>
         <!-- style="min-width: 100px;max-width: 300px;" -->
           <el-form  label-position="top" label-width="80px" :model="form">
-          <el-form-item label="资源名称">
+          <el-form-item label="资源名称:">
             <el-input v-model="from.name" placeholder="请输入资源名称" />
           </el-form-item>
-          <el-form-item label="资源地址">
+          <el-form-item label="资源地址:">
             <el-input v-model="from.url" placeholder="请输入资源地址" />
           </el-form-item>
-          <el-form-item label="资源图标">
+          <el-form-item label="资源图标:">
             <el-input v-model="from.img" placeholder="请输入资源展示图标" />
           </el-form-item>
-          <el-form-item label="标签">
+          <el-form-item label="标签:">
             <el-input-tag v-model="from.tag" placeholder="请输入标签" tag-type="success"/>
           </el-form-item>
           <el-form-item>
@@ -47,17 +47,39 @@ export default {
     methods:{
       async onSubmit() {
         try {
-          const submitData = {
-            ...this.from,
-            tab: this.from.tag.join(',') // 将标签数组转换为字符串
+          if(this.validateForm()){
+              const submitData = {
+              ...this.from,
+              tab: this.from.tag.join(',') // 将标签数组转换为字符串
+            }
+            await resourceApi.addResource(submitData)
+            ElMessage.success('添加成功')
+            this.$router.push('/')
           }
-          await resourceApi.addResource(submitData)
-          ElMessage.success('添加成功')
-          this.$router.push('/')
         } catch (error) {
           ElMessage.error('添加失败')
           console.error('添加资源失败:', error)
         }
+      },
+      //表单较验，如果为空则提示
+      validateForm() {
+        const requiredFields = {
+          name: '名称不能为空',
+          url: '链接不能为空',
+          tag: '标签不能为空',
+          img: '图片不能为空',
+        };
+        let errorMessage = '';
+        for (const field in requiredFields) {
+          if (!this.from[field]) {
+            errorMessage += `${requiredFields[field]}\n`;
+          }
+        }
+        if (errorMessage) {
+          ElMessage.error(errorMessage.trim());
+          return false;
+        }
+        return true;
       },
       resetSubmit(){
         this.from = {
