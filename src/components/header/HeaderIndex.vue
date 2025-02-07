@@ -7,17 +7,20 @@
       <router-link to="/" class="title no-link-style">资源库</router-link>
     </div>
     <div class="header-search">
-        <el-input
-          v-model="search_keyword"
-          placeholder="请输入关键字"
-          autofocus
-          size="small"
-          style="width: 100px"
-        >
-        </el-input>
-        <el-button  type="primary" @click="search()" size="small">
-              <el-icon><Search /></el-icon>
+      <el-input
+      v-model="search_keyword"
+      style="max-width: 600px"
+      placeholder="请输入关键字"
+      class="input-with-select"
+    >
+      <template #append>
+        <el-button @click="search()">
+          <el-icon>
+                <search/>
+            </el-icon>
         </el-button>
+      </template>
+    </el-input>
     </div>
     <div class="header-right">
       <router-link to="/add" class="right-item no-link-style">
