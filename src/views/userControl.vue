@@ -46,6 +46,9 @@
                 <el-tab-pane label="用户管理" name='3' v-if="userInfo?.roleName === 'admin'">
                     <admin_Users_data></admin_Users_data>
                 </el-tab-pane>
+                <el-tab-pane label="访问日志" name='4' >
+                    <admin_ip_log></admin_ip_log>
+                </el-tab-pane>
             </el-tabs>
         </el-card>
         
@@ -60,12 +63,14 @@ import { ElMessage } from 'element-plus'
 import {userApi} from '@/api/user'
 import admin_Resouce_data from '../components/admin_Resouce_data/index.vue'
 import admin_Users_data from '../components/admin_Users_data/index.vue'
+import  admin_ip_log  from '@/components/admin_ip_log/index.vue'
 import userControlServer from "@/components/userControlServer/index.vue"
 export default {
     components: {
         admin_Resouce_data,
         admin_Users_data,
-        userControlServer
+        userControlServer,
+        admin_ip_log
     },
     data(){
         return {

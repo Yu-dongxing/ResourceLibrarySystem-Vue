@@ -36,12 +36,17 @@
     <div class="header-right-app">
       <el-dropdown trigger="click">
         <span class="header-right-app-ii">
-          <img src="@/assets/header-right/list.svg" alt="">
+          <!-- <img src="@/assets/header-right/list.svg" alt=""> -->
+          <el-icon :size="20"><Expand /></el-icon>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item v-for="(item,index) in header_link" :key="index">
-              <!-- <el-icon v-if="item.icon" :component="item.icon" /> -->
+               <!-- 动态绑定图标 -->
+              <el-icon>
+                <component :is="item.icon" />
+              </el-icon>
+              <!-- <el-icon><House /></el-icon> -->
               <router-link :to="item.link" class="no-link-style" style="width: 100%;">{{ item.title }}</router-link>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -57,10 +62,10 @@ export default {
   data() {
     return {
       header_link:[
-      {id:1,icon:"",link:'/',title:'首页'},
-      {id:2,icon:"/assets/header-right/up2.svg",link:'/add',title:'添加资源'},
-      {id:3,icon:"@/assets/header-right/log.svg",link:'/about',title:'更新日志'},
-      {id:4,icon:"@/assets/header-right/header-user.svg",link:'/user',title:'用户'}
+      {id:1,icon:"HomeFilled",link:'/',title:'首页'},
+      {id:2,icon:"Link",link:'/add',title:'添加资源'},
+      {id:3,icon:"Notification",link:'/about',title:'更新日志'},
+      {id:4,icon:"User",link:'/user',title:'用户'}
     ],
     search_keyword:'',
     }
@@ -145,8 +150,8 @@ export default {
   }
 }
 .header-right-app{
-  width: 60px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: var(--primary-100);
   border-radius: var(--border-radius-de);
   display: flex;
@@ -177,8 +182,8 @@ export default {
   color: #42b983;
 }
 /* 当屏幕宽度小于500px */
-@media screen and (max-width: 500px) {
-  .logo,.header-right,.header-left{
+@media screen and (max-width: 600px) {
+  .logo,.header-right,.header-search{
     display: none;
   }
 }
