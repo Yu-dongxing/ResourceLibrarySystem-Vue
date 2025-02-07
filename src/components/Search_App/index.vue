@@ -6,20 +6,13 @@
       placeholder="请输入关键字"
       class="input-with-select"
     >
-      <template #prepend>
+      <template #append>
         <el-button @click="search()">
           <el-icon>
                 <search/>
             </el-icon>
         </el-button>
       </template>
-      <!-- <template #append>
-        <el-select v-model="select" placeholder="Select" style="width: 115px">
-          <el-option label="Restaurant" value="1" />
-          <el-option label="Order No." value="2" />
-          <el-option label="Tel" value="3" />
-        </el-select>
-      </template> -->
     </el-input>
     </div>
 </template>

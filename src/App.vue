@@ -63,6 +63,13 @@ export default {
           // console.error('上传失败:', error)
         }
       },
+    open1() {
+      this.$notify({
+        title: '欢迎访问资源库系统！',
+        message: '本系统为个人学习项目，数据来源于网络搜集，如有侵权，请联系删除',
+        type: 'success',
+      });
+    },
   },
   // watch:{
   //   userIp(newVal,oldVal){
@@ -82,6 +89,7 @@ export default {
   created() {
     // console.log('创建后')
     this.getUserInfo()
+    this.open1() 
   }
 
 }
