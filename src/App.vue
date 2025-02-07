@@ -1,6 +1,9 @@
 <template>
   <div id="app" >
     <HeaderIndex/>
+    <div class="search_App">
+      <Search_App/>
+    </div>
     <el-scrollbar height="calc(100vh - 110px)" class="MAIN">
       <!-- <updata/> -->
         <!-- <MainIndex/> -->
@@ -13,22 +16,20 @@
 <script>
 import HeaderIndex from './components/header/HeaderIndex.vue'
 import FooterIndex from './components/footer/FooterIndex.vue'
+import Search_App from '@/components/Search_App/index.vue'
 import axios from 'axios';
-import { logApi } from '@/api/log'
+import { iplogApi } from '@/api/ip_log'
 export default {
   name: 'app',
   data(){
     return {
       userIp:'',
-      data:{
-        sessionId:'',
-        refererUrl:'',
-        pageUrl:'',
-        ipAddress:'',
-        userAgent:'',
-        statusCode:'',
-        deviceType:'',
-        logDetails:'',
+      ip_access_log:{
+        ipAddress: "",//地址
+        ipCity: "",//城市
+        ipProvince: "",//省份
+        ipUserDevice: "",//用户设备
+        ipUserAgent: ""//用户代理
       }
     }
   },
@@ -42,20 +43,12 @@ export default {
           const headers = response.data.Headers;
           const security = response.data.Security;
 
-          this.data.ipAddress = ipData.IP;
-          this.data.sessionId = ipData.City;
-          this.data.refererUrl = ipData.Region
-          this.data.pageUrl = ipData.ASOrganization;
-          this.data.userAgent = headers['user-agent'];
-          this.data.statusCode = response.status; // 假设状态码是响应的状态码
-          this.data.deviceType = headers['sec-ch-ua-platform'] || 'Unknown'; // 假设设备类型可以从 sec-ch-ua-platform 获取
-          this.data.logDetails = JSON.stringify({
-            IP: ipData,
-            Headers: headers,
-            Security: security
-          });
-
-          this.onSubmit(this.data);
+          this.ip_access_log.ipAddress = ipData.IP;
+          this.ip_access_log.ipCity = ipData.City;
+          this.ip_access_log.ipProvince = ipData.Region;
+          this.ip_access_log.ipUserDevice = headers['sec-ch-ua-platform'] || 'Unknown';
+          this.ip_access_log.ipUserAgent = headers['user-agent'];
+          this.onSubmit(this.ip_access_log);
         })
         .catch(error => {
           console.error('Failed to fetch IP:', error);
@@ -64,7 +57,7 @@ export default {
     // 上传日志api-postLog(data)
     async onSubmit(data) {
         try {
-          const res = await logApi.postLog(data)
+          const res = await iplogApi.postIpLog(data)
           // console.log("上传成功",res);
         } catch (error) {
           // console.error('上传失败:', error)
@@ -81,12 +74,13 @@ export default {
   components: {
     HeaderIndex,
     FooterIndex,
+    Search_App
   },
   beforeCreate() {
-    console.log('创建前')
+    // console.log('创建前')
   },
   created() {
-    console.log('创建后')
+    // console.log('创建后')
     this.getUserInfo()
   }
 
@@ -94,6 +88,9 @@ export default {
 </script>
 
 <style>
+.search_App{
+    display: none;
+}
 #app {
     font-family: var(--el-font-family);
     -webkit-font-smoothing: antialiased;
@@ -129,5 +126,11 @@ export default {
     background-color: var(--bg-100);
     /* overflow: auto; */
     border-radius: 10px;
+}
+/* 当屏幕宽度小于500px */
+@media screen and (max-width: 600px) {
+  .search_App{
+    display: block;
+  }
 }
 </style>

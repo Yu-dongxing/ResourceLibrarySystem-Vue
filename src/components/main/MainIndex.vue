@@ -5,28 +5,24 @@
             <el-switch v-model="isDev" />
         </div>
         <!-- 自己设计的卡片布局 -->
-        <div class="main-index" v-if="!isDev">
+        <div class="main-index" v-if="isDev">
             <div class="item" v-for="item in reversedItems" :key="item.id">
                 <div class="item-img">
-                    <img :src="item.img" alt="depng">
+                    <!-- <img :src="item.img" alt="depng"> -->
+                    <el-image :src="item.img" fit="cover" />
                 </div>
                 <div class="item-right" >
                     <div class="item-right-title">
                         <p>{{ item.name }}</p>
                     </div>
-                    <div class="item-right-content">
-                        <div class="content-time" title="创建时间">
-                            <!-- <img ref="img" src="@/assets/time/time.svg"/> -->
-                            <el-tag type="primary">{{ item.updateTime }}</el-tag>
-                        </div>
-                        <div class="content-user" title="作者">
-                            <!-- <img ref="img" src="@/assets/user/user.svg"/> -->
-                            <el-tag type="primary">{{ item.author }}</el-tag>
-                        </div>
-                        <div class="content-tab" title="分类">
-                            <!-- <img ref="img" src="@/assets/tab/tab.svg"/> -->
-                            <el-tag type="primary">{{ item.tab }}</el-tag>
-                        </div>
+                    <div class="contion-tags">
+                            <el-tag>
+                                <img ref="img" src="@/assets/time/time.svg"  />
+                                {{ item.updateTime }} | 
+                                <img ref="img" src="@/assets/user/user.svg"/>
+                                {{ item.author }} | 
+                                <img ref="img" src="@/assets/tab/tab.svg"/>
+                                {{ item.tab }}</el-tag> 
                     </div>
                     <div class="item-right-button">
                         <a class="button" :href="item.url" target="_blank">
@@ -37,8 +33,8 @@
                 </div>
             </div>
         </div>
-        <!-- 所有框架的卡片布局 -->
-        <div class="main-index"  v-if="isDev">
+        <!-- el框架的卡片布局 -->
+        <div class="main-index"  v-if="!isDev">
             <el-card shadow="always"  class="card"  v-for="item in reversedItems" :key="item.id">
                 <div class="card-lift">
                     <el-image :src="item.img" alt="" class="lift-img"></el-image>
@@ -61,11 +57,6 @@
                 </div>
                 <template #footer>
                     <div class="card-button">
-                        
-                            <!-- <a class="button" :href="item.url" target="_blank">
-                                <img src="@/assets/info/info.svg" alt="info">
-                                查看
-                            </a> -->
                             <el-link class="bu" :underline="false" :href="item.url" target="_blank">
                                 <span><img src="@/assets/info/info.svg" alt="info"></span>
                                 <span>查看</span>
@@ -142,7 +133,7 @@ a {
     background-color: var(--bg-100); /* 设置背景颜色，使用CSS变量--bg-100 */
     display: grid; /* 设置为网格布局 */
     gap: 10px; /* 使用 gap 替代 grid-gap */
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); /* 定义网格布局的列，使用 repeat 函数自动填充，每列的最小宽度为 500px，最大宽度为 1fr（剩余空间的一份） */
+    grid-template-columns: repeat(auto-fill, minmax(464px, 1fr)); /* 定义网格布局的列，使用 repeat 函数自动填充，每列的最小宽度为 500px，最大宽度为 1fr（剩余空间的一份） */
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); /* 定义网格布局的行，使用 repeat 函数自动填充，每行的最小高度为 100px，最大高度为 1fr
     （剩余空间的一份） */
     // aspect-ratio: 4 / 3;
@@ -150,13 +141,16 @@ a {
         padding: 10px;
         display: flex;
     }
+    // el自定义卡片布局
     .card{
         height: auto;
         min-height: 100px;
         .card-lift{
             // border: 0.1px solid #000000;
             .lift-img{
-                aspect-ratio: 6/5;
+                // aspect-ratio: 6/5;
+                width: 100px;
+                height: 100px;
                 border-radius: 25px;
                 margin-right: 5px;
             }
@@ -216,11 +210,12 @@ a {
             }
         }
     }
+    // 自定义卡片布局
     .item{
-        margin: 15px 0 5px 2.5%; /* 合并 margin */
-        width: 95%; /* 设置元素的宽度为95% */
+        // margin: 15px 0 5px 0; /* 合并 margin */
+        width: 100%; 
         height: auto; /* 设置元素的高度为自动，根据内容调整高度 */
-        border-radius: 10px; /* 设置元素的边框圆角为10像素 */
+        border-radius: 15px; /* 设置元素的边框圆角为10像素 */
         box-sizing: border-box;
         padding: 5px; /* 设置元素的内边距为5像素 */
         display: flex; /* 设置元素的显示方式为flex，启用Flexbox布局 */
@@ -242,46 +237,28 @@ a {
         .item-right{
             flex: 1;
             margin-left: 10px;
-            // padding: 10px;
             box-sizing: border-box;
             .item-right-title{
                 padding: 10px;
                 padding-left: 0;
-                // border-bottom: 1px solid var(--primary-200);
                 p{
                     min-width: 200px;
-                    font-size: 20px;
+                    font-size: 18px;
                     font-weight: bold;
                     color: var(--text-100);
                     margin: 0;
                 }
             }
-            .item-right-content{
-                display: flex;
-                align-items: center;
-                .content-time,.content-user,.content-tab{
-                    display: flex;
-                    align-items: center;
-                    margin-left: 10px; /* 统一 margin */
-                    img{
-                        width: 20px;
-                        height: 20px;
-                    }
-                    p{
-                        margin-left: 0px; /* 统一 margin */
-                        font-size: 14px;
-                        font-weight: 100;
-                        color: rgb(92, 125, 171);
+            .contion-tags{
+                    .el-tag__content{
+                        display: flex;
+                        align-items: center; /* 垂直居中 */
+                        img{
+                            width: 15px;
+                            height: 15px;
+                        }
                     }
                 }
-                .content-user,.content-tab{
-                    margin-left: 10px;
-                }
-                .content-time{
-                    margin-left: 0px;
-                }
-
-            }
             .item-right-button{
                 float: right;
                 .button{
@@ -312,12 +289,12 @@ a {
     }
 }
 /* 当屏幕宽度小于500px */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .item-img,.card-lift{
     display: none;
   }
   .main-index{
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 }
 .devOrpro{
