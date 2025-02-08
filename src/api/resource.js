@@ -13,7 +13,7 @@ export const resourceApi = {
   // 添加资源
   addResource(data) {
     return request({
-      url: '/admin/add',
+      url: '/public/add',
       method: 'post',
       data
     })
@@ -51,6 +51,20 @@ export const resourceApi = {
   searchResource(keyword) {
     return request({
       url: '/public/search/keyword?keyword='+keyword,
+      method: 'get'
+    })
+  },
+  // 根据id审核资源库
+  ResourceAuditById(id) {
+  return request({
+    url: '/admin/audit/'+id,
+    method: 'put'
+  })
+  },
+  // 查询待审核资源
+  ResourceAudit(){
+    return request({
+      url: '/admin/audit/',
       method: 'get'
     })
   }

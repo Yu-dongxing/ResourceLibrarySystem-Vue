@@ -1,16 +1,18 @@
 <template>
   <div id="app" >
     <HeaderIndex/>
-    <div class="search_App">
-      <Search_App/>
-    </div>
+    
     <el-scrollbar height="calc(100vh - 110px)" class="MAIN">
+      <div class="search_App">
+      <Search_App/>
+      </div>
       <!-- <updata/> -->
         <!-- <MainIndex/> -->
         <router-view></router-view> <!-- 使用Vue Router的router-view组件，用于展示当前路由对应的组件内容 -->
     </el-scrollbar>
     <FooterIndex/>
   </div>
+  <el-link href="" target="_blank"></el-link>
 </template>
 
 <script>
@@ -64,9 +66,11 @@ export default {
         }
       },
     open1() {
+      const less = "https://github.com/Yu-dongxing/ResourceLibrarySystem-Vue/issues"
       this.$notify({
         title: '欢迎访问资源库系统！',
-        message: '本系统为个人学习项目，数据来源于网络搜集，如有侵权，请联系删除',
+        dangerouslyUseHTMLString: true,
+        message: '本系统为个人学习项目，数据来源于网络搜集，如有侵权，请联系删除<br>如出现问题请跳转<a href="'+less+'" target="_blank"><button>反馈</button></a>页面',
         type: 'success',
       });
     },

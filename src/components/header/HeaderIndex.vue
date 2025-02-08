@@ -89,7 +89,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  height: 60px;
+  height: 45px;
   background-color: var(--bg-200);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

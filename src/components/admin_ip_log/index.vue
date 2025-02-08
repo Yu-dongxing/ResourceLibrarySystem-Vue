@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="ip_log" style="width: 100%">
+    <el-table :data="ip_log" style="width: 100%"  v-loading="isLoading">
       <el-table-column prop="ipAddress" label="IP地址">
       </el-table-column>
       <el-table-column prop="ipAccessTime" label="访问时间">
@@ -28,12 +28,14 @@ export default {
     data(){
         return {
             ip_log:[],
+            isLoading: true,
         }
     },
     methods:{
         async getIpLog(){
             try{
                 const res = await iplogApi.getallIplog()
+                this.setIsLoading()
                 console.log(res);
                 this.ip_log = res.data
             } catch(error){
@@ -41,6 +43,9 @@ export default {
             }
             
         },
+        setIsLoading(){
+            this.isLoading = !this.isLoading
+        }
     },
     mounted(){
         this.getIpLog();
