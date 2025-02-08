@@ -28,6 +28,23 @@
         <el-table-column prop="updateTime" label="更新时间" />
       </el-table>
     </div>
+    
+    <div class="search-card" v-loading="isLoading" v-if="resouce_data.length != 0" >
+      <el-button 
+      v-for="(item,index) in resouce_data" :key="index" 
+      type="primary" 
+      tag="a" 
+      :href="item.url" 
+      target="_blank" 
+      color="#626aef"
+      round
+      >
+      {{item.name}}
+      </el-button>
+    </div>
+    <div class="search-nothing" v-else>
+      <p>没有找到相关资源</p>
+    </div>
   </div>
 </template>
 
@@ -39,19 +56,29 @@ export default {
     return {
       keyword: '', // 用于存储关键字
       resouce_data:[],
+      isLoading:true,
     };
   },
   methods:{
     //根据关键字搜索资源searchResource(keyword)
     async searchResource(keyword){
       try{
+        this.isLoading = true
         const res = await resourceApi.searchResource(keyword);
         this.resouce_data = res.data;
+        this.isLoading = false
         console.log(res);
       } catch(error){
+        this.isLoading = false
         console.log(error);
       }
-    }
+    },
+    setIsLoading() {
+      this.isLoading = !this.isLoading;
+    },
+    setTrueLoading() {
+      this.isLoading = true;
+    },
   },
   watch: {
     // 监听 $route.query.keyword 的变化
@@ -72,5 +99,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+.el-button+.el-button {
+    margin-left: 0px;
+}
+.search{
+  display: none;
+}
+.search-card{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(20px, 1fr));
+  grid-gap: 10px;
+}
 </style>

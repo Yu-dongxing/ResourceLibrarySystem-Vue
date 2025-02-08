@@ -1,9 +1,12 @@
 <template>
     <!-- v-loading.fullscreen.lock="fullscreenLoading"   v-for="item in reversedItems" :key="item.id" @click="getData()"-->
     <div  v-loading.fullscreen.lock="isLoading"  element-loading-text="Loading...">
-        <div class="devOrpro">
+        <!-- <div >
+            <Search_App/>
+        </div> -->
+        <!-- <div class="devOrpro">
             <el-switch v-model="isDev" />
-        </div>
+        </div> -->
         <!-- 自己设计的卡片布局 -->
         <div class="main-index" v-if="isDev">
             <div class="item" v-for="item in reversedItems" :key="item.id">
@@ -13,7 +16,9 @@
                 </div>
                 <div class="item-right" >
                     <div class="item-right-title">
+                        <!-- <p><el-text size="large" truncated>{{ item.name }}</el-text></p> -->
                         <p>{{ item.name }}</p>
+                        <!-- <el-text size="large" truncated>{{ item.name }}</el-text> -->
                     </div>
                     <div class="contion-tags">
                             <el-tag>
@@ -71,10 +76,11 @@
 </template>
 <script>
 import { resourceApi } from '@/api/resource'
-
+import Search_App from '@/components/Search_App/index.vue'
 export default {
   name: 'MainIndex',
   components: {
+    Search_App
   },
   data () {
     return {
@@ -227,6 +233,9 @@ a {
             border-radius: var(--border-radius-de);
             border-radius: 25px;
             margin-right: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             img {
                 width: 100%;
                 height: 100%;
@@ -241,6 +250,7 @@ a {
             .item-right-title{
                 padding: 10px;
                 padding-left: 0;
+                // width: 400px;
                 p{
                     min-width: 200px;
                     font-size: 18px;
@@ -296,6 +306,9 @@ a {
   .main-index{
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
+//   .item-right-title{
+//     width: 300px;
+//   }
 }
 .devOrpro{
     position: absolute;

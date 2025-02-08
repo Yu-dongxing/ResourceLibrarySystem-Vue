@@ -31,7 +31,7 @@ const routes = [
     path:'/add',
     name:'AddResouce',
     component: ()=>import('@/components/AddResouce/index.vue'),
-    meta: { requiresAuth: true }
+    // meta: { requiresAuth: true }
   },
   {
     path:'/user',
