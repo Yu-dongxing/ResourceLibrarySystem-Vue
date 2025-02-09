@@ -20,6 +20,13 @@
             </el-icon>
         </el-button>
       </template>
+      <!-- <template #prepend>
+        <el-select v-model="search_select" placeholder="选择" style="width: 115px">
+          <el-option label="Restaurant" value="1" />
+          <el-option label="Order No." value="2" />
+          <el-option label="Tel" value="3" />
+        </el-select>
+      </template> -->
     </el-input>
     </div>
     <div class="header-right">
@@ -71,6 +78,7 @@ export default {
       {id:4,icon:"User",link:'/user',title:'用户'}
     ],
     search_keyword:'',
+    search_select:['标签','标题']
     }
   },
   computed: {
@@ -131,7 +139,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-de);
+    // border-radius: var(--border-radius-de);
+    border-radius: 5px;
     img{
       width: 30px;
       height: 30px;
