@@ -11,8 +11,11 @@
         <div class="main-index" v-if="isDev">
             <div class="item" v-for="item in reversedItems" :key="item.id">
                 <div class="item-img">
+                    <div class="iimg">
+                        <el-image :src="item.img" fit="cover" />
+                    </div>
                     <!-- <img :src="item.img" alt="depng"> -->
-                    <el-image :src="item.img" fit="cover" />
+                    
                 </div>
                 <div class="item-right" >
                     <div class="item-right-title">
@@ -30,10 +33,12 @@
                                 {{ item.tab }}</el-tag> 
                     </div>
                     <div class="item-right-button">
-                        <a class="button" :href="item.url" target="_blank">
+                        <!-- <a class="button" :href="item.url" target="_blank">
                             <img src="@/assets/info/info.svg" alt="info">
                             查看
-                        </a>
+                        </a> -->
+
+                        <el-button class="button"  @click="goDetail(item.id)"><img src="@/assets/info/info.svg" alt="info">查看</el-button>
                     </div>
                 </div>
             </div>
@@ -228,20 +233,24 @@ a {
         box-shadow: var(--box-shadow-de); /* 设置元素的阴影效果，使用CSS变量--box-shadow-de定义的阴影样式 */
         background-image: linear-gradient(to right, var(--bg-100), var(--bg-200));
         .item-img {
-            width: 100px;
-            height: 100px;
-            border-radius: var(--border-radius-de);
-            border-radius: 25px;
+            
+            // border-radius: var(--border-radius-de);
+            // border-radius: 25px;
             margin-right: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            img {
+            .iimg{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100px;
+                height: 100px;
+                img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover; /* 确保图片填充 */
                 border-radius: 25px;
+                }
             }
+            
         }
         .item-right{
             flex: 1;

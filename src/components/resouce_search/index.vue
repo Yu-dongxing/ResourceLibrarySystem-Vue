@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  v-loading="isLoading">
     <div class="search">
       <el-table :data="resouce_data"  style="width: 100%">
         <el-table-column prop="name" label="资源名称" width="180" />
@@ -29,7 +29,7 @@
       </el-table>
     </div>
     
-    <div class="search-card" v-loading="isLoading" v-if="resouce_data.length != 0" >
+    <div class="search-card" v-if="resouce_data.length != 0" >
       <el-button 
       v-for="(item,index) in resouce_data" :key="index" 
       type="primary" 
@@ -37,7 +37,7 @@
       :href="item.url" 
       target="_blank" 
       color="#626aef"
-      round
+      
       >
       {{item.name}}
       </el-button>
