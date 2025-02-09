@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- {{ user }} -->
     <el-table :data="ip_log" style="width: 100%"  v-loading="isLoading">
       <el-table-column prop="ipAddress" label="IP地址">
       </el-table-column>
@@ -23,12 +24,14 @@
 
 <script>
 import { iplogApi } from '@/api/ip_log'
+import store from '@/store'
 export default {
     name: 'admin_ip_log',
     data(){
         return {
             ip_log:[],
             isLoading: true,
+            user: store.state.user.userInfo
         }
     },
     methods:{
@@ -45,7 +48,7 @@ export default {
         },
         setIsLoading(){
             this.isLoading = !this.isLoading
-        }
+        },
     },
     mounted(){
         this.getIpLog();

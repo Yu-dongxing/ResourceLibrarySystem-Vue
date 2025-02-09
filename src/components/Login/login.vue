@@ -1,78 +1,97 @@
 <template>
     <div class="login">
-        <div class="login-lift-from">
+        <el-card class="login-lift-from" shadow="hover">
             <div class="from-title">
                 <p>{{isLoginOrSign?"登录":"注册" }}</p>
             </div>
             <!-- 登录 -->
             <div class="from-input" v-if="isLoginOrSign">
-                <div class="input-text">
-                    <p>手机号:</p>
-                </div>
-                <el-input class="input" 
-                v-model="login_from.phone"  
-                placeholder="请输入手机号" 
-                clearable
-                />
-                <div class="input-text">
-                    <p>密码:</p>
-                </div>
-                <el-input class="input" 
-                type="password" 
-                v-model="login_from.password"  
-                placeholder="请输入密码" 
-                clearable
-                show-password
-                />
+                <el-form label-position="top">
+                    <el-form-item label="手机号：">
+                        <el-input class="input" 
+                            v-model="login_from.phone"  
+                            placeholder="请输入手机号" 
+                            clearable
+                            >
+                            <template #prepend>
+                                <el-icon><User /></el-icon>
+                            </template>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="密码：">
+                        <el-input class="input" 
+                            type="password" 
+                            v-model="login_from.password"  
+                            placeholder="请输入密码" 
+                            clearable
+                            show-password>
+                            <template #prepend>
+                                <el-icon><Lock /></el-icon>
+                            </template>
+                            
+                        </el-input>
+                    </el-form-item>
+                </el-form>
             </div>
             <!-- 注册 -->
             <div class="from-input" v-else>
-                <div class="input-text">
-                    <p>姓名:</p>
-                </div>
-                <el-input class="input" 
-                v-model="sign_from.username"  
-                placeholder="请输入姓名" 
-                clearable
-                />
-                <div class="input-text">
-                    <p>手机:</p>
-                </div>
-                <el-input class="input" 
+                <el-form label-position="top">
+                    <el-form-item label="姓名:">
+                        <el-input class="input" 
+                        v-model="sign_from.username"  
+                        placeholder="请输入姓名" 
+                        clearable
+                        /></el-form-item>
+                <el-form-item label="手机:"><el-input class="input" 
                 v-model="sign_from.phone"  
                 placeholder="请输入手机号" 
                 clearable
-                />
-                <div class="input-text">
-                    <p>密码:</p>
-                </div>
-                <!-- 输入密码时调用两个密码检查函数 -->
-                <el-input class="input" 
+                /></el-form-item>
+                <el-form-item label="密码:"><el-input class="input" 
                 type="password" 
                 v-model="sign_from.password"  
                 placeholder="请输入密码" 
                 clearable
                 show-password
-                />
-                <el-input class="input" 
+                /></el-form-item>
+                <el-form-item label="确认密码:"><el-input class="input" 
                 type="password" 
                 v-model="sign_from.aspassword"  
                 placeholder="请再次输入密码" 
                 clearable
                 show-password
-                />
-                <el-radio-group v-model="sign_from.roleId">
+                /></el-form-item>
+                <el-form-item label="选择角色:">
+                    <el-select v-model="sign_from.roleId" placeholder="请选择角色">
+                    <el-option
+                        v-for="item in roles"
+                        :key="item.id"
+                        :label="item.description"
+                        :value="item.id"
+                        >
+                    </el-option>
+                </el-select>
+                </el-form-item>
+                </el-form>
+                
+                
+                
+                <!-- 输入密码时调用两个密码检查函数 -->
+                
+                
+                <!-- <el-radio-group v-model="sign_from.roleId">
                     <el-radio v-for="(item,index) in roles" :key="index" :value="item.id">{{ item.description }}</el-radio>
-                </el-radio-group>
+                </el-radio-group> -->
+                
                 
             </div>
             <div class="from-button">
                 <el-button class="button" type="primary" @click="loginOrsign()">{{isLoginOrSign?"登录":"注册" }}</el-button>
             </div>
             <div class="from-isLoginOrSign" @click="SetisLoginOrSign()">
-                <p>{{isLoginOrSign?"没有账号？点击注册！":"已有账号，点击登录！" }}</p>
+                <el-text>{{isLoginOrSign?"没有账号？点击注册！":"已有账号，点击登录！" }}</el-text>
             </div>
-        </div>
+        </el-card>
         <div class="login-right-contion">
             <!-- <el-image class="imge" src="/png/sql-5.png" fit="cover" width="100%" height="100%"></el-image> -->
             <img class="imge" src="../../assets/png/sql-5.png" alt="">
@@ -95,7 +114,7 @@ export default {
                 password:'',
                 aspassword:'',
                 phone:'',
-                roleId:0
+                roleId:2
             },
             roles:[],
             isLoginOrSign:true,
@@ -207,6 +226,10 @@ export default {
         }
     },
     mounted(){
+    },
+    computed:{
+        roleList(){
+        }
     }
 }
 </script>

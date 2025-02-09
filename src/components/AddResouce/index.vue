@@ -21,7 +21,10 @@
             <el-button  @click="resetSubmit">重置</el-button>
           </el-form-item>
         </el-form>
-        <el-text style="color: var(--text-200);"><el-icon><InfoFilled /></el-icon>提交后资源将进入审核阶段，审核通过后资源将展示在首页</el-text>
+        <el-card>
+          <el-text style="color: var(--text-200);"><el-icon><InfoFilled /></el-icon>提交后资源将进入审核阶段，审核通过后资源将展示在首页</el-text>
+        </el-card>
+        
       </el-card>
       
     </div>
