@@ -1,7 +1,11 @@
 <template>
   <div class="details">
     <el-card shadow="hover" class="ccard display-center margin-top-10" >{{this.resource.name}}</el-card>
-    <el-card shadow="hover" class="ccard">
+    <el-card shadow="hover" class="ccard display-center" >
+      <el-button tag="a" :href="resource.url" target="_blank" size="large" type="success">点击跳转<el-icon><CircleCheckFilled /></el-icon></el-button>
+    </el-card>
+    <el-card shadow="hover" class="ccard" v-if="this.url_info.title">
+      <!-- v-if="this.getWebsiteInfo(this.resource.url)" -->
       <template #header>
         <div class="card-header card-header">
           <el-icon color="#409eff"><Document /></el-icon>
@@ -11,7 +15,6 @@
       <el-text>网站标题：{{ this.url_info.title }}</el-text>
       <el-divider />
       <el-text>网站介绍：{{ this.url_info.description }}</el-text>
-      <el-divider />
     </el-card>
     <el-card shadow="hover" class="ccard">
       <template #header>
@@ -35,9 +38,7 @@
       <el-divider />
       <el-text>资源创建时间：{{ this.resource.createTime }}</el-text>
     </el-card>
-    <el-card shadow="hover" class="ccard display-center" >
-      <el-button tag="a" :href="resource.url" target="_blank" size="large" type="success">点击跳转<el-icon><CircleCheckFilled /></el-icon></el-button>
-    </el-card>
+    
   </div>
 </template>
 
@@ -78,9 +79,11 @@ export default {
           const data = await response.json();
           this.url_info=data.data;
           console.log(data.data);
+          return true;
           // 处理数据
         } catch (error) {
           console.error(error);
+          return false;
         }
       }
 
@@ -108,9 +111,15 @@ export default {
 .display-inline{
   // display: inline;
 }
+.details{
+  // display: grid;
+  // grid-template-columns: repeat(3, 1fr);
+  // grid-gap: 10px;
+}
 .ccard{
   border-radius:15px ;
   margin-bottom: 10px;
+  // aspect-ratio: 16/9;
 }
 .card-header{
   display: flex;

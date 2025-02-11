@@ -21,9 +21,10 @@
             <el-button  @click="resetSubmit">重置</el-button>
           </el-form-item>
         </el-form>
-        <el-card>
-          <el-text style="color: var(--text-200);"><el-icon><InfoFilled /></el-icon>提交后资源将进入审核阶段，审核通过后资源将展示在首页</el-text>
-        </el-card>
+        <!-- <el-card> -->
+          <!-- <el-text style="color: var(--text-200);"><el-icon><InfoFilled /></el-icon>提交后资源将进入审核阶段，审核通过后资源将展示在首页</el-text> -->
+          <el-alert class="board-rids-10" title="提交后资源将进入审核阶段，审核通过后资源将展示在首页" type="info" show-icon />
+        <!-- </el-card> -->
         
       </el-card>
       
@@ -122,5 +123,7 @@ export default {
 </script>
 
 <style>
-
+.board-rids-10{
+  border-radius: 10px;
+}
 </style>
