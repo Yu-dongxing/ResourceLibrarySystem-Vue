@@ -4,7 +4,7 @@
     <el-card shadow="hover" class="ccard display-center" v-if="resource.tab !='文件'">
       <el-button tag="a" :href="this.resource.url" target="_blank" size="large" type="success">点击跳转<el-icon><CircleCheckFilled /></el-icon></el-button>
     </el-card>
-    <el-card shadow="hover" class="ccard" v-if="this.url_info.title">
+    <el-card shadow="hover" class="ccard" v-if="resource.tab !='文件'">
       <!-- v-if="this.getWebsiteInfo(this.resource.url)" -->
       <template #header>
         <div class="card-header card-header">
@@ -92,16 +92,20 @@ export default {
       },
       // 获取网站详细信息 https://api.ahfi.cn/api/websiteinfo?url=
       async getWebsiteInfo(url) {
-        try {
-          const response = await fetch(`https://api.ahfi.cn/api/websiteinfo?url=${url}`);
-          const data = await response.json();
-          this.url_info=data.data;
-          console.log(data.data);
-          return true;
-          // 处理数据
-        } catch (error) {
-          console.error(error);
-          return false;
+        if(this.resource.tab =='文件'){
+          console.log("不执行");
+        }else{
+          try {
+            const response = await fetch(`https://api.ahfi.cn/api/websiteinfo?url=${url}`);
+            const data = await response.json();
+            this.url_info=data.data;
+            console.log(data.data);
+            return true;
+            // 处理数据
+          } catch (error) {
+            console.error(error);
+            return false;
+          }
         }
       }
 
