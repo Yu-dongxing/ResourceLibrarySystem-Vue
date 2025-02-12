@@ -39,6 +39,13 @@ const routes = [
     component:()=>import('@/views/userControl.vue'),
     meta: { requiresAuth: true }
   },
+  // 添加 资源文件类型添加页面
+  {
+    path:'/addresourcefile',
+    name:'AddResourceFile',
+    component:()=>import('@/components/AddFileResource/index.vue'),
+    meta: { requiresAuth: true }
+  },
   // 添加资源搜索页面路由
   {
     path:'/search',

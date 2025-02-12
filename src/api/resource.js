@@ -40,10 +40,10 @@ export const resourceApi = {
       }
     })
   },
-  // 根据id获取资源/public/get/{id}
+  // 根据id获取资源/public/get/{id}  /public/get/resourcefile/{id}
   getResourceById(id) {
     return request({
-      url: '/public/get/'+id,
+      url: '/public/get/resourcefile/'+id,
       method: 'get'
     })
   },
@@ -67,5 +67,28 @@ export const resourceApi = {
       url: '/admin/audit/',
       method: 'get'
     })
+  },
+// 提交资源文件
+  submitResourceFile(resourceData) {
+    const formData = new FormData();
+    
+    // 如果有多个文件，需要逐个添加到FormData中
+    if (Array.isArray(resourceData.files)) {
+      resourceData.files.forEach((file, index) => {
+        formData.append(`files`, file); // 为每个文件添加到FormData
+      });
+    } else {
+      // 如果只有一个文件，直接添加
+      formData.append('files', resourceData.files);
+    }
+
+    // 添加资源数据
+    formData.append('resourceData', JSON.stringify(resourceData.resourceData));
+
+    return request({
+      url: '/admin/add',
+      method: 'post',
+      data: formData, // 提交的表单数据
+    });
   }
 } 
