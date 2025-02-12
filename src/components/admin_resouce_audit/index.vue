@@ -48,6 +48,7 @@ export default {
             try{
                 const res = await resourceApi.ResourceAudit()
                 this.resouce_data = res.data
+                console.log(res.data);
             } catch(e){
                 console.log(e)
             }
