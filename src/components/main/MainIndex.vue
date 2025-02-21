@@ -241,16 +241,15 @@ a {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 100px;
-                height: 100px;
+                width: 60px;
+                height: 60px;
                 img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover; /* 确保图片填充 */
-                border-radius: 25px;
+                border-radius: 15px;
                 }
             }
-            
         }
         .item-right{
             flex: 1;
@@ -259,7 +258,6 @@ a {
             .item-right-title{
                 padding: 10px;
                 padding-left: 0;
-                // width: 400px;
                 p{
                     min-width: 200px;
                     font-size: 18px;
@@ -267,7 +265,7 @@ a {
                     color: var(--text-100);
                     margin: 0;
                 }
-            }
+            } 
             .contion-tags{
                     .el-tag__content{
                         display: flex;
@@ -315,9 +313,6 @@ a {
   .main-index{
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
-//   .item-right-title{
-//     width: 300px;
-//   }
 }
 .devOrpro{
     position: absolute;

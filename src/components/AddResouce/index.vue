@@ -15,6 +15,10 @@
             <el-input @change="extractDomain" v-model="from.url" placeholder="请输入资源地址" />
           </el-form-item>
 
+          <el-form-item label="资源说明:" >
+            <el-input type="textarea" autosize  v-model="from.desc" placeholder="请输入资源说明" />
+          </el-form-item>
+
 
           <el-form-item label="资源图标(资源地址输入完成后点击图标输入框自动获取网站图标):">
             <el-input v-model="from.img" placeholder="请输入资源展示图标" />
@@ -47,6 +51,7 @@
 import { resourceApi } from '@/api/resource'
 import { ElMessage } from 'element-plus'
 
+
 export default {
     name: 'AddResouce',
     data() {
@@ -56,6 +61,7 @@ export default {
           url: '',
           tag: ['文章'],
           author: 'Guest', // 默认作者
+          desc:"",
           img: 'https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*PXAJTYXseTsAAAAAAAAAAAAADvuFAQ/original' // 默认图片
           // img:this.extractDomain(url)  // 默认图片
         },

@@ -8,7 +8,8 @@ export default {
     name: 'Admin_Log_data',
     data() {
         return {
-
+            date:[],
+            
         }
     },
     methods: {

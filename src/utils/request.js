@@ -6,10 +6,7 @@ import router from '@/router'
 // 创建axios实例
 const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  // https://resourcelibrarysystem.api.yuxs.top/
-  // baseURL: 'http://localhost:8081/api/resources',VUE_APP_BASE_API
-  // baseURL: 'https://resourcelibrarysystem.api.yuxs.top/api/resources',
-  timeout: 5000 // 请求超时时间
+  timeout: 50000 // 请求超时时间
 })
 
 // 请求拦截器

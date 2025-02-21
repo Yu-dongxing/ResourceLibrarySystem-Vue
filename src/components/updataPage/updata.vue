@@ -1,26 +1,37 @@
 <template>
+  <div class="updata-log-page">
     <el-timeline style="max-width: 600px">
-      <el-timeline-item v-for="(item,index) in reversedUpdataLog" :key="index" :timestamp="item.date" placement="top" :type="item.type" hollow="false">
+      <el-timeline-item v-for="(item,index) in UpdataLog" :key="index" :timestamp="item.logCreatTime" placement="top" :type="item.type" :hollow="item.hollow">
         <!-- 'primary' | 'success' | 'warning' | 'danger' | 'info' -->
-        <el-card>
-          <h4>{{ item.content }}</h4>
+        <el-card class="ccard">
+          <template #header>
+            <div class=" card-header" >
+              <el-icon style="margin-right: 5px;" color="#409eff"><Bell /></el-icon>
+              <el-text type="primary" size="large">{{item.logTitle}}</el-text>
+            </div>
+          </template>
+          <!-- <h4>{{ item.logTitle }}</h4> -->
           <p>{{ item.desc }}</p>
         </el-card>
       </el-timeline-item>
     </el-timeline>
+  </div>
+    
 </template>
 
 <script>
+import { Update_Log_Api } from '@/api/update_log';
 export default {
   data() {
     return {
-      UpdataLog:[
-        {id:1, date:'2024/11/21',content:'创建前端项目',desc:"完成资源库功能设计",type:"success",hollow:"true"},
-        {id:2,date:'2024/12/25',content:'创建后端项目',desc:"完成后端开发设计",type:"info",hollow:"false"},
-        {id:3,date:'2025/1/2',content:'更新样式',desc:"完善UI功能设计",type:"success",hollow:"true"},
-        {id:4,date:'2025/1/12',content:'完成后端模块',desc:"完成后端用户功能模块设计",type:"success",hollow:"true"},
-
-      ]
+      UpdataLog:[]
+    }
+  },
+  methods:{
+    async getUpdataLog(){
+      const res = await Update_Log_Api.getAllLog();
+      console.log(res)
+      this.UpdataLog =res.data;
     }
   },
   mounted() {
@@ -32,10 +43,31 @@ export default {
       return this.UpdataLog.slice().reverse();
     }
   },
+  created() {
+    this.getUpdataLog();
+  },
 
 }
 </script>
 
 <style>
-
+.updata-log-page{
+  margin-top: 25px;
+}
+.ccard{
+  border-radius:15px ;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.card-header{
+  display: flex;
+  align-items: center;
+  color: var(--el-text-color);
+}
+.header{
+  padding: 5px;
+}
+.el-card__header{
+  padding: 5px;
+}
 </style>

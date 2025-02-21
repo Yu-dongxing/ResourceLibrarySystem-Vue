@@ -52,6 +52,10 @@
                 <el-tab-pane label="待审核资源" name='5' v-if="userInfo?.roleName === 'admin'">
                     <admin_resouce_audit></admin_resouce_audit>
                 </el-tab-pane>
+                <el-tab-pane label="更新日志管理"  name='6' >
+                    <admin_update_log_data/>
+                </el-tab-pane>
+
             </el-tabs>
         </el-card>
         
@@ -69,13 +73,15 @@ import admin_Users_data from '../components/admin_Users_data/index.vue'
 import  admin_ip_log  from '@/components/admin_ip_log/index.vue'
 import userControlServer from "@/components/userControlServer/index.vue"
 import admin_resouce_audit from "@/components/admin_resouce_audit/index.vue"
+import admin_update_log_data from "@/components/admin_update_log_data/index.vue"
 export default {
     components: {
         admin_Resouce_data,
         admin_Users_data,
         userControlServer,
         admin_ip_log,
-        admin_resouce_audit
+        admin_resouce_audit,
+        admin_update_log_data
     },
     data(){
         return {
