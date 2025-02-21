@@ -4,6 +4,16 @@
     <el-card shadow="hover" class="ccard display-center" v-if="resource.tab !='文件'">
       <el-button tag="a" :href="this.resource.url" target="_blank" size="large" type="success">点击跳转<el-icon><CircleCheckFilled /></el-icon></el-button>
     </el-card>
+    <el-card shadow="hover" class="ccard" >
+      <!-- v-if="this.getWebsiteInfo(this.resource.url)" -->
+      <template #header>
+        <div class="card-header card-header">
+          <el-icon  color="#409eff"><QuestionFilled /></el-icon>
+          <el-text type="primary" size="large">资源说明</el-text>
+        </div>
+      </template>
+      <el-text>{{ resource.desc }}</el-text>
+    </el-card>
     <el-card shadow="hover" class="ccard" v-if="resource.tab !='文件'">
       <!-- v-if="this.getWebsiteInfo(this.resource.url)" -->
       <template #header>

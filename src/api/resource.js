@@ -90,5 +90,33 @@ export const resourceApi = {
       method: 'post',
       data: formData, // 提交的表单数据
     });
+  },
+  // 
+  // 提交文件资源中的资源数据
+  submitResourceData(resourceData) {
+    return request({
+      url: '/admin/add/new',
+      method: 'post',
+      data: resourceData
+    })
+  },
+  // 提交文件资源中的文件数据
+  submitResourceFiles(files,resourceUUID) {
+    const formData = new FormData();
+    // 如果有多个文件，需要逐个添加到FormData中
+    if (Array.isArray(files)) {
+      files.forEach((file, index) => {
+        formData.append(`files`, file); // 为每个文件添加到FormData
+      });
+    } else {
+      // 如果只有一个文件，直接添加
+      formData.append('files', files);
+    }
+    return request({
+      url: '/admin/add/new/files/'+resourceUUID,
+      method: 'post',
+      data: formData
+    })
   }
+
 } 

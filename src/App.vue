@@ -21,6 +21,7 @@ import FooterIndex from './components/footer/FooterIndex.vue'
 import Search_App from '@/components/Search_App/index.vue'
 import axios from 'axios';
 import { iplogApi } from '@/api/ip_log'
+import {sysinfoApi} from '@/api/sys_info'
 export default {
   name: 'app',
   data(){
@@ -65,6 +66,21 @@ export default {
           // console.error('上传失败:', error)
         }
       },
+      // 获取系统欢迎信息
+      async getSysWelcomeInfo() {
+        try {
+          const res = await sysinfoApi.getSysWelcomeInfo();
+          console.log("系统欢迎信息",res);
+          this.$notify({
+            title: res.data.infoView,
+            dangerouslyUseHTMLString: true,
+            message: res.data.infoDesc,
+            type: 'success',
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      },
     open1() {
       const less = "https://github.com/Yu-dongxing/ResourceLibrarySystem-Vue/issues"
       this.$notify({
@@ -93,7 +109,7 @@ export default {
   created() {
     // console.log('创建后')
     this.getUserInfo()
-    this.open1() 
+    this.getSysWelcomeInfo()
   }
 
 }
