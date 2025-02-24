@@ -30,4 +30,19 @@ export const sysinfoApi = {
       method: 'get'
     })
   },
+//   查询所有系统信息
+  getAllSysInfo() {
+    return request({
+      url: '/public/sysinfo/all',
+      method: 'get'
+    })
+  },
+//   根据id更新系统信息
+  updateSysInfo(id,data) {
+    return request({
+      url: '/sysinfo/update/'+id,
+      method: 'post',
+      data
+    })
+  }
 }

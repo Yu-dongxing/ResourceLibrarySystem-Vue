@@ -79,6 +79,7 @@ export default {
         this.dialogVisible = false ;
         this.getUpdateLog();
       },
+      // 获取更新日志
       async getUpdateLog(){
         try{
           const cs =  await Update_Log_Api.getAllLog();
@@ -88,9 +89,38 @@ export default {
           console.log("请求错误：",e);
         }
       },
+      // 编辑日志
+      async updateLog(id,data){
+        try{
+          await Update_Log_Api.updateLog(id,data);
+          this.$message.success("更新成功");
+          console.log("更新成功");
+        }catch(e){
+          this.$message.success("更新失败");
+          console.log("更新失败：",e);
+        }
+      },
+      // 删除日志
+      async deleteLog(id){
+        try{
+          await Update_Log_Api.deleteLog(id);
+          this.$message.success("删除成功");
+          console.log("删除成功");
+        }catch(e){
+          this.$message.success("删除失败");
+          console.log("删除失败：",e);
+        }
+        this.getUpdateLog();
+      },
       // 编辑数据
       handleEdit(id){
         const log = this.findLogById(id);
+        this.from_update_log.desc=log.desc;
+        this.from_update_log.logTitle=log.logTitle;
+        this.from_update_log.type=log.type;
+        this.from_update_log.hollow=log.hollow;
+        this.dialogVisible = true;
+
         this.update_log = log;
       },
       // 删除数据
