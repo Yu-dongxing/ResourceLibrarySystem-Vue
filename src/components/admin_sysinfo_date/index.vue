@@ -1,36 +1,7 @@
 <template>
     <div class="admin-update-log-data">
       <div class="add-log">
-        <!-- <el-button plain @click="dialogVisible = true"> 添加 </el-button> -->
-        <!-- <el-dialog v-model="dialogVisible" title="添加系统信息" width="500"  >
-          <el-form  label-position="top" label-width="80px" :model="from_sys_info_data">
-              <el-form-item label="更新日志名称:">
-                <el-input v-model="from_update_log.logTitle" placeholder="请输入更新主题" />
-              </el-form-item>
-              <el-form-item label="更新日志详情:">
-                <el-input v-model="from_update_log.desc" placeholder="请输入更新详情" />
-              </el-form-item>
-              <el-select
-                v-model="from_update_log.type"
-                placeholder="Select"
-                size="large"
-                style="width: 240px"
-              >
-                <el-option
-                  v-for="(item , index) in log_type"
-                  :key="index"
-                  :label="item"
-                  :value="item"
-                />
-              </el-select>
-          </el-form>
-          <template #footer>
-            <div class="dialog-footer">
-              <el-button @click="dialogVisible = false">取消</el-button>
-              <el-button type="primary" @click="addUpdateLog()"> 提交 </el-button>
-            </div>
-          </template>
-        </el-dialog> -->
+        <el-alert class="board-rids-10" title="系统信息管理模块涉及重要信息，删除操作不可逆，默认无法直接删除" type="info" show-icon />
       </div>
       <div class="all-log">
        <el-table :data="sys_info_data">
@@ -43,27 +14,40 @@
           <el-table-column prop="infoUpdateTime" label="信息更新时间" />
           <el-table-column prop="infoId" label="操作">
             <template #default="scope">
-              <el-button size="small" @click="handleEdit(scope.row.logId)">编辑</el-button>
-              <el-button size="small" type="danger" @click="handleDelete(scope.row.logId)" > 删除 </el-button>
+              <el-button size="small" @click="handleEdit(scope.row.infoId)">编辑</el-button>
+              <el-button size="small" disabled type="danger" @click="handleDelete(scope.row.logId)" > 删除 </el-button>
             </template>
           </el-table-column>
         </el-table>
         <!-- 更新系统信息 -->
         <el-dialog v-model="dialogFormVisible" title="更新系统信息" width="500">
-            <el-form  label-position="top" label-width="80px" :model="sys_info">
+            <el-form  label-position="top" label-width="80px" :model="from_sys_info_data">
                 <el-form-item label="系统信息主题:">
-                  <el-input v-model="sys_info.infoTitle" placeholder="请输入系统信息主题" />
+                  <el-input v-model="from_sys_info_data.infoTitle" placeholder="请输入系统信息主题" />
                 </el-form-item>
                 <el-form-item label="信息字段:">
-                  <el-input v-model="sys_info.infoP" placeholder="请输入信息字段" />
+                  <el-input v-model="from_sys_info_data.infoP" placeholder="请输入信息字段" />
                 </el-form-item>
                 <el-form-item label="信息字段值:">
-                  <el-input v-model="sys_info.infoView" placeholder="请输入信息字段值" />
+                  <el-input v-model="from_sys_info_data.infoView" placeholder="请输入信息字段值" />
                 </el-form-item>
                 <el-form-item label="信息文本说明:">
-                  <el-input v-model="sys_info.infoDesc" placeholder="请输入信息文本说明" />
+                  <el-input v-model="from_sys_info_data.infoDesc" placeholder="请输入信息文本说明" />
                 </el-form-item>
                 <el-form-item label="信息状态:">
+                  <el-select
+                  v-model="from_sys_info_data.infoType"
+                  placeholder="Select"
+                  size="large"
+                  style="width: 240px"
+                >
+                  <el-option
+                    v-for="(item , index) in sys_info_type"
+                    :key="index"
+                    :label="item"
+                    :value="item"
+                  />
+                </el-select>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -92,29 +76,53 @@
                 infoDesc:"",
                 infoType:""
             },
+            from_sys_info_data_id:0,
             sys_info_data:[],
             sys_info:{},
+            sys_info_type:["success","info","warning","danger"],
             }
       },
       methods:{
         async addUpdatesysinfodata(){
+
         },
         async getsysinfodata(){
             try {
                 const res = await sysinfoApi.getAllSysInfo();
                 this.sys_info_data=res.data;
+
                 console.log(res.data);
-                
             } catch (error) {
                 console.log(error);
             }
         },
         // 编辑数据
         handleEdit(id){
+          console.log(id);
           const log = this.findLogById(id);
           console.log(log);
           this.sys_info = log;
+          this.from_sys_info_data_id=log.infoId;
+          this.from_sys_info_data.infoDesc=log.infoDesc;
+          this.from_sys_info_data.infoView=log.infoView;
+          this.from_sys_info_data.infoType=log.infoType;
+          this.from_sys_info_data.infoTitle=log.infoTitle;
+          this.from_sys_info_data.infoP=log.infoP;
           this.dialogFormVisible= true;
+        },
+        // 提交更新数据
+        async postFrom(){
+          try {
+            await sysinfoApi.updateSysInfo(this.from_sys_info_data_id, this.from_sys_info_data);
+            this.getsysinfodata();
+            this.dialogFormVisible = false;
+            this.$message.success("更新成功");
+            this.getsysinfodata();
+          } catch (error) {
+            console.log(error);
+            this.$message.success("更新失败"+error);
+            this.getsysinfodata();
+          }
         },
         // 删除数据
         // handleDelete(id){},

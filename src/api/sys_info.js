@@ -30,6 +30,13 @@ export const sysinfoApi = {
       method: 'get'
     })
   },
+  // 获取系统版权信息
+  getSysCopyrightInfo() {
+    return request({
+      url: '/public/sysinfo/findbuid/7',
+      method: 'get'
+    })
+  },
 //   查询所有系统信息
   getAllSysInfo() {
     return request({
