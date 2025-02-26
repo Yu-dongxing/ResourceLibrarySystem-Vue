@@ -1,8 +1,9 @@
 <template>
   <div class="admin-update-log-data">
     <div class="add-log">
-      <el-button plain @click="dialogVisible = true"> 添加 </el-button>
-      <el-dialog v-model="dialogVisible" title="添加日志" width="500"  >
+      <el-button plain @click="dialogVisible = true , isAdd = true"> 添加 </el-button>
+      <!--  -->
+      <el-dialog v-model="dialogVisible" :title=" isAdd ? '添加更新日志' : '编辑更新日志' " width="500"  >
         <el-form  label-position="top" label-width="80px" :model="from_update_log">
             <el-form-item label="更新日志名称:">
               <el-input v-model="from_update_log.logTitle" placeholder="请输入更新主题" />
@@ -31,6 +32,7 @@
           </div>
         </template>
       </el-dialog>
+      <!--  -->
     </div>
     <div class="all-log">
       <el-table :data="log_date">
@@ -55,6 +57,8 @@ export default {
     data(){
         return{
           dialogVisible:false,
+          isAdd:true,
+          edit_id:0,
           log_type:["success","info","warning","danger"],
           from_update_log:{
             logTitle: "测试日志-2",
@@ -68,17 +72,26 @@ export default {
     },
     methods:{
       async addUpdateLog(){
-        try{
-          await Update_Log_Api.addlog(this.from_update_log);
-          this.$message.success("添加成功");
-          console.log("添加成功");
-        }catch(e){
-          this.$message.success("添加失败");
-          console.log("添加失败：",e);
+        if(this.isAdd){
+          try{
+            await Update_Log_Api.addlog(this.from_update_log);
+            this.$message.success("添加成功");
+            console.log("添加成功");
+            this.getUpdateLog();
+          }catch(e){
+            this.$message.success("添加失败");
+            console.log("添加失败：",e);
+            this.getUpdateLog();
+          }
+        }else{
+          this.updateLog(this.edit_id,this.from_update_log)
+          console.log("编辑");
         }
+        
         this.dialogVisible = false ;
         this.getUpdateLog();
       },
+      // 获取更新日志
       async getUpdateLog(){
         try{
           const cs =  await Update_Log_Api.getAllLog();
@@ -88,13 +101,54 @@ export default {
           console.log("请求错误：",e);
         }
       },
+      // 编辑日志
+      async updateLog(id,data){
+        try{
+          await Update_Log_Api.updateLog(id,data);
+          this.$message.success("更新成功");
+          console.log("更新成功");
+          this.getUpdateLog();
+        }catch(e){
+          this.$message.success("更新失败");
+          console.log("更新失败：",e);
+          this.getUpdateLog();
+        }
+      },
+      // 删除日志
+      async deleteLog(id){
+        try{
+          await Update_Log_Api.deleteLog(id);
+          this.$message.success("删除成功");
+          console.log("删除成功");
+        }catch(e){
+          this.$message.success("删除失败");
+          console.log("删除失败：",e);
+        }
+        this.getUpdateLog();
+      },
       // 编辑数据
       handleEdit(id){
+        this.isAdd = false;
         const log = this.findLogById(id);
+        this.edit_id = id;
+        this.from_update_log.desc=log.desc;
+        this.from_update_log.logTitle=log.logTitle;
+        this.from_update_log.type=log.type;
+        this.from_update_log.hollow=log.hollow;
+        this.dialogVisible = true;
+
         this.update_log = log;
       },
       // 删除数据
-      handleDelete(id){},
+      handleDelete(id){
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteLog(id);
+        })
+      },
       // 传入id-根据id寻找log_date中对应id是数据-返回数据
       findLogById(id) {
         const loge = this.log_date.find(log => log.logId === id);

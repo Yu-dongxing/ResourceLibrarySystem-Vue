@@ -41,7 +41,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog v-model="dialogFormVisible" title="资源编辑" width="500">
+    <el-dialog v-model="dialogFormVisible" title="资源编辑" >
       <el-form :model="resouce_from" label-position="top">
         <el-form-item label="资源名">
           <el-input  v-model="resouce_from.name" autocomplete="off" />
@@ -49,12 +49,29 @@
         <el-form-item label="资源地址">
           <el-input v-model="resouce_from.url" autocomplete="off" />
         </el-form-item>
+        <el-form-item label="资源说明">
+          <!-- <el-input v-model="resouce_from.desc" autocomplete="off" /> -->
+          <el-input type="textarea" autosize  v-model="resouce_from.desc" placeholder="请输入资源说明" />
+        </el-form-item>
         <el-form-item label="资源图片">
           <el-input v-model="resouce_from.img" autocomplete="off" />
         </el-form-item>
         <el-form-item label="资源标签">
           <el-input v-model="resouce_from.tab" autocomplete="off" />
         </el-form-item>
+        
+        <el-card>
+          <FileUpload :resourceid="resourceFileId"></FileUpload>
+        </el-card>
+
+        <el-table :data="file_list" height="250" style="width: 100%">
+          <el-table-column prop="fileName" label="资源文件名称" />
+          <el-table-column prop="id" label="操作">
+        <template #default="scope">
+          <el-button size="small" type="danger" @click="deleteFile(scope.row.id)" >删除</el-button>
+        </template>
+      </el-table-column>
+        </el-table>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -80,8 +97,10 @@
 
 <script>
 import { resourceApi } from '@/api/resource'
+import FileUpload from '@/components/FileUpload.vue'
 export default {
 name: 'admin_Resouce_data',
+components:{FileUpload},
 data(){
     return {
         resouce_data:[],
@@ -90,10 +109,13 @@ data(){
           name: '',
           url: '',
           tab: '',
-          img: '' 
+          img: '' ,
+          desc:'',
         },
+        file_list:[],
         resouce_update_id: '',
         resouce_delete_id: '',
+        resourceFileId:"",
     }
 },
 methods:{
@@ -149,7 +171,10 @@ methods:{
           this.resouce_from.url = res.data.url
           this.resouce_from.tab = res.data.tab
           this.resouce_from.img = res.data.img
-          
+          this.resouce_from.desc = res.data.desc
+          this.resourceFileId = res.data.resourceFileId
+          this.file_list = res.data.fileData
+          console.log(this.resourceFileId);
         }else{
           console.log('获取资源失败',res)
         }
@@ -180,6 +205,21 @@ methods:{
       }).catch(() => {
         this.$message
       });
+    },
+    async deleteFile(id){
+      try{
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          await resourceApi.deleteResourceFile(id);
+          this.$message.success('删除成功');
+        this.getData(); // 刷新数据
+        })
+      } catch(error){
+        console.log("删除失败",error);
+      }
     }
 },
 

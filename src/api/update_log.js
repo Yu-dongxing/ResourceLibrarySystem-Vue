@@ -23,4 +23,19 @@ export const Update_Log_Api = {
       data
     })
   },
+  // 更新日志
+  updateLog(id,data){
+    return request({
+      url: '/updatelog/update/'+id,
+      method: 'put',
+      data
+    })
+  },
+  // 删除日志
+  deleteLog(id){
+    return request({
+      url: '/updatelog/delete/'+id,
+      method: 'get'
+    })
+  }
 }

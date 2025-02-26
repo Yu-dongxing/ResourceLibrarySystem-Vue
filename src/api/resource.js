@@ -5,7 +5,7 @@ export const resourceApi = {
   // 获取资源列表
   getResources() {
     return request({
-      url: '/public/get',
+      url: '/public/get/resourcefile',
       method: 'get'
     })
   },
@@ -36,7 +36,8 @@ export const resourceApi = {
         name: data.name,
         url: data.url,
         tab: data.tab,
-        img: data.img
+        img: data.img,
+        desc:data.desc,
       }
     })
   },
@@ -116,6 +117,20 @@ export const resourceApi = {
       url: '/admin/add/new/files/'+resourceUUID,
       method: 'post',
       data: formData
+    })
+  },
+  // 获取资源文件列表
+  getResourceFiles(fileid) {
+    return request({
+      url: '/public/get/resourcefile/'+id,
+      method: 'get'
+    })
+  },
+  // 根据id删除资源文件/ftp/delete
+  deleteResourceFile(id) {
+    return request({
+      url: '/ftp/delete?fileId='+id,
+      method: 'delete'
     })
   }
 

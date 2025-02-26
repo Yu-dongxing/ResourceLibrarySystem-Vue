@@ -33,11 +33,9 @@
       <el-button 
       v-for="(item,index) in resouce_data" :key="index" 
       type="primary" 
-      tag="a" 
-      :href="item.url" 
+      @click="goDetail(item.id)"
       target="_blank" 
       color="#626aef"
-      
       >
       {{item.name}}
       </el-button>
@@ -78,6 +76,10 @@ export default {
     },
     setTrueLoading() {
       this.isLoading = true;
+    },
+    // 资源详情跳转
+    goDetail(id) {
+        this.$router.push({ path: '/detail', query:  { id: id } }) // 跳转到资源详情页面，并传递资源ID参数
     },
   },
   watch: {

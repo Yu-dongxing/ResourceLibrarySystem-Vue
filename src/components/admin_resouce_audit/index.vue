@@ -29,9 +29,17 @@
           >
             审核通过
           </el-button>
+          <el-button
+            size="small"
+            @click="dialogVisible=true"
+          >
+            查看详情
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog v-model="dialogVisible" title="查看待审核资源" width="500">
+    </el-dialog>
 </template>
 
 <script>
@@ -40,7 +48,10 @@ export default {
     name:'admin_resouce_audit',
     data(){
         return{
+          dialogVisible: false,
             resouce_data:[],
+            resourse_info:{},
+            
         }
     },
     methods:{
@@ -60,6 +71,17 @@ export default {
                 console.log(e)
             }
             this.getData()
+        },
+        //根据id获取文件类型资源
+        async ResourceAuditById(id){
+            try{
+                const info = await resourceApi.ResourceAuditById(id)
+                if(info.data){
+                    this.resourse_info = info.data
+                }
+            } catch(e){
+                console.log(e)
+            }
         },
         handleDelete(id){
             console.log('审核',id)
