@@ -6,7 +6,7 @@ import router from '@/router'
 // 创建axios实例
 const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 50000 // 请求超时时间
+  timeout: 500000 // 请求超时时间
 })
 
 // 请求拦截器
