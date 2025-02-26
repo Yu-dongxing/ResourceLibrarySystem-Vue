@@ -31,21 +31,63 @@
           </el-button>
           <el-button
             size="small"
-            @click="dialogVisible=true"
+            @click="ResourceFileById(scope.row.id)"
           >
             查看详情
           </el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog v-model="dialogVisible" title="查看待审核资源" width="500">
+    <el-dialog v-model="dialogVisible" title="查看待审核资源" >
+      <el-form :model="resourse_info" label-position="top">
+        <el-form-item label="资源名">
+          <el-input  v-model="resourse_info.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="资源地址">
+          <el-input v-model="resourse_info.url" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="资源说明">
+          <!-- <el-input v-model="resouce_from.desc" autocomplete="off" /> -->
+          <el-input type="textarea" autosize  v-model="resourse_info.desc" placeholder="请输入资源说明" />
+        </el-form-item>
+        <el-form-item label="资源图片">
+          <el-input v-model="resourse_info.img" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="资源标签">
+          <el-input v-model="resourse_info.tab" autocomplete="off" />
+        </el-form-item>
+        
+        <el-card>
+          <FileUpload :resourceid="resourse_info.resourceFileId"></FileUpload>
+        </el-card>
+
+        <el-table :data="resourse_info.fileData" height="250" style="width: 100%">
+          <el-table-column prop="fileName" label="资源文件名称" />
+          <el-table-column prop="fileUrl" label="资源文件地址"></el-table-column>
+          <el-table-column prop="id" label="操作">
+            <template #default="scope">
+              <el-button size="small" type="danger" @click="deleteFile(scope.row.id)" >删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="updateResource(this.resouce_from,this.resouce_update_id)">
+            提交
+          </el-button>
+        </div>
+      </template>
     </el-dialog>
 </template>
 
 <script>
 import { resourceApi } from '@/api/resource'
+import FileUpload from '@/components/FileUpload.vue'
 export default {
     name:'admin_resouce_audit',
+    components:{FileUpload},
     data(){
         return{
           dialogVisible: false,
@@ -59,6 +101,7 @@ export default {
             try{
                 const res = await resourceApi.ResourceAudit()
                 this.resouce_data = res.data
+                
                 console.log(res.data);
             } catch(e){
                 console.log(e)
@@ -73,15 +116,29 @@ export default {
             this.getData()
         },
         //根据id获取文件类型资源
-        async ResourceAuditById(id){
+        async ResourceFileById(id){
+          this.dialogVisible=true
             try{
-                const info = await resourceApi.ResourceAuditById(id)
-                if(info.data){
-                    this.resourse_info = info.data
-                }
+                const info = await resourceApi.getResourceById(id)
+                this.resourse_info = info.data
+                
             } catch(e){
                 console.log(e)
             }
+        },
+         // 根据id删除资源 deleteResource(id)
+        async deleteResource(id){
+          try{
+            const res = await resourceApi.deleteResource(id)
+            if(res.code === 200){
+              console.log('删除资源成功',res)
+            }else{
+              console.log('删除资源失败',res)
+            }
+          } catch(erro) {
+
+          }
+          this.getData()
         },
         handleDelete(id){
             console.log('审核',id)
