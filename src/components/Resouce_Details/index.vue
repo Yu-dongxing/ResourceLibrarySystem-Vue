@@ -1,7 +1,7 @@
 <template>
   <div class="details">
-    <el-card shadow="hover" class="ccard display-center margin-top-10" >{{resource.name}}</el-card>
-    <el-card shadow="hover" class="ccard display-center" v-if="resource.tab !='文件'">
+    <el-card shadow="hover" class="ccard display-center margin-top-10 title" >{{resource.name}}</el-card>
+    <el-card shadow="hover" class="ccard display-center" v-if="resource.url !=''">
       <el-button tag="a" :href="this.resource.url" target="_blank" size="large" type="success">点击跳转<el-icon><CircleCheckFilled /></el-icon></el-button>
     </el-card>
     <el-card shadow="hover" class="ccard" >
@@ -12,7 +12,7 @@
           <el-text type="primary" size="large">资源说明</el-text>
         </div>
       </template>
-      <el-text>{{ resource.desc }}</el-text>
+      <div v-html="resource.desc"></div>
     </el-card>
     <el-card shadow="hover" class="ccard" v-if="resource.tab !='文件'">
       <!-- v-if="this.getWebsiteInfo(this.resource.url)" -->
@@ -131,6 +131,11 @@ export default {
 <style lang="less" scoped>
 .margin-top-10{
   margin-top: 10px;
+}
+.title{
+  font-size: large;
+  font-weight: bold;
+  color: var(--text-200);
 }
 .icon-q{
   color: var(--el-text-color);

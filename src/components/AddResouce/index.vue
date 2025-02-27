@@ -16,7 +16,8 @@
           </el-form-item>
 
           <el-form-item label="资源说明:" >
-            <el-input type="textarea" autosize  v-model="from.desc" placeholder="请输入资源说明" />
+            <!-- <el-input type="textarea" autosize  v-model="from.desc" placeholder="请输入资源说明" /> -->
+            <wangeditor v-model="from.desc"></wangeditor>
           </el-form-item>
 
 
@@ -50,10 +51,11 @@
 <script>
 import { resourceApi } from '@/api/resource'
 import { ElMessage } from 'element-plus'
-
+import wangeditor from '@/components/wangeditor.vue'
 
 export default {
     name: 'AddResouce',
+    components:{wangeditor},
     data() {
       return {
         from: {

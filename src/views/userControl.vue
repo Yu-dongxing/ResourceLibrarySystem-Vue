@@ -123,6 +123,7 @@ export default {
     const store = useStore()
     const router = useRouter()
     const userInfo = computed(() => store.state.user.userInfo)
+    console.log(userInfo);
     // this.user_from.email = userInfo.value.email
     // this.user_from.phone = userInfo.value.phone
     const handleLogout = () => {

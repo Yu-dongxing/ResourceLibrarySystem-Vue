@@ -41,7 +41,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog v-model="dialogFormVisible" title="资源编辑" >
+    <el-dialog v-model="dialogFormVisible" title="资源编辑" width="80%">
       <el-form :model="resouce_from" label-position="top">
         <el-form-item label="资源名">
           <el-input  v-model="resouce_from.name" autocomplete="off" />
@@ -51,7 +51,8 @@
         </el-form-item>
         <el-form-item label="资源说明">
           <!-- <el-input v-model="resouce_from.desc" autocomplete="off" /> -->
-          <el-input type="textarea" autosize  v-model="resouce_from.desc" placeholder="请输入资源说明" />
+          <!-- <el-input type="textarea" autosize  v-model="resouce_from.desc" placeholder="请输入资源说明" /> -->
+          <wangeditor  v-model="resouce_from.desc"></wangeditor>
         </el-form-item>
         <el-form-item label="资源图片">
           <el-input v-model="resouce_from.img" autocomplete="off" />
@@ -60,11 +61,11 @@
           <el-input v-model="resouce_from.tab" autocomplete="off" />
         </el-form-item>
         
-        <el-card>
+        <el-card v-if="file_list != ''">
           <FileUpload :resourceid="resourceFileId"></FileUpload>
         </el-card>
 
-        <el-table :data="file_list" height="250" style="width: 100%">
+        <el-table :data="file_list" height="250" style="width: 100%" v-if="file_list != ''">
           <el-table-column prop="fileName" label="资源文件名称" />
           <el-table-column prop="id" label="操作">
         <template #default="scope">
@@ -98,9 +99,10 @@
 <script>
 import { resourceApi } from '@/api/resource'
 import FileUpload from '@/components/FileUpload.vue'
+import wangeditor from '@/components/wangeditor.vue'
 export default {
 name: 'admin_Resouce_data',
-components:{FileUpload},
+components:{FileUpload,wangeditor},
 data(){
     return {
         resouce_data:[],
