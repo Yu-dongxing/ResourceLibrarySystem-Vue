@@ -6,6 +6,7 @@
           <el-form  label-position="top" label-width="80px" :model="form">
             <!-- 需要添加文件类型资源，请点击 --> 
             <el-link @click="this.$router.push('/addresourcefile')" type="primary">添加文件类型资源</el-link>
+            
           <el-form-item label="资源名称:">
             <el-input v-model="from.name" placeholder="请输入资源名称" />
           </el-form-item>

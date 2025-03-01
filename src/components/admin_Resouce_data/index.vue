@@ -28,7 +28,7 @@
       <el-table-column prop="updateTime" label="更新时间" />
       <el-table-column prop="id" label="操作">
         <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.row.id)">
+          <el-button size="small" @click="handleEdit(scope.row.id)" >
             编辑
           </el-button>
           <el-button

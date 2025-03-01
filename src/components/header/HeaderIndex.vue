@@ -31,9 +31,9 @@
     </div>
     <!-- 网页端链接 -->
     <div class="header-right">
-      <router-link to="/study" class="right-item no-link-style">
+      <router-link to="/study" class="right-item no-link-style" v-if="userInfo?.roleName == 'admin' || userInfo?.roleName == 'student'">
         <el-icon><DataBoard /></el-icon>
-        <span>学习资源</span>
+        <span>学习任务</span>
       </router-link>
       <router-link to="/add" class="right-item no-link-style">
         <!-- <img src="@/assets/header-right/up2.svg" alt=""> -->

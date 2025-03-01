@@ -35,6 +35,11 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path:'/StudyDetails',
+    name:'StudyDetails',
+    component: ()=>import('@/components/Study_Details/index.vue'),
+  },
+  {
     path:'/add',
     name:'AddResouce',
     component: ()=>import('@/components/AddResouce/index.vue'),
