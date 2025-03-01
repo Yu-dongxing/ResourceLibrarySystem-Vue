@@ -59,6 +59,10 @@
                 <el-tab-pane label="系统信息管理"  name='7' v-if="userInfo?.roleName === 'admin'">
                     <admin_sysinfo_date/>
                 </el-tab-pane>
+                <el-tab-pane label="学习任务管理"  name='8' v-if="userInfo?.roleName === 'admin'">
+                    <Admin_Study_date/>
+                </el-tab-pane>
+                
             </el-tabs>
         </el-card>
         
@@ -78,6 +82,7 @@ import userControlServer from "@/components/userControlServer/index.vue"
 import admin_resouce_audit from "@/components/admin_resouce_audit/index.vue"
 import admin_update_log_data from "@/components/admin_update_log_data/index.vue"
 import admin_sysinfo_date from '@/components/admin_sysinfo_date/index.vue'
+import Admin_Study_date from '@/components/Admin_Study_date/index.vue'
 export default {
     components: {
         admin_Resouce_data,
@@ -86,7 +91,8 @@ export default {
         admin_ip_log,
         admin_resouce_audit,
         admin_update_log_data,
-        admin_sysinfo_date
+        admin_sysinfo_date,
+        Admin_Study_date
     },
     data(){
         return {
@@ -123,6 +129,7 @@ export default {
     const store = useStore()
     const router = useRouter()
     const userInfo = computed(() => store.state.user.userInfo)
+    console.log(userInfo);
     // this.user_from.email = userInfo.value.email
     // this.user_from.phone = userInfo.value.phone
     const handleLogout = () => {

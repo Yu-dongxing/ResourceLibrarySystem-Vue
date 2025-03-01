@@ -28,6 +28,18 @@ const routes = [
     component: () => import('@/components/Login/login.vue'),
   },
   {
+    // D:\c++ding ming\resource_integration_system\src\views\study.vue
+    path:'/study',
+    name:'study',
+    component: ()=>import('@/views/study.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path:'/StudyDetails',
+    name:'StudyDetails',
+    component: ()=>import('@/components/Study_Details/index.vue'),
+  },
+  {
     path:'/add',
     name:'AddResouce',
     component: ()=>import('@/components/AddResouce/index.vue'),

@@ -1,12 +1,14 @@
 {
   "name": "resource_integration_system",
-  "version": "0.6.1",
+  "version": "0.7.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.7.9",
     "core-js": "^3.8.3",
     "element-plus": "^2.9.1",

@@ -29,20 +29,29 @@
       </template> -->
     </el-input>
     </div>
+    <!-- 网页端链接 -->
     <div class="header-right">
+      <router-link to="/study" class="right-item no-link-style" v-if="userInfo?.roleName == 'admin' || userInfo?.roleName == 'student'">
+        <el-icon><DataBoard /></el-icon>
+        <span>学习任务</span>
+      </router-link>
       <router-link to="/add" class="right-item no-link-style">
-        <img src="@/assets/header-right/up2.svg" alt="">
+        <!-- <img src="@/assets/header-right/up2.svg" alt=""> -->
+        <el-icon><UploadFilled /></el-icon>
         <span>添加资源</span>
       </router-link>
       <router-link to="/about" class="right-item no-link-style">
-        <img src="@/assets/UpdateLog/log.svg" alt="">
+        <!-- <img src="@/assets/UpdateLog/log.svg" alt=""> -->
+        <el-icon><MoreFilled /></el-icon>
         <span>更新日志</span>
       </router-link>
       <router-link to="/user" class="right-item no-link-style">
-        <img src="@/assets/user/header-user.svg" alt="">
+        <!-- <img src="@/assets/user/header-user.svg" alt=""> -->
+        <el-icon><User /></el-icon>
         <span class="item-t">用户</span>
       </router-link>
     </div>
+    <!-- 手机端链接 -->
     <div class="header-right-app">
       <el-dropdown trigger="click">
         <span class="header-right-app-ii">
@@ -67,6 +76,9 @@
 </template>
 
 <script>
+// import  useStore  from '@/store/index'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 export default {
   name: 'HeaderIndex',
   data() {
@@ -78,10 +90,27 @@ export default {
       {id:4,icon:"User",link:'/user',title:'用户'}
     ],
     search_keyword:'',
-    search_select:['标签','标题']
+    search_select:['标签','标题'],
+    // userinfo:this.$store.state.user.userinfo
     }
   },
   computed: {
+    // userInfo() {
+    //   // const store = useStore()
+    //   console.log(useStore().state.user);
+    //   return useStore().state.user.userInfo
+    
+    //   // const userInfo = useStore
+      
+    // }
+  },
+  setup() {
+    const store = useStore()
+    const userInfo = computed(() => store.state.user.userInfo)
+    console.log(userInfo);
+    return {
+      userInfo,
+    }
   },
   methods: {
     search(){

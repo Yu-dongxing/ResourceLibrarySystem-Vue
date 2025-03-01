@@ -8,7 +8,8 @@
             </el-form-item>
 
             <el-form-item label="资源说明:" >
-            <el-input type="textarea" autosize  v-model="resource_date.desc" placeholder="请输入资源说明" />
+            <!-- <el-input type="textarea" autosize  v-model="resource_date.desc" placeholder="请输入资源说明" /> -->
+            <wangeditor v-model="resource_date.desc"></wangeditor>
           </el-form-item>
   
             <el-form-item label="资源文件源地址:"> 
@@ -55,8 +56,10 @@
   import { resourceApi } from '@/api/resource'
   import { ElMessage } from 'element-plus'
   import { v4 as uuidv4 } from 'uuid';
+  import wangeditor from '@/components/wangeditor.vue'
   export default {
     name: 'AddFileResource',
+    components:{wangeditor},
     data() {
       return {
         // formData: {
