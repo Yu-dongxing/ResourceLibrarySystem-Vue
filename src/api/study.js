@@ -67,6 +67,6 @@ export const StudyApi = {
       url: '/task/finish/delete/'+id,
       method: 'delete'
     })
-  }
+  },
 
 }
