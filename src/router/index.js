@@ -17,6 +17,13 @@ const routes = [
     //   }
     // ]
   },
+  //测试文件系统
+  {
+    path:"/FileUploaderTruck",
+    name:"FileUploaderTruck",
+    component: () => import('@/components/FileUploadTrunkPost.vue'),
+  },
+  ///////////////////////////////
   {
     path:'/about',
     name:'About',
@@ -81,7 +88,12 @@ const routes = [
     path:'/500',
     name:'Err500',
     component:()=>import('@/components/Err500/index.vue')
-  }
+  },
+  {
+    path:'/201',
+    name:'Err201',
+    component:()=>import('@/components/Err201/index.vue')
+  },
 ]
 
 const router = createRouter({

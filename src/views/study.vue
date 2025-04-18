@@ -6,13 +6,16 @@
             <div class=" display-x-center" >
                 <el-icon><MessageBox /></el-icon>
                 <el-text style="margin-left: 5px;">{{ item.title }}</el-text>
-                <el-tag style="float: right; margin-left: 20px;">{{item.createdAt}}</el-tag>
+                <el-tag style="float: right; margin-left: 20px;">创建时间：{{item.createdAt}}</el-tag>
             </div>
         </template>
         <el-text>{{item.taskTitle}}</el-text>
         <template #footer>
             <div class=" display-x-center">
-                <el-button @click="goDetail(item.id)" >查看详情</el-button>
+                <el-button @click="goDetail(item.id)" >
+                    查看详情
+                    <el-tag type="success" style="float: right; margin-left: 20px;">截止日期：{{item.dueDate}}</el-tag>
+                </el-button>
             </div>
         </template>
     </el-card>
