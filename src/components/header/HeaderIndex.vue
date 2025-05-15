@@ -178,7 +178,7 @@ export default {
     width: auto;
     height: 40px;
     // background-color: red;
-    border-bottom: #42b983 solid 1px;
+    // border-bottom: #42b983 solid 1px;
     margin-right: 20px;
     display: flex;
     justify-content: center;
@@ -203,6 +203,7 @@ export default {
     background-color: var(--primary-200);
     //点击切换鼠标
     cursor: pointer;
+    color: #ffffff;
   }
 }
 .header-right-app{

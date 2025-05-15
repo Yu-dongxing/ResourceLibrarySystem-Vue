@@ -115,6 +115,7 @@ export default {
             const start = i * chunkSize;
             const end = Math.min(file.size, start + chunkSize);
             const chunk = file.slice(start, end); // 切片
+            console.log('文件分片', chunk);
             await this.fileUpload(chunk,fileName,i,chunks,fileMD5,this.fileAssociationId);
             console.log('文件分片上传', i, chunks);
           }

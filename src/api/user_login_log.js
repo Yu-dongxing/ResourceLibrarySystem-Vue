@@ -5,7 +5,8 @@ export const UserLoginLog = {
   // 获取用户登录日志
   GetUserLoginLog() {
     return request({
-      url: '/userloginlog/find/user',
+      // url: '/userloginlog/find/user',
+       url: '/userloginlog/find/user/3',
       method: 'get'
     })
   },

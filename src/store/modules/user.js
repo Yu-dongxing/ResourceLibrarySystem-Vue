@@ -29,7 +29,6 @@ const actions = {
   async login({ commit }, loginForm) {
     try {
       const res = await userApi.login(loginForm)
-      console.log('登录响应:', res)
       if (res.code === 200) {
         commit('SET_TOKEN', res.data)
         return res
