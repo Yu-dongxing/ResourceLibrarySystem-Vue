@@ -7,7 +7,7 @@
             <!-- 登录 -->
             <div class="from-input" v-if="isLoginOrSign">
                 <el-form label-position="top">
-                    <el-form-item label="手机号：">
+                    <el-form-item >
                         <el-input class="input" 
                             v-model="login_from.phone"  
                             placeholder="请输入手机号" 
@@ -18,7 +18,7 @@
                             </template>
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="密码：">
+                    <el-form-item>
                         <el-input class="input" 
                             type="password" 
                             v-model="login_from.password"  
@@ -36,32 +36,46 @@
             <!-- 注册 -->
             <div class="from-input" v-else>
                 <el-form label-position="top">
-                    <el-form-item label="姓名:">
+                    <el-form-item>
                         <el-input class="input" 
                         v-model="sign_from.username"  
-                        placeholder="请输入姓名" 
+                        placeholder="请输入你的姓名" 
                         clearable
-                        /></el-form-item>
-                <el-form-item label="手机:"><el-input class="input" 
-                v-model="sign_from.phone"  
-                placeholder="请输入手机号" 
-                clearable
-                /></el-form-item>
-                <el-form-item label="密码:"><el-input class="input" 
-                type="password" 
-                v-model="sign_from.password"  
-                placeholder="请输入密码" 
-                clearable
-                show-password
-                /></el-form-item>
-                <el-form-item label="确认密码:"><el-input class="input" 
-                type="password" 
-                v-model="sign_from.aspassword"  
-                placeholder="请再次输入密码" 
-                clearable
-                show-password
-                /></el-form-item>
-                <el-form-item label="选择角色:">
+                        >
+                        <template #prepend>
+                                <el-icon><User /></el-icon>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-input class="input"
+                    v-model="sign_from.phone"
+                    placeholder="请输入手机号"
+                    clearable>
+                    <template #prepend>
+                        <el-icon>
+                            <User />
+                        </el-icon>
+                    </template>
+                </el-input>
+            </el-form-item>
+                <el-form-item>
+                    <el-input class="input" 
+                    type="password" 
+                    v-model="sign_from.password"  
+                    placeholder="请输入密码" 
+                    clearable
+                    show-password />
+                </el-form-item>
+                <el-form-item>
+                    <el-input class="input" 
+                    type="password" 
+                    v-model="sign_from.aspassword"  
+                    placeholder="请再次输入密码" 
+                    clearable
+                    show-password />
+                </el-form-item>
+                <el-form-item >
                     <el-select v-model="sign_from.roleId" placeholder="请选择角色">
                     <el-option
                         v-for="item in roles"
@@ -73,17 +87,6 @@
                 </el-select>
                 </el-form-item>
                 </el-form>
-                
-                
-                
-                <!-- 输入密码时调用两个密码检查函数 -->
-                
-                
-                <!-- <el-radio-group v-model="sign_from.roleId">
-                    <el-radio v-for="(item,index) in roles" :key="index" :value="item.id">{{ item.description }}</el-radio>
-                </el-radio-group> -->
-                
-                
             </div>
             <div class="from-button">
                 <el-button class="button" type="primary" @click="loginOrsign()">{{isLoginOrSign?"登录":"注册" }}</el-button>

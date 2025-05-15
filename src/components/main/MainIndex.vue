@@ -4,7 +4,7 @@
         
         <!-- 自己设计的卡片布局 -->
         <div class="main-index" v-if="isDev">
-            <div class="item main-index-hover" v-for="item in reversedItems" :key="item.id" @click="goDetail(item.id)">
+            <div class="item main-index-hover  right-conten" v-for="item in reversedItems" :key="item.id" @click="goDetail(item.id)">
                 <div class="item-img">
                     <div class="iimg">
                         <el-image :src="item.img" fit="cover" />
@@ -21,7 +21,8 @@
                                 <img ref="img" src="@/assets/user/user.svg"/>
                                 {{ item.author }} | 
                                 <img ref="img" src="@/assets/tab/tab.svg"/>
-                                {{ item.tab }}</el-tag> 
+                                {{ item.tab }}
+                            </el-tag> 
                     </div>
                     <div class="item-right-button">
                         <el-button class="button"  @click="goDetail(item.id)"><img src="@/assets/info/info.svg" alt="info">查看</el-button>
@@ -104,8 +105,8 @@ a {
     background-color: var(--bg-100); 
     display: grid; 
     gap: 10px; 
-    grid-template-columns: repeat(auto-fill, minmax(464px, 1fr)); 
-    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(464px, 1fr));
+    //grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); 
     .el-card__body{
         padding: 10px;
         display: flex;
@@ -119,6 +120,7 @@ a {
         display: flex; 
         box-shadow: var(--box-shadow-de);
         background-image: linear-gradient(to right, var(--bg-100), var(--bg-200));
+        // position: relative;
         .item-img {
             margin-right: 5px;
             .iimg{
@@ -190,6 +192,25 @@ a {
         }
     }
 }
+.right-conten{
+    position: relative;
+}
+.right-conten:hover::before{
+    content: '>';
+    position: absolute;
+    top: calc(50% - 10px);
+    right:10px;
+    font-size: 20px;
+    color: rgb(0, 132, 255);
+}
+// .right-conten::before{
+//     content: '>';
+//     position: absolute;
+//     top: calc(50% - 10px);
+//     right:10px;
+//     font-size: 20px;
+//     color: var(--text-100);
+// }
 /* 当屏幕宽度小于500px */
 @media screen and (max-width: 600px) {
   .item-img,.card-lift{

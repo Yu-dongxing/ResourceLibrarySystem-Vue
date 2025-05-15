@@ -38,6 +38,7 @@
                             <el-input v-model="user_from.phoneNumber"  autocomplete="off" />
                         </el-form-item>
                         <el-button @click="updateUserInfo(user_from,userInfo.id)">更新</el-button>
+                        <el-button>重置密码</el-button>
                     </el-form>
                 </el-tab-pane>
                 <el-tab-pane label="资源管理" name='2' v-if="userInfo?.roleName === 'admin'">
