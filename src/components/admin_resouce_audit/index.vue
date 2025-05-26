@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="resouce_data" height="250" style="width: 100%">
+  <el-table :data="resouce_data"  style="width: 100%">
       <el-table-column prop="name" label="资源名称" width="180" />
       <el-table-column prop="author" label="作者" width="180" />
       <el-table-column prop="img" label="资源图片">

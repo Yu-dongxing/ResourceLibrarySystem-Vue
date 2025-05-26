@@ -1,5 +1,19 @@
 <template>
      <div class="container">
+        <el-dialog v-model="resetPasswordVisible" title="重置密码">
+            <el-form :model="resetPasswordForm" label-position="top">
+                <el-form-item label="原密码">
+                    <el-input v-model="resetPasswordForm.oldPassword"  autocomplete="off" />
+                </el-form-item>
+                <el-form-item label="新密码">
+                    <el-input v-model="resetPasswordForm.newPassword"  autocomplete="off" />
+                </el-form-item>
+                <el-form-item label="确认密码">
+                    <el-input v-model="resetPasswordForm.confirmPassword"  autocomplete="off" />
+                </el-form-item>
+                <el-button @click="resetPassword(resetPasswordForm)">重置密码</el-button>
+            </el-form>
+        </el-dialog>
         <el-card :body-style="{ display: 'flex'}">
             <div class="header-avatar card">
                 <el-avatar 
@@ -23,6 +37,7 @@
     <div class="control">
         <!-- <div class="control-table"></div>
         <div class="control-main"></div> -->
+        
         <el-card>
             <el-tabs v-model="active"  @tab-click="handleClick">
                 <el-tab-pane label="个人中心" name='1'>
@@ -38,7 +53,7 @@
                             <el-input v-model="user_from.phoneNumber"  autocomplete="off" />
                         </el-form-item>
                         <el-button @click="updateUserInfo(user_from,userInfo.id)">更新</el-button>
-                        <el-button>重置密码</el-button>
+                        <el-button @click="setresetPasswordVisible()">重置密码</el-button>
                     </el-form>
                 </el-tab-pane>
                 <el-tab-pane label="资源管理" name='2' v-if="userInfo?.roleName === 'admin'">
@@ -97,7 +112,6 @@ export default {
         admin_sysinfo_date,
         Admin_Study_date,
         UserLoginLog,
-        
     },
     data(){
         return {
@@ -107,6 +121,12 @@ export default {
                 email:this.userInfo?.email || '',
                 phoneNumber:this.userInfo?.phoneNumber || '',
                 roleId: this.userInfo?.roleId || '',
+            },
+            resetPasswordVisible:false,
+            resetPasswordForm:{
+                oldPassword:'',
+                newPassword:'',
+                confirmPassword:''
             }
         }
     },
@@ -126,9 +146,28 @@ export default {
                 }
             } catch (error) {
                 console.log('更新用户信息错误:', error);
-                
             }
         },
+        setresetPasswordVisible(){
+            this.resetPasswordVisible = !this.resetPasswordVisible
+        },
+        async resetPassword(){
+            try{
+                const res = await userApi.updatePassword(this.resetPasswordForm)
+                if(res.code == 400){
+                  this.$message.error('更新失败'+ res.message)
+                }else{
+                  console.log('更新用户密码:', res.data)
+                  this.$message.success('更新成功')
+                  this.handleLogout()
+
+                }
+            } catch (error) {
+                console.log('更新用户密码错误:', error);
+                
+            }
+            this.setresetPasswordVisible()
+        }
     },
   setup() {
     const store = useStore()
