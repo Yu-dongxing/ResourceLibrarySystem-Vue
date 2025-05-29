@@ -80,6 +80,9 @@
                 <el-tab-pane label="登录日志"  name='9' >
                     <UserLoginLog/>
                 </el-tab-pane>
+                <el-tab-pane label="系统配置"  name='10' >
+                    <Admin_Sys_Config/>
+                </el-tab-pane>
             </el-tabs>
         </el-card>
         
@@ -101,6 +104,7 @@ import admin_update_log_data from "@/components/admin_update_log_data/index.vue"
 import admin_sysinfo_date from '@/components/admin_sysinfo_date/index.vue'
 import Admin_Study_date from '@/components/Admin_Study_date/index.vue'
 import UserLoginLog from "@/components/UserLoginLog/index.vue"
+import Admin_Sys_Config from '@/components/Admin_Sys_Config/index.vue'
 export default {
     components: {
         admin_Resouce_data,
@@ -112,6 +116,7 @@ export default {
         admin_sysinfo_date,
         Admin_Study_date,
         UserLoginLog,
+        Admin_Sys_Config
     },
     data(){
         return {
