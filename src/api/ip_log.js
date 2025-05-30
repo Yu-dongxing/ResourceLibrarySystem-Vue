@@ -16,5 +16,13 @@ export const iplogApi = {
       url: '/public/ip_log/all',
       method: 'get'
     })
-  }
+  },
+  // 分页查询日志 /public/ip_log/page?pageNum=${page}&pageSize=${size}
+  getIpLogPage(page, size) {
+    return request({
+      url: `/public/ip_log/page?pageNum=${page}&pageSize=${size}`,
+      method: 'get'
+    })
+  },
+  
 }

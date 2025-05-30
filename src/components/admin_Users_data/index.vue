@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="users" height="250" style="width: 100%">
+  <el-table :data="users"  style="width: 100%">
       <el-table-column prop="username" label="用户名" width="180" />
       <el-table-column prop="email" label="用户邮箱" width="180" />
       <el-table-column prop="phoneNumber" label="用户手机" />
