@@ -80,7 +80,7 @@
                 <el-tab-pane label="登录日志"  name='9' >
                     <UserLoginLog/>
                 </el-tab-pane>
-                <el-tab-pane label="系统配置"  name='10' >
+                <el-tab-pane label="系统配置"  name='10' v-if="userInfo?.roleName === 'admin'">
                     <Admin_Sys_Config/>
                 </el-tab-pane>
             </el-tabs>

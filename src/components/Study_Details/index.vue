@@ -138,6 +138,12 @@ export default {
     },
 
     // 根据任务id获取回答信息
+    /**
+     * 获取答题学习任务详情
+     * 根据路由参数ID获取答题任务数据，若不存在则初始化用户完成描述的文件ID
+     * 若存在则设置用户完成描述和文件ID，并查找对应文件
+     * @async
+     */
     async getAnswerStudyTask() {
       const res = await StudyApi.getAnswerTaskById(this.$route.query.id)
       if (res.data == null) {
@@ -220,7 +226,7 @@ export default {
 }
 
 .details-info, .attachment-info {
-  width: 100%;
+  //width: 100%;
 }
 // .attachment-info{
 //   width: 50%;
