@@ -203,14 +203,6 @@ a {
     font-size: 20px;
     color: rgb(0, 132, 255);
 }
-// .right-conten::before{
-//     content: '>';
-//     position: absolute;
-//     top: calc(50% - 10px);
-//     right:10px;
-//     font-size: 20px;
-//     color: var(--text-100);
-// }
 /* 当屏幕宽度小于500px */
 @media screen and (max-width: 600px) {
   .item-img,.card-lift{
