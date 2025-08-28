@@ -5,15 +5,15 @@
         <div class="search_App">
         <Search_App/>
         </div>
-          <router-view></router-view> <!-- 使用Vue Router的router-view组件，用于展示当前路由对应的组件内容 -->
+          <router-view></router-view>
       </el-scrollbar>
       <FooterIndex/>
     </div>
   </template>
   
   <script>
-  import HeaderIndex from './components/header/HeaderIndex.vue'
-  import FooterIndex from './components/footer/FooterIndex.vue'
+  import HeaderIndex from '@/components/header/HeaderIndex.vue'
+  import FooterIndex from '@/components/footer/FooterIndex.vue'
   import Search_App from '@/components/Search_App/index.vue'
   import axios from 'axios';
   import { iplogApi } from '@/api/ip_log'

@@ -1,94 +1,17 @@
 <template>
   <div id="app" >
-    <HeaderIndex/>
-    <el-scrollbar height="calc(100vh - 110px)" class="MAIN">
-      <div class="search_App">
-      <Search_App/>
-      </div>
-        <router-view></router-view> <!-- 使用Vue Router的router-view组件，用于展示当前路由对应的组件内容 -->
-    </el-scrollbar>
-    <FooterIndex/>
+    <router-view></router-view> 
   </div>
 </template>
 
 <script>
-import HeaderIndex from './components/header/HeaderIndex.vue'
-import FooterIndex from './components/footer/FooterIndex.vue'
-import Search_App from '@/components/Search_App/index.vue'
-import axios from 'axios';
-import { iplogApi } from '@/api/ip_log'
-import {sysinfoApi} from '@/api/sys_info'
 export default {
   name: 'app',
   data(){
     return {
-      userIp:'',
-      ip_access_log:{
-        ipAddress: "",//地址
-        ipCity: "",//城市
-        ipProvince: "",//省份
-        ipUserDevice: "",//用户设备
-        ipUserAgent: ""//用户代理
-      }
     }
   },
-  methods:{
-    // 获取IP地址api
-    getUserInfo() {
-      axios.get('https://ip.011102.xyz')
-        .then(response => {
-          // console.log(response.data);
-          const ipData = response.data.IP;
-          const headers = response.data.Headers;
-          const security = response.data.Security;
-
-          this.ip_access_log.ipAddress = ipData.IP;
-          this.ip_access_log.ipCity = ipData.City;
-          this.ip_access_log.ipProvince = ipData.Region;
-          this.ip_access_log.ipUserDevice = headers['sec-ch-ua-platform'] || 'Unknown';
-          this.ip_access_log.ipUserAgent = headers['user-agent'];
-          this.onSubmit(this.ip_access_log);
-        })
-        .catch(error => {
-          console.error('Failed to fetch IP:', error);
-        });
-    },
-    // 上传日志api-postLog(data)
-    async onSubmit(data) {
-        try {
-          const res = await iplogApi.postIpLog(data)
-          // console.log("上传成功",res);
-        } catch (error) {
-          // console.error('上传失败:', error)
-        }
-      },
-      // 获取系统欢迎信息
-      async getSysWelcomeInfo() {
-        try {
-          const res = await sysinfoApi.getSysWelcomeInfo();
-          // console.log("系统欢迎信息",res);
-          this.$notify({
-            title: res.data.infoView,
-            dangerouslyUseHTMLString: true,
-            message: res.data.infoDesc,
-            type: 'success',
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      },
-  },
-  components: {
-    HeaderIndex,
-    FooterIndex,
-    Search_App
-  },
-  beforeCreate() {
-  },
-  created() {
-    this.getUserInfo()
-    this.getSysWelcomeInfo()
-  }
+  methods:{}
 
 }
 </script>
