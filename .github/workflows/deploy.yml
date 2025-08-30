@@ -2,10 +2,8 @@ name: Vue Deploy
 
 on:
   push:
-    branches:
-      - dev
     tags:
-      - '*'  # 推送带有版本号的标签（例如 1.0.0）
+      - '*'  # 推送带有版本号的标签（例如 v1.0.0）
 
 jobs:
   build-and-deploy:
@@ -26,9 +24,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Zip build artifacts
+        run: |
+          zip -r vue-build-${{ github.sha }}.zip ./dist/
+
       - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
         id: create_release
-        uses: actions/create-release@v1.1.2
+        uses: actions/create-release@v1 # 建议直接用 v1，它会使用最新的 v1.x.x 版本
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -38,12 +41,13 @@ jobs:
           prerelease: false
 
       - name: Upload Build Artifacts
+        if: startsWith(github.ref, 'refs/tags/')
         id: upload
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/
-          asset_name: vue-build-${{ github.sha }}.zip
+          asset_path: ./vue-build-${{ github.sha }}.zip # 路径更明确一点
+          asset_name: vue-build-${{ github.ref_name }}.zip
           asset_content_type: application/zip
