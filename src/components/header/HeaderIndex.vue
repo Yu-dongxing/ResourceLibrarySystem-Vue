@@ -12,6 +12,7 @@
       style="max-width: 600px"
       placeholder="请输入关键字"
       class="input-with-select"
+      @change="search()"
     >
       <template #append>
         <el-button @click="search()">
@@ -137,13 +138,14 @@ export default {
 
 <style scoped lang="less">
 .header {
+  height: var(--custom-header-height, 60px); /* 使用CSS变量，方便统一管理 */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  height: 45px;
-  background-color: var(--bg-200);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* 纯白背景 */
+  border-bottom: 1px solid var(--el-border-color-light); /* Element Plus 的浅色边框 */
+  flex-shrink: 0; /* 防止flex布局压缩header高度 */
 }
 
 .header-left {
@@ -151,9 +153,10 @@ export default {
   align-items: center;
 }
 .header-search{
+  flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding: 0 40px;
 }
 .logo img {
   height: 40px;
@@ -161,94 +164,44 @@ export default {
 }
 
 .title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  line-height: 60px;
 }
 
 .header-right {
-  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  // border: 1px solid red;
+  gap: 10px; /* 使用 gap 优化间距 */
   .right-item {
-    box-sizing: border-box;
-    padding: 5px;
-    width: auto;
-    height: 40px;
-    // background-color: red;
-    // border-bottom: #42b983 solid 1px;
-    margin-right: 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    // border-radius: var(--border-radius-de);
-    border-radius: 5px;
-    img{
-      width: 30px;
-      height: 30px;
-    }
-    span{
-      margin-left: 5px;
-      font-weight: bold;
-      line-height: 40px;
-      // display: none;
-    }
-    .item-t{
-
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    span {
+      margin-left: 8px;
     }
   }
-  .right-item:hover{
-    background-color: var(--primary-200);
-    //点击切换鼠标
+  .right-item:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+.header-right-app {
+  display: none; /* 默认隐藏 */
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) { /* 调整断点 */
+  .header-search, .header-right {
+    display: none;
+  }
+  .header-right-app {
+    display: block;
     cursor: pointer;
-    color: #ffffff;
+  }
+  .header-left {
+    flex: 1;
   }
 }
-.header-right-app{
-  width: 40px;
-  height: 40px;
-  background-color: var(--primary-100);
-  border-radius: var(--border-radius-de);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // margin-right: -20px;
-  img{
-    width: 40px;
-    height: 40px;
-  }
-}
-.header-right-app:focus{
-  background-color: var(--primary-200);
-}
-.about {
-  margin-right: 20px;
-}
-.username {
-  margin-right: 20px;
-}
-
-.logout {
-  cursor: pointer;
-  color: #666;
-}
-
-.logout:hover {
-  color: #42b983;
-}
-/* 当屏幕宽度小于500px */
-@media screen and (max-width: 600px) {
-  .logo,.header-right,.header-search{
-    display: none;
-  }
-}
-/* 当屏幕宽度大于500px */
-@media screen and (min-width: 500px) {
-  .header-right-app{
-    display: none;
-  }
-}
-
 </style>

@@ -12,7 +12,7 @@
           <el-text type="primary" size="large">资源说明</el-text>
         </div>
       </template>
-      <div v-html="resource.desc"></div>
+        <div v-html="resource.desc"></div>
     </el-card>
     <el-card shadow="hover" class="ccard" v-if="resource.tab !='文件'">
       <!-- v-if="this.getWebsiteInfo(this.resource.url)" -->
@@ -182,4 +182,5 @@ export default {
   align-items: center;
   color: var(--el-text-color);
 }
+
 </style>

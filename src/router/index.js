@@ -10,11 +10,6 @@ const routes = [
     name: 'index',
     component: index,
     children: [
-      // {
-      //   // 添加一个重定向规则
-      //   path: '',
-      //   redirect: '/main'
-      // },
       {
         path: '',
         name: 'MainIndex',
@@ -89,6 +84,11 @@ const routes = [
         component: () => import('@/components/Err201/index.vue')
       },
     ]
+  },
+  {
+    path: '/2505',
+    name: '2505_index',
+    component: () => import('@/components/2505/index.vue')
   },
   //测试文件系统
   {

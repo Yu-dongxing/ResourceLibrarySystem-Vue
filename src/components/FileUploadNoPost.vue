@@ -62,7 +62,7 @@
       // 移除文件前的确认
       beforeRemove(file, fileList) {
         // 弹出确认框，返回 Promise
-        return this.$confirm(`确定移除 ${file.name}？`);
+        return this.$confirm(`确定移除 ${file.name}?`);
       },
     },
   };
