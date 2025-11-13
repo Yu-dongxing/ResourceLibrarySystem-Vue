@@ -1,311 +1,270 @@
 <template>
-    <div class="login">
-        <el-card class="login-lift-from" shadow="hover">
-            <div class="from-title">
-                <p>{{isLoginOrSign?"登录":"注册" }}</p>
+    <div class="login-container">
+        <div class="login-panel">
+            <!-- 标题区域 -->
+            <div class="panel-header">
+                <h2 class="title">{{ isLogin ? "欢迎回来" : "创建新账户" }}</h2>
+                <p class="subtitle">{{ isLogin ? "登录您的账户" : "让我们开始新的旅程" }}</p>
             </div>
-            <!-- 登录 -->
-            <div class="from-input" v-if="isLoginOrSign">
-                <el-form label-position="top">
-                    <el-form-item >
-                        <el-input class="input" 
-                            v-model="login_from.phone"  
-                            placeholder="请输入手机号" 
-                            clearable
-                            >
-                            <template #prepend>
-                                <el-icon><User /></el-icon>
-                            </template>
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-input class="input" 
-                            type="password" 
-                            v-model="login_from.password"  
-                            placeholder="请输入密码" 
-                            clearable
-                            show-password>
-                            <template #prepend>
-                                <el-icon><Lock /></el-icon>
-                            </template>
-                            
-                        </el-input>
-                    </el-form-item>
-                </el-form>
+
+            <!-- 表单区域 -->
+            <div class="panel-body">
+                <transition name="form-fade" mode="out-in">
+                    <!-- 登录表单 -->
+                    <el-form v-if="isLogin" ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form" @keyup.enter="handleLogin">
+                        <el-form-item prop="phone">
+                            <el-input v-model="loginForm.phone" placeholder="手机号" size="large">
+                                <template #prefix><el-icon><User /></el-icon></template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item prop="password">
+                            <el-input v-model="loginForm.password" type="password" placeholder="密码" size="large" show-password>
+                                <template #prefix><el-icon><Lock /></el-icon></template>
+                            </el-input>
+                        </el-form-item>
+                    </el-form>
+                    
+                    <!-- 注册表单 -->
+                    <el-form v-else ref="registerFormRef" :model="registerForm" :rules="registerRules" class="login-form" @keyup.enter="handleRegister">
+                        <el-form-item prop="username">
+                            <el-input v-model="registerForm.username" placeholder="你的姓名" size="large">
+                                <template #prefix><el-icon><User /></el-icon></template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item prop="phone">
+                            <el-input v-model="registerForm.phone" placeholder="手机号" size="large">
+                                <template #prefix><el-icon><Phone /></el-icon></template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item prop="password">
+                            <el-input v-model="registerForm.password" type="password" placeholder="设置密码" size="large" show-password>
+                                <template #prefix><el-icon><Lock /></el-icon></template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item prop="confirmPassword">
+                            <el-input v-model="registerForm.confirmPassword" type="password" placeholder="确认密码" size="large" show-password>
+                                <template #prefix><el-icon><CircleCheck /></el-icon></template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item prop="roleId">
+                            <el-select v-model="registerForm.roleId" placeholder="选择你的角色" size="large" style="width: 100%;">
+                                <el-option v-for="item in roles" :key="item.id" :label="item.description" :value="item.id" />
+                            </el-select>
+                        </el-form-item>
+                    </el-form>
+                </transition>
             </div>
-            <!-- 注册 -->
-            <div class="from-input" v-else>
-                <el-form label-position="top">
-                    <el-form-item>
-                        <el-input class="input" 
-                        v-model="sign_from.username"  
-                        placeholder="请输入你的姓名" 
-                        clearable
-                        >
-                        <template #prepend>
-                                <el-icon><User /></el-icon>
-                        </template>
-                    </el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-input class="input"
-                    v-model="sign_from.phone"
-                    placeholder="请输入手机号"
-                    clearable>
-                    <template #prepend>
-                        <el-icon>
-                            <User />
-                        </el-icon>
-                    </template>
-                </el-input>
-            </el-form-item>
-                <el-form-item>
-                    <el-input class="input" 
-                    type="password" 
-                    v-model="sign_from.password"  
-                    placeholder="请输入密码" 
-                    clearable
-                    show-password />
-                </el-form-item>
-                <el-form-item>
-                    <el-input class="input" 
-                    type="password" 
-                    v-model="sign_from.aspassword"  
-                    placeholder="请再次输入密码" 
-                    clearable
-                    show-password />
-                </el-form-item>
-                <el-form-item >
-                    <el-select v-model="sign_from.roleId" placeholder="请选择角色">
-                    <el-option
-                        v-for="item in roles"
-                        :key="item.id"
-                        :label="item.description"
-                        :value="item.id"
-                        >
-                    </el-option>
-                </el-select>
-                </el-form-item>
-                </el-form>
+            
+            <!-- 操作区域 -->
+            <div class="panel-footer">
+                <el-button class="action-button" type="primary" size="large" round :loading="loading" @click="isLogin ? handleLogin() : handleRegister()">
+                    {{ isLogin ? "登 录" : "立即注册" }}
+                </el-button>
+                <el-link type="info" :underline="false" @click="toggleForm" class="switch-link">
+                    {{ isLogin ? "还没有账户？" : "已有账户？" }}
+                </el-link>
             </div>
-            <div class="from-button">
-                <el-button class="button" type="primary" @click="loginOrsign()">{{isLoginOrSign?"登录":"注册" }}</el-button>
-            </div>
-            <div class="from-isLoginOrSign" @click="SetisLoginOrSign()">
-                <el-text>{{isLoginOrSign?"没有账号？点击注册！":"已有账号，点击登录！" }}</el-text>
-            </div>
-        </el-card>
-        <div class="login-right-contion">
-            <!-- <el-image class="imge" src="/png/sql-5.png" fit="cover" width="100%" height="100%"></el-image> -->
-            <img class="imge" src="../../assets/png/sql-5.png" alt="">
         </div>
     </div>
 </template>
 
-<script>
-import {roleApi} from '@/api/role'
-export default {
-    name: 'login',
-    data(){
-        return{
-            login_from:{
-                phone:'',
-                password: ''
-            },
-            sign_from:{
-                username:'',
-                password:'',
-                aspassword:'',
-                phone:'',
-                roleId:2
-            },
-            roles:[],
-            isLoginOrSign:true,
-        }
-    },
-    methods:{
-        SetisLoginOrSign(){
-            this.getRoles()
-            this.isLoginOrSign = !this.isLoginOrSign
-            this.clearForm()
-        },
-        async getRoles(){
-            try {
-                const res = await roleApi.getAllRole()
-                console.log('角色列表:', res.data)
-                this.roles = res.data
-                console.log(this.roles);
-            } catch (error) {
-                console.error('获取角色列表错误:', error)
-            }
-        },
-        // 添加用户登录日志
-        async loginOrsign(){
-            if (this.isLoginOrSign) {
-                // 登录逻辑
-                if (!this.checkLogin()) return
-                
-                try {
-                    const loginData = {
-                        phoneNumber: this.login_from.phone.toString(),
-                        password: this.login_from.password.toString()
-                    }
-                    
-                    console.log('发送登录请求:', loginData)
-                    const res = await this.$store.dispatch('user/login', loginData)
-                    console.log('登录响应:', res)
-                    
-                    if (res.code === 200) {
-                        await this.$store.dispatch('user/getUserInfo')
-                        this.$message.success('登录成功')
-                        this.$router.push('/')
-                    } else {
-                        this.$message.error(res.msg || '登录失败')
-                    }
-                } catch (error) {
-                    console.error('登录错误:', error)
-                    this.$message.error(error.msg || '登录失败')
-                }
-            } else {
-                // 注册逻辑
-                if (!this.checkSign()) return
-                if (!this.checkPassword()) return
+<script setup>
+// ... Script 部分和之前一样，无需修改 ...
+import { ref, reactive, onMounted, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import { ElMessage } from 'element-plus';
+import { roleApi } from '@/api/role';
+import { User, Lock, Phone, CircleCheck } from '@element-plus/icons-vue';
 
-                try {
-                    const signData = {
-                        username: this.sign_from.username,
-                        password: this.sign_from.password,
-                        phoneNumber: this.sign_from.phone,
-                        roleId: this.sign_from.roleId
-                    }
-                    console.log("发送注册请求：",signData);
-                    await this.$store.dispatch('user/register', signData)
-                    this.$message.success('注册成功')
-                    this.isLoginOrSign = true
-                    this.clearForm()
-                } catch (error) {
-                    this.$message.error(error.msg || '注册失败')
-                }
-            }
-        },
-        //检查注册时两个密码是否一致
-        checkPassword(){
-            if(this.sign_from.password != this.sign_from.aspassword){
-                this.$message.error('两次密码不一致')
-                return false
-            }
-            return true
-        },
-        //登录检查
-        checkLogin(){
-            if(this.login_from.phone == '' || this.login_from.password == ''){
-                this.$message.error('请输入完整信息')
-                return false
-            }
-            return true
-        },
-        //注册检查
-        checkSign(){
-            if(this.sign_from.username == '' || 
-               this.sign_from.password == '' || 
-               this.sign_from.aspassword == '' || 
-               this.sign_from.phone == ''){
-                this.$message.error('请输入完整信息')
-                return false
-            }
-            return true
-        },
-        //清空表单
-        clearForm(){
-            this.login_from = {
-                phone:'',
-                password: ''
-            }
-            this.sign_from = {
-                username:'',
-                password:'',
-                aspassword:'',
-                phone:'',
-            }
-        }
-    },
-    mounted(){
-    },
-    computed:{
-        roleList(){
-        }
+const router = useRouter();
+const store = useStore();
+const isLogin = ref(true); // 默认显示注册页，以匹配截图
+const loading = ref(false);
+const loginFormRef = ref();
+const registerFormRef = ref();
+
+const loginForm = reactive({ phone: '', password: '' });
+const registerForm = reactive({
+    username: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    roleId: null,
+});
+const roles = ref([]);
+
+const validatePass = (rule, value, callback) => {
+    if (value === '') {
+        callback(new Error('请再次输入密码'));
+    } else if (value !== registerForm.password) {
+        callback(new Error("两次输入的密码不一致!"));
+    } else {
+        callback();
     }
-}
+};
+
+const loginRules = reactive({
+    phone: [
+        { required: true, message: '请输入手机号', trigger: 'blur' },
+        { pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确', trigger: 'blur' },
+    ],
+    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+});
+
+const registerRules = reactive({
+    username: [{ required: true, message: '请输入你的姓名', trigger: 'blur' }],
+    phone: [
+        { required: true, message: '请输入手机号', trigger: 'blur' },
+        { pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确', trigger: 'blur' },
+    ],
+    password: [
+        { required: true, message: '请输入密码', trigger: 'blur' },
+        { min: 6, message: '密码长度不能少于6位', trigger: 'blur' },
+    ],
+    confirmPassword: [{ required: true, validator: validatePass, trigger: 'blur' }],
+    roleId: [{ required: true, message: '请选择角色', trigger: 'change' }],
+});
+
+const getRoles = async () => {
+    try {
+        const res = await roleApi.getAllRole();
+        if (res.data) roles.value = res.data;
+    } catch (error) {
+        console.error('获取角色列表失败:', error);
+    }
+};
+
+const toggleForm = () => {
+    isLogin.value = !isLogin.value;
+    nextTick(() => {
+        loginFormRef.value?.clearValidate();
+        registerFormRef.value?.clearValidate();
+    });
+};
+
+const handleLogin = async () => {
+    if (!loginFormRef.value) return;
+    await loginFormRef.value.validate(async (valid) => {
+        if (valid) {
+            loading.value = true;
+            try {
+                const res = await store.dispatch('user/login', {
+                    phoneNumber: loginForm.phone,
+                    password: loginForm.password,
+                });
+                if (res.code === 200) {
+                    await store.dispatch('user/getUserInfo');
+                    ElMessage.success('登录成功，正在跳转...');
+                    router.push('/');
+                } else {
+                    ElMessage.error(res.msg || '登录失败');
+                }
+            } catch (error) {
+                ElMessage.error(error.msg || '登录请求异常');
+            } finally {
+                loading.value = false;
+            }
+        }
+    });
+};
+
+const handleRegister = async () => {
+    if (!registerFormRef.value) return;
+    await registerFormRef.value.validate(async (valid) => {
+        if (valid) {
+            loading.value = true;
+            try {
+                await store.dispatch('user/register', {
+                    username: registerForm.username,
+                    password: registerForm.password,
+                    phoneNumber: registerForm.phone,
+                    roleId: registerForm.roleId,
+                });
+                ElMessage.success('注册成功！请登录。');
+                isLogin.value = true; // 注册成功后切换到登录
+            } catch (error) {
+                ElMessage.error(error.msg || '注册失败');
+            } finally {
+                loading.value = false;
+            }
+        }
+    });
+};
+
+onMounted(() => { getRoles(); });
 </script>
 
-<style lang="less">
-p{
-    // margin: 0;
+<style lang="less" scoped>
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 40px 20px; /* 上下留出间距 */
+  box-sizing: border-box;
 }
-.login{
-    display: flex;
-    width: calc(100vw - 20px);
-    height: calc(100vh - 140px);
-    box-sizing: border-box;
-    padding: 10px;
-    .login-lift-from{
-        width: 50%;
-        height: 100%;
-        // border: 1px solid red;
-        box-sizing: border-box;
-        padding: 10px;
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
-        .from-title{
-            height: 50px;
-            width: 100%;
-            // background-color: aqua;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            p{
-                line-height: 20px;
-                font-size: 20px;
-                font-weight: bolder;
-            }
-        }
-        .from-input{
-            .input-text{
-                p{
-                    color: rgba(0, 0, 0, 0.538);
-                }
-            }
-            .input{
-            }
-        }
-        .from-button{
-            margin-top: 10px;
-            .button{
-                width: 100%;
-            }
-        }
-        .from-isLoginOrSign{}
-    }
-    .login-right-contion{
-        width: 50%;
-        height: 100%;
-        // aspect-ratio: 16/9;
-        img{
-            width: 100%;
-            height: 100%;
-            // aspect-ratio: 16/9;
-        }
-        // border: 1px solid red;
-    }
+
+.login-panel {
+  width: 100%;
+  max-width: 450px; /* 卡片最大宽度 */
+  padding: 30px 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: var(--el-box-shadow-light); /* Element Plus 的浅色阴影 */
+  box-sizing: border-box;
 }
-/* 当屏幕宽度小于500px */
-@media screen and (max-width: 500px) {
-  .login-right-contion{
-    display: none;
+
+.panel-header {
+  text-align: center;
+  margin-bottom: 30px;
+  .title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--el-text-color-primary);
+    margin: 0;
   }
-  .login .login-lift-from {
-    width: 100%;
+  .subtitle {
+    font-size: 14px;
+    color: var(--el-text-color-secondary);
+    margin-top: 10px;
+  }
 }
+
+.login-form {
+  .el-form-item {
+    margin-bottom: 22px;
+    // 定制输入框样式
+    :deep(.el-input__wrapper) {
+        border-radius: 8px;
+    }
+    :deep(.el-select .el-input__wrapper) {
+        border-radius: 8px;
+    }
+  }
+}
+
+.panel-footer {
+  text-align: center;
+  .action-button {
+    width: 100%;
+    font-size: 16px;
+    // 匹配截图中的渐变色
+    background: linear-gradient(90deg, #63a6ff 0%, #52e5e7 100%);
+    border: none;
+  }
+  .switch-link {
+    margin-top: 20px;
+  }
+}
+
+/* 表单切换动画 */
+.form-fade-enter-active,
+.form-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.form-fade-enter-from,
+.form-fade-leave-to {
+    opacity: 0;
 }
 </style>

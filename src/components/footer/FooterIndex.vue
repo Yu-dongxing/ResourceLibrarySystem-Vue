@@ -83,35 +83,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
-//a链接，不显示下划线，不显示颜色
-// a:link {
-//     text-decoration: none;
-// }
-// a:visited {
-//     text-decoration: none;
-// }
-// a:hover {
-//     text-decoration: none;
-// }
-// a {
-//     text-decoration: none;
-// }
-//底部版权栏目，使用绝对定位
 .footer {
-    height: auto(50px);
+    height: var(--custom-footer-height, 50px);
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: var(--bg-010);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* 与 header 统一 */
+    border-top: 1px solid var(--el-border-color-light);
+    flex-shrink: 0; /* 防止flex布局压缩footer高度 */
+    padding: 5px 0;
+    box-sizing: border-box;
+
     .title {
         text-align: center;
-        font-size: 15px;
+        font-size: 14px;
         line-height: 20px;
-        color: var(--text-200);
-        p{
-          margin: 1px;
-        }
+        color: var(--el-text-color-secondary); /* 使用Element Plus的次要文字颜色 */
     }
 }
 </style>

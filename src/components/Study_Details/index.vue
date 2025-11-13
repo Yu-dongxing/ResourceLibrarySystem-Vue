@@ -1,25 +1,25 @@
 <template>
   <div class="StudyDetails">
     <!-- 任务主题 -->
-    <el-card class="ccard display-center" shadow="hover">
+    <!-- <el-card class="ccard display-center" shadow="hover">
         <el-text class="title">{{ studyDetails.taskTitle }}</el-text>
-    </el-card>
+    </el-card> -->
     
-    <!-- 任务详细信息和附件布局 -->
-    <div class="content-area">
+    <!-- 任务详细信息和附件布局  content-area -->
+    <div class="">
       <!-- 任务详细信息 -->
       <el-card class="ccard details-info">
         <template #header>
             <div class="header card-header">
                 <el-icon><Grid /></el-icon>
-                <el-text style="margin-left: 10px">任务详细内容</el-text>
+                <el-text style="margin-left: 10px">{{ studyDetails.taskTitle }}</el-text>
             </div>
         </template>
         <div class="hhtml" v-html="studyDetails.description"></div>
       </el-card>
       
-      <!-- 任务附件 -->
-      <el-card class="ccard attachment-info">
+      <!-- 任务附件 v-if="task_fileList.length > 0"-->
+      <el-card class="ccard attachment-info" >
         <template #header>
             <div class="header card-header">
                 <el-icon><Document /></el-icon>

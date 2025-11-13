@@ -3,7 +3,7 @@ name: Vue Deploy
 on:
   push:
     tags:
-      - '*'  # 推送带有版本号的标签（例如 v1.0.0）
+      - '*'  # 推送带有版本号的标签（例如 v1.0.0）执行命令推送标记 git push ResourceLibrarySystem-Vue 0.7.25
 
 jobs:
   build-and-deploy:
