@@ -90,7 +90,7 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: #ffffff; /* 与 header 统一 */
-    border-top: 1px solid var(--el-border-color-light);
+    //border-top: 1px solid var(--el-border-color-light);
     flex-shrink: 0; /* 防止flex布局压缩footer高度 */
     padding: 5px 0;
     box-sizing: border-box;

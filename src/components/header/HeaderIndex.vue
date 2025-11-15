@@ -144,7 +144,7 @@ export default {
   align-items: center;
   padding: 0 20px;
   background-color: #ffffff; /* 纯白背景 */
-  border-bottom: 1px solid var(--el-border-color-light); /* Element Plus 的浅色边框 */
+  //border-bottom: 1px solid var(--el-border-color-light); /* Element Plus 的浅色边框 */
   flex-shrink: 0; /* 防止flex布局压缩header高度 */
 }
 

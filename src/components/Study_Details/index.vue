@@ -1,72 +1,100 @@
 <template>
-  <div class="StudyDetails">
-    <!-- 任务主题 -->
-    <!-- <el-card class="ccard display-center" shadow="hover">
-        <el-text class="title">{{ studyDetails.taskTitle }}</el-text>
-    </el-card> -->
-    
-    <!-- 任务详细信息和附件布局  content-area -->
-    <div class="">
-      <!-- 任务详细信息 -->
-      <el-card class="ccard details-info">
-        <template #header>
-            <div class="header card-header">
-                <el-icon><Grid /></el-icon>
-                <el-text style="margin-left: 10px">{{ studyDetails.taskTitle }}</el-text>
-            </div>
-        </template>
-        <div class="hhtml" v-html="studyDetails.description"></div>
-      </el-card>
-      
-      <!-- 任务附件 v-if="task_fileList.length > 0"-->
-      <el-card class="ccard attachment-info" >
-        <template #header>
-            <div class="header card-header">
-                <el-icon><Document /></el-icon>
-                <el-text style="margin-left: 10px">任务附件</el-text>
-            </div>
-        </template>
-        <el-table :data="task_fileList">
-          <!-- fileName -->
-          <el-table-column prop="fileName" label="文件名" />
-          <el-table-column  label="附件下载" >
-            <template #default="scope">
-              <el-button @click="downloadFile(scope.row.fileUrl,scope.row.fileName)" type="primary" size="small">下载</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-card>
-    </div>
-    
-    <!-- 任务完成提交 -->
-    <el-card class="ccard">
-        <template #header>
-            <div class="header card-header">
-                <el-icon><Finished /></el-icon>
-                <el-text style="margin-left: 10px;">提交任务</el-text>
-            </div>
-        </template>
-        <el-form :model="answerStudyTask"  class="demo-ruleForm">
-            <el-form-item>
-                <wangeditor v-model="answerStudyTask.userFinishDesc" />
-            </el-form-item>
-            <el-form-item label="选择附件">
-                <FileUploadNoPost :value="postFileList"></FileUploadNoPost>
-            </el-form-item>
-            <el-table :data="user_fileList">
-              <el-table-column prop="fileName" label="文件名" />
-              <el-table-column  label="操作" >
-                <template #default="scope">
-                  <el-button tag="a" target="_blank" :href="scope.row.fileUrl" type="primary" size="small">查看</el-button>
-                  <el-button @click="deleteFile(scope.row.id)" type="danger" size="small">删除</el-button>
-                </template>
-              </el-table-column>
-          </el-table>
-        </el-form>
-        <template #footer>
-          <el-button style="float: right;" type="primary" @click="answerTask">提交</el-button>
-        </template>
+  <div class="study-details-container">
+    <!-- 页面头部：任务标题和核心信息 -->
+    <el-card class="page-header-card" shadow="never">
+      <div class="header-content">
+        <div class="header-title">
+          <el-icon :size="28" class="title-icon"><Grid /></el-icon>
+          <h1>{{ studyDetails.taskTitle }}</h1>
+        </div>
+        <!-- 这里可以放一些次要信息，比如发布时间、截止日期等 -->
+        <!-- <div class="header-meta">
+          <span>发布者：Admin</span>
+          <span>截止日期：2025-12-31</span>
+        </div> -->
+      </div>
     </el-card>
+
+    <!-- 主体内容区：左右布局 -->
+    <div class="main-content-grid">
+      <!-- 左侧：任务详情和附件 -->
+      <div class="content-left">
+        <el-card class="content-card" shadow="hover">
+          <template #header>
+            <div class="card-header">
+              <el-icon><DocumentText /></el-icon>
+              <span>任务详情</span>
+            </div>
+          </template>
+          <!-- 使用 v-html 时要确保内容是可信的，防止 XSS 攻击 -->
+          <div class="task-description" v-html="studyDetails.description"></div>
+        </el-card>
+
+        <el-card v-if="task_fileList.length > 0" class="content-card" shadow="hover">
+          <template #header>
+            <div class="card-header">
+              <el-icon><FolderOpened /></el-icon>
+              <span>任务附件</span>
+            </div>
+          </template>
+          <el-table :data="task_fileList" style="width: 100%">
+            <el-table-column prop="fileName" label="文件名" show-overflow-tooltip />
+            <el-table-column label="操作" width="120" align="center">
+              <template #default="scope">
+                <el-button @click="downloadFile(scope.row.fileUrl, scope.row.fileName)" type="primary" link size="small">
+                  <el-icon style="margin-right: 4px;"><Download /></el-icon>下载
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </div>
+
+      <!-- 右侧：提交区域 -->
+      <div class="content-right">
+        <el-card class="submission-card" shadow="hover">
+          <template #header>
+            <div class="card-header">
+              <el-icon><EditPen /></el-icon>
+              <span>提交我的任务</span>
+            </div>
+          </template>
+          <el-form :model="answerStudyTask" label-position="top">
+            <el-form-item label="完成情况说明">
+              <wangeditor v-model="answerStudyTask.userFinishDesc" />
+            </el-form-item>
+            
+            <el-form-item label="上传附件">
+              <!-- 将上传组件和已上传列表整合在一起，体验更好 -->
+              <FileUploadNoPost :value="postFileList" class="upload-component"></FileUploadNoPost>
+            </el-form-item>
+
+            <!-- 已提交的文件列表 -->
+            <div v-if="user_fileList.length > 0" class="uploaded-list">
+                <el-divider>已提交的文件</el-divider>
+                <el-table :data="user_fileList" style="width: 100%">
+                    <el-table-column prop="fileName" label="文件名" show-overflow-tooltip />
+                    <el-table-column label="操作" width="160" align="center">
+                        <template #default="scope">
+                            <el-button tag="a" target="_blank" :href="scope.row.fileUrl" type="primary" link size="small">查看</el-button>
+                            <el-button @click="deleteFile(scope.row.id)" type="danger" link size="small">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+          </el-form>
+          
+          <template #footer>
+            <div class="submission-footer">
+                <el-button type="primary" @click="answerTask" size="large" :disabled="isSubmitting">
+                    <el-icon style="margin-right: 8px;"><Promotion /></el-icon>
+                    {{ isSubmitting ? '正在提交...' : '确认提交' }}
+                </el-button>
+            </div>
+          </template>
+        </el-card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -184,57 +212,140 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.margin-top-10 {
-  margin-top: 10px;
+// 使用 scoped 来确保样式只作用于当前组件
+// 引入一些全局变量会更好，这里为了演示直接写颜色
+:root {
+  --custom-card-header-bg: #f9fafb;
+  --custom-border-color: #e4e7ed;
 }
-.title {
-  font-size: large;
-  font-weight: bold;
-  color: var(--text-200);
+
+.study-details-container {
+  padding: 20px;
+  background-color: #f0f2f5; // 给页面一个浅灰色背景，突出卡片
 }
-.icon-q {
-  color: var(--el-text-color);
-}
-.display-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.display-x-center {
+
+// 页面头部卡片
+.page-header-card {
+  border: none; // 去掉边框，让它更像一个页头而不是普通卡片
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .header-title {
     display: flex;
     align-items: center;
-}
-.ccard {
-  border-radius: 15px;
-  margin-bottom: 10px;
-}
-.card-header {
-  display: flex;
-  align-items: center;
-  color: var(--el-text-color);
-}
-.el-card__footer {
-   display: flex;
-   justify-content: flex-end;
+    gap: 12px;
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #303133;
+      margin: 0; // 重置 h1 的默认 margin
+    }
+    
+    .title-icon {
+      color: var(--el-color-primary);
+    }
+  }
+
+  // .header-meta {
+  //   font-size: 14px;
+  //   color: #909399;
+  //   display: flex;
+  //   gap: 20px;
+  // }
 }
 
-/* 任务详细信息和附件布局 */
-.content-area {
+// 主体内容网格布局
+.main-content-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
+  grid-template-columns: 2fr 1fr; // 左右分栏，左边是右边的两倍宽
+  gap: 20px;
 }
 
-.details-info, .attachment-info {
-  //width: 100%;
+// 左侧内容区
+.content-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-// .attachment-info{
-//   width: 50%;
-// }
-/* 小屏布局调整 */
-@media (max-width: 768px) {
-  .content-area {
-    grid-template-columns: 1fr;
+
+.content-card, .submission-card {
+  border-radius: 12px; // 更大的圆角，更显柔和
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); // 一个更细微的初始阴影
+  transition: transform 0.3s ease, box-shadow 0.3s ease; // 添加过渡效果
+
+  &:hover {
+    transform: translateY(-5px); // 鼠标悬浮时轻微上浮
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); // 阴影变深，立体感更强
+  }
+  
+  :deep(.el-card__header) {
+    background-color: #ffffff; // 头部和身体同色，通过边框分割
+    border-bottom: 1px solid #f0f0f0; // 一条非常细的分割线
+  }
+}
+
+// 任务描述样式
+.task-description {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #606266;
+
+  // 如果 v-html 包含标题、列表等，可以做一些样式穿透优化
+  :deep(h1), :deep(h2), :deep(h3) {
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    font-weight: 600;
+  }
+  :deep(p) {
+    margin-bottom: 1em;
+  }
+  :deep(ul), :deep(ol) {
+    padding-left: 20px;
+  }
+}
+
+// 提交区域卡片
+.submission-card {
+  position: sticky; // 右侧提交区吸顶，方便长页面操作
+  top: 20px;
+
+  .upload-component {
+    width: 100%; // 让上传组件撑满
+  }
+  
+  .uploaded-list {
+      margin-top: 10px;
+  }
+
+  .submission-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 0 0;
+  }
+}
+
+// 表格按钮使用 link 类型，更简洁
+.el-table .el-button--text {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// 响应式布局：当屏幕宽度小于 992px 时，变为单栏布局
+@media (max-width: 992px) {
+  .main-content-grid {
+    grid-template-columns: 1fr; // 变为一列
+  }
+  .submission-card {
+    position: static; // 取消吸顶
   }
 }
 </style>
