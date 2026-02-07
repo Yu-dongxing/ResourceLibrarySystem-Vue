@@ -22,12 +22,6 @@ html, body, #app {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- 全局背景色 --- */
-body {
-  /* 你可以换成截图中的渐变色，或者使用一个柔和的单色 */
-  background-color: #ffffff; /* Element Plus 默认的背景色，非常协调 */
-}
-
 /* --- 全局自定义变量 (可选，但推荐) --- */
 :root {
   --custom-header-height: 60px;

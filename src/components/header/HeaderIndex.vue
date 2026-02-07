@@ -52,6 +52,11 @@
         <el-icon><User /></el-icon>
         <span class="item-t">用户</span>
       </router-link>
+      <!-- Theme Toggle Button -->
+      <div class="right-item" @click="toggleTheme" style="cursor: pointer;">
+        <el-icon v-if="isDark"><Moon /></el-icon>
+        <el-icon v-else><Sunny /></el-icon>
+      </div>
     </div>
     <!-- 手机端链接 -->
     <div class="header-right-app">
@@ -69,6 +74,11 @@
               </el-icon>
               <!-- <el-icon><House /></el-icon> -->
               <router-link :to="item.link" class="no-link-style" style="width: 100%;">{{ item.title }}</router-link>
+            </el-dropdown-item>
+             <el-dropdown-item @click="toggleTheme">
+               <el-icon v-if="isDark"><Moon /></el-icon>
+               <el-icon v-else><Sunny /></el-icon>
+               <span>{{ isDark ? '暗黑模式' : '亮色模式' }}</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -110,9 +120,14 @@ export default {
   setup() {
     const store = useStore()
     const userInfo = computed(() => store.state.user.userInfo)
+    const isDark = computed(() => store.state.theme.isDark)
+    const toggleTheme = () => store.dispatch('theme/toggleTheme')
+    
     console.log(userInfo);
     return {
       userInfo,
+      isDark,
+      toggleTheme
     }
   },
   methods: {
@@ -143,9 +158,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #ffffff; /* 纯白背景 */
-  //border-bottom: 1px solid var(--el-border-color-light); /* Element Plus 的浅色边框 */
+  background-color: var(--header-bg-color); /* Theme variable */
+  border-bottom: 1px solid var(--header-border-color); /* Theme variable */
   flex-shrink: 0; /* 防止flex布局压缩header高度 */
+  color: var(--app-text-color);
 }
 
 .header-left {
@@ -166,6 +182,7 @@ export default {
 .title {
   font-size: 20px;
   font-weight: bold;
+  color: var(--app-text-color);
 }
 
 .header-right {
@@ -178,12 +195,13 @@ export default {
     padding: 8px 12px;
     border-radius: 6px;
     transition: background-color 0.2s ease;
+    color: var(--app-text-color);
     span {
       margin-left: 8px;
     }
   }
   .right-item:hover {
-    background-color: #f5f5f5;
+    background-color: var(--item-hover-bg-color);
   }
 }
 

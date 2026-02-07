@@ -102,13 +102,16 @@ export default {
   justify-content: center;
   align-items: center;
   height: calc(100vh - 120px);
+  background-color: var(--app-bg-color); /* Theme variable */
 
   .login-card {
     width: 400px;
+    background-color: var(--card-bg-color); /* Theme variable */
     
     .login-title {
       text-align: center;
       margin: 0;
+      color: var(--text-100);
     }
   }
 }

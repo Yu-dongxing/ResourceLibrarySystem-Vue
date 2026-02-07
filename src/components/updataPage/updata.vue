@@ -64,13 +64,13 @@ export default {
     // 重点2: 新增一个方法，根据类型返回对应的颜色值
     getTypeColor(type) {
       switch (type) {
-        case 'success': return '#67C23A';
-        case 'warning': return '#E6A23C';
-        case 'danger': return '#F56C6C';
-        case 'info': return '#909399';
+        case 'success': return 'var(--el-color-success)';
+        case 'warning': return 'var(--el-color-warning)';
+        case 'danger': return 'var(--el-color-danger)';
+        case 'info': return 'var(--el-color-info)';
         case 'primary':
         default:
-          return '#409EFF';
+          return 'var(--el-color-primary)';
       }
     },
     formatDescription(desc) {
@@ -104,9 +104,9 @@ export default {
 /* --- 卡片样式 --- */
 .log-card {
   /* 默认边框，确保四个边都有一个基础样式 */
-  border: 1px solid #eef0f3; 
+  border: 1px solid var(--app-border-color-light); 
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--card-bg-color);
   /* 重点3: 明确定义左侧边框的宽度和样式 */
   border-left-width: 4px;
   border-left-style: solid;
@@ -124,11 +124,11 @@ export default {
 }
 
 /* 重点4: 直接为每个类型设置颜色，不再使用CSS变量，更直接可靠 */
-.log-card--primary { border-left-color: #409EFF; }
-.log-card--success { border-left-color: #67C23A; }
-.log-card--warning { border-left-color: #E6A23C; }
-.log-card--danger { border-left-color: #F56C6C; }
-.log-card--info { border-left-color: #909399; }
+.log-card--primary { border-left-color: var(--el-color-primary); }
+.log-card--success { border-left-color: var(--el-color-success); }
+.log-card--warning { border-left-color: var(--el-color-warning); }
+.log-card--danger { border-left-color: var(--el-color-danger); }
+.log-card--info { border-left-color: var(--el-color-info); }
 
 
 /* 卡片头部 */
@@ -144,13 +144,13 @@ export default {
 .log-title {
   font-size: 17px;
   font-weight: 600;
-  color: #303133;
+  color: var(--app-text-color-primary);
 }
 
 /* 卡片内容 */
 .log-description {
   line-height: 1.7;
-  color: #555;
+  color: var(--app-text-color-regular);
   font-size: 14px;
   padding: 0 4px;
 }
@@ -169,7 +169,7 @@ export default {
 }
 :deep(.el-timeline-item__timestamp) {
   font-size: 14px;
-  color: #909399;
+  color: var(--app-text-color-secondary);
   margin-bottom: 12px;
 }
 :deep(.el-timeline-item__node) {

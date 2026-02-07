@@ -40,7 +40,7 @@ export default {
     transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
-    background: #fff;
+    background: var(--app-overlay-bg-color);
     border-radius: 10px;
     .loaging-box-content {
       display: flex;
@@ -58,7 +58,7 @@ export default {
       }
       .loaging-box-content-text {
         font-size: 14px;
-        color: #666;
+        color: var(--app-text-color-regular);
       }
     }
   }

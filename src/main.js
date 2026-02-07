@@ -5,6 +5,9 @@ import store from './store';
 import ElementPlus from 'element-plus';
 import ElementTiptapPlugin from 'element-tiptap';
 import 'element-plus/dist/index.css';
+import 'element-plus/theme-chalk/dark/css-vars.css'; // Dark mode css vars
+import './styles/theme.less'; // Custom theme styles
+
 // import UUID from "vue-uuid"; // 引入uuid
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -12,6 +15,9 @@ import 'element-plus/dist/index.css';
 import * as Icons from '@element-plus/icons-vue';
 
 const app = createApp(App);
+
+// Initialize Theme
+store.dispatch('theme/initTheme');
 
 // 全局注册所有图标
 Object.keys(Icons).forEach((key) => {

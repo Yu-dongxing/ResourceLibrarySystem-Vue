@@ -89,7 +89,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff; /* 与 header 统一 */
+    background-color: var(--footer-bg-color); /* Theme variable */
     //border-top: 1px solid var(--el-border-color-light);
     flex-shrink: 0; /* 防止flex布局压缩footer高度 */
     padding: 5px 0;

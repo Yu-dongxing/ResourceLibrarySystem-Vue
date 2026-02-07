@@ -230,7 +230,7 @@ export default {
   margin-right: 15px;
   object-fit: contain;
   flex-shrink: 0;
-  background-color: #f0f2f5;
+  background-color: var(--bg-200);
 }
 
 .preview-text {

@@ -214,21 +214,17 @@ export default {
 <style lang="less" scoped>
 // 使用 scoped 来确保样式只作用于当前组件
 // 引入一些全局变量会更好，这里为了演示直接写颜色
-:root {
-  --custom-card-header-bg: #f9fafb;
-  --custom-border-color: #e4e7ed;
-}
 
 .study-details-container {
   padding: 20px;
-  background-color: #f0f2f5; // 给页面一个浅灰色背景，突出卡片
+  background-color: var(--app-bg-color); // 给页面一个浅灰色背景，突出卡片
 }
 
 // 页面头部卡片
 .page-header-card {
   border: none; // 去掉边框，让它更像一个页头而不是普通卡片
   margin-bottom: 20px;
-  background-color: #ffffff;
+  background-color: var(--card-bg-color);
   
   .header-content {
     display: flex;
@@ -244,7 +240,7 @@ export default {
     h1 {
       font-size: 24px;
       font-weight: 600;
-      color: #303133;
+      color: var(--app-text-color-primary);
       margin: 0; // 重置 h1 的默认 margin
     }
     
@@ -277,7 +273,7 @@ export default {
 
 .content-card, .submission-card {
   border-radius: 12px; // 更大的圆角，更显柔和
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--app-border-color-light);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); // 一个更细微的初始阴影
   transition: transform 0.3s ease, box-shadow 0.3s ease; // 添加过渡效果
 
@@ -287,8 +283,8 @@ export default {
   }
   
   :deep(.el-card__header) {
-    background-color: #ffffff; // 头部和身体同色，通过边框分割
-    border-bottom: 1px solid #f0f0f0; // 一条非常细的分割线
+    background-color: var(--card-bg-color); // 头部和身体同色，通过边框分割
+    border-bottom: 1px solid var(--app-divider-color); // 一条非常细的分割线
   }
 }
 
@@ -296,7 +292,7 @@ export default {
 .task-description {
   font-size: 14px;
   line-height: 1.8;
-  color: #606266;
+  color: var(--app-text-color-regular);
 
   // 如果 v-html 包含标题、列表等，可以做一些样式穿透优化
   :deep(h1), :deep(h2), :deep(h3) {

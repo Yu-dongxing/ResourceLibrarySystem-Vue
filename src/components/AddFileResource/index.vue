@@ -200,8 +200,17 @@
   }
   </script>
   
-  <style>
+  <style scoped>
+  .addResource {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
   .board-rids-10 {
     border-radius: 10px;
+    margin-top: 20px;
+  }
+  :deep(.el-card) {
+    border-radius: 12px;
   }
   </style>

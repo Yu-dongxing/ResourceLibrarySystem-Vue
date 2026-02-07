@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f6f8fb;
+    background-color: var(--app-bg-color);
     border-radius: 10px;
   }
   </style> 
