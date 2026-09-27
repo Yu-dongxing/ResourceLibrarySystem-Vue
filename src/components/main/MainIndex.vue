@@ -25,12 +25,10 @@
                             <el-icon><Timer /></el-icon>
                             <span>{{ item.updateTime }}</span>
                         </div>
-                        <el-divider direction="vertical" />
                         <div class="meta-tag">
                             <el-icon><User /></el-icon>
                             <span>{{ item.author }}</span>
                         </div>
-                        <el-divider direction="vertical" />
                         <div class="meta-tag">
                             <el-icon><CollectionTag /></el-icon>
                             <span>{{ item.tab }}</span>
@@ -85,7 +83,7 @@ export default {
 <style lang="less" scoped>
 .main-index {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 16px;
     padding: 16px;
     transition: all 0.3s ease;
@@ -101,6 +99,7 @@ export default {
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    min-width: 0; /* Prevent flex item from overflowing */
 
     &:hover {
         transform: translateY(-2px);
@@ -143,6 +142,7 @@ export default {
     flex: 1;
     margin-left: 16px;
     overflow: hidden;
+    min-width: 0; /* Important for ellipsis */
 
     .item-title {
         margin: 0 0 8px 0;
@@ -154,28 +154,25 @@ export default {
         text-overflow: ellipsis;
     }
 
-    .item-meta {
-        display: flex;
-        align-items: center;
-        font-size: 13px;
-        color: var(--app-text-color-secondary);
-
-        .meta-tag {
+                .item-meta {
             display: flex;
             align-items: center;
-            gap: 4px;
-            
-            .el-icon {
-                font-size: 14px;
+            flex-wrap: wrap; /* Allow wrapping to prevent squeezing */
+            gap: 8px; /* Use gap instead of vertical dividers for better wrapping behavior */
+            font-size: 13px;
+            color: var(--app-text-color-secondary);
+    
+            .meta-tag {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                white-space: nowrap; /* Keep icon and text together */
+                
+                .el-icon {
+                    font-size: 14px;
+                }
             }
-        }
-
-        .el-divider--vertical {
-            margin: 0 10px;
-            border-color: var(--app-divider-color);
-        }
-    }
-}
+        }}
 
 .item-action {
     margin-left: 8px;
