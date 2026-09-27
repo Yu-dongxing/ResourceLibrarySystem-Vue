@@ -1,9 +1,9 @@
 <template>
     <div>
       <div id="editor">
-          <div style="border: 1px solid #ccc;z-index: 100;">
+          <div class="editor-wrapper">
               <Toolbar
-                  style="border-bottom: 1px solid #ccc"
+                  class="editor-toolbar"
                   :editor="editorRef"
                   :mode="mode"
               />
@@ -90,3 +90,44 @@
     }
   }
   </script>
+
+  <style scoped lang="less">
+  .editor-wrapper {
+    border: 1px solid var(--app-border-color);
+    z-index: 100;
+    border-radius: 4px;
+    overflow: hidden;
+    
+    /* wangEditor Global Variable Overrides */
+    --w-e-toolbar-bg-color: var(--header-bg-color);
+    --w-e-toolbar-color: var(--app-text-color-primary);
+    --w-e-toolbar-active-bg-color: var(--item-hover-bg-color);
+    --w-e-toolbar-active-color: var(--primary-200);
+    --w-e-toolbar-border-color: var(--app-border-color);
+    
+    --w-e-editor-bg-color: var(--app-content-bg-color);
+    --w-e-editor-color: var(--app-text-color-primary);
+    
+    --w-e-textarea-bg-color: var(--app-content-bg-color);
+    --w-e-textarea-color: var(--app-text-color-primary);
+    --w-e-textarea-border-color: var(--app-border-color);
+    
+    --w-e-modal-button-bg-color: var(--item-hover-bg-color);
+    --w-e-modal-button-border-color: var(--app-border-color);
+  }
+  
+  .editor-toolbar {
+    border-bottom: 1px solid var(--app-border-color) !important;
+  }
+
+  /* Deep selectors for components that might not pick up variables correctly */
+  :deep(.w-e-text-container) {
+    background-color: var(--app-content-bg-color) !important;
+    color: var(--app-text-color-primary) !important;
+  }
+
+  :deep(.w-e-toolbar) {
+    background-color: var(--header-bg-color) !important;
+    color: var(--app-text-color-primary) !important;
+  }
+  </style>

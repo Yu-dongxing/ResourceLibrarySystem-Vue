@@ -53,31 +53,11 @@
 
     <!-- NOT FOUND / 空状态 -->
     <div v-else class="search-nothing">
-      <!-- 
-        修复点 1: 替换失效的 img 标签为内联 SVG
-        使用内联 SVG 可以保证图标始终可用，不受外部链接影响，且加载速度快。
-        这是 Ant Design 默认的空状态插图。
-      -->
-      <svg width="184" height="152" viewBox="0 0 184 152" xmlns="http://www.w3.org/2000/svg" class="not-found-img">
-        <g fill="none" fill-rule="evenodd">
-          <g transform="translate(24 31.67)">
-            <ellipse fill-opacity=".8" fill="#F5F5F7" cx="67.797" cy="106.89" rx="67.797" ry="12.668"></ellipse>
-            <path d="M122.034 69.674L98.109 40.229c-1.148-1.386-2.826-2.22-4.593-2.22h-51.44c-1.766 0-3.444.833-4.592 2.22L13.56 69.674v15.383h108.473V69.674z" fill="#AEB8C2"></path>
-            <path d="M101.537 86.214L80.63 61.102c-1.001-1.207-2.507-1.867-4.092-1.867H31.99c-1.585 0-3.091.66-4.092 1.867L6.796 86.214v15.383h94.74v-15.383z" fill="url(#linearGradient-1)" transform="translate(13.56)"></path>
-            <path d="M33.83 0h67.933a4 4 0 0 1 4 4v93.333a4 4 0 0 1-4 4H33.83a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z" fill="#F5F5F7"></path>
-            <path d="M42.678 9.953h50.237a2 2 0 0 1 2 2V36.91a2 2 0 0 1-2 2H42.678a2 2 0 0 1-2-2V11.953a2 2 0 0 1 2-2zM42.94 49.767h49.713a2.262 2.262 0 1 1 0 4.524H42.94a2.262 2.262 0 0 1 0-4.524zM42.94 61.53h49.713a2.262 2.262 0 1 1 0 4.524H42.94a2.262 2.262 0 0 1 0-4.524zM42.94 73.293h49.713a2.262 2.262 0 1 1 0 4.524H42.94a2.262 2.262 0 0 1 0-4.524z" fill="#DCE0E6"></path>
-          </g>
-          <path d="M149.121 33.292l-6.83 2.65a1 1 0 0 1-1.317-1.23l1.937-6.207c.29-1.03.836-1.97 1.56-2.763L154.06 20.43c.803-.896.803-2.36 0-3.256L150.52 14.32c-.803-.896-2.09-.896-2.893 0l-7.465 8.32c-.724.804-1.27 1.75-1.56 2.764l-1.938 6.206a1 1 0 0 1-1.316 1.23l-6.83-2.65c-1.096-.425-2.35.023-2.924 1.054l-3.588 6.215c-.574 1.03.023 2.35 1.12 2.776l6.83 2.65a1 1 0 0 1 .723 1.93l-1.937 6.207c-.29 1.03-.836 1.97-1.56 2.763l-7.466 8.32c-.802.896-.802 2.36 0 3.256l3.54 3.95c.803.896 2.09.896 2.893 0l7.465-8.32c.724-.804 1.27-1.75 1.56-2.764l1.938-6.206a1 1 0 0 1 .722-1.93l6.83 2.65c1.096.425 2.35-.023 2.924-1.054l3.588-6.215c.573-1.03-.024-2.35-1.12-2.776z" fill="#9FB0C1"></path>
-        </g>
-        <defs>
-          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#fff" offset="0%"></stop>
-            <stop stop-color="#F5F5F7" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-      </svg>
-      <h3>未能找到相关资源</h3>
-      <p>尝试更换一个关键词搜索吧</p>
+      <el-empty description="未能找到相关资源">
+        <template #default>
+            <p>尝试更换一个关键词搜索吧</p>
+        </template>
+      </el-empty>
     </div>
   </div>
 </template>
@@ -135,14 +115,6 @@ export default {
 
 <style lang="less" scoped>
 // 样式部分保持不变
-:root {
-  --card-bg-color: #ffffff;
-  --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  --card-hover-shadow: 0 12px 24px rgba(98, 106, 239, 0.2);
-  --primary-color: #626aef;
-  --text-color-primary: #333;
-  --text-color-secondary: #888;
-}
 
 .resource-search-container {
   padding: 20px;
@@ -179,7 +151,7 @@ export default {
   padding-top: 60%; 
   position: relative;
   overflow: hidden;
-  background-color: #f5f7fa; 
+  background-color: var(--bg-200); 
 }
 
 .card-image {
@@ -201,8 +173,8 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-  background: #f5f7fa;
-  color: var(--text-color-secondary);
+  background: var(--bg-200);
+  color: var(--app-text-color-secondary);
 }
 
 .card-content {
@@ -213,7 +185,7 @@ export default {
 .card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-color-primary);
+  color: var(--app-text-color-primary);
   margin: 0 0 8px 0;
   white-space: nowrap;
   overflow: hidden;
@@ -222,7 +194,7 @@ export default {
 
 .card-author {
   font-size: 0.9rem;
-  color: var(--text-color-secondary);
+  color: var(--app-text-color-secondary);
   margin: 0 0 12px 0;
 }
 
@@ -242,7 +214,7 @@ export default {
 .skeleton-image {
   width: 100%;
   padding-top: 60%;
-  background: #f2f3f5;
+  background: var(--app-border-color-light);
   animation: skeleton-flash 1.5s infinite ease-in-out;
 }
 
@@ -254,7 +226,7 @@ export default {
   height: 16px;
   margin-bottom: 10px;
   border-radius: 4px;
-  background: #f2f3f5;
+  background: var(--app-border-color-light);
   animation: skeleton-flash 1.5s infinite ease-in-out;
 }
 
@@ -265,7 +237,7 @@ export default {
   justify-content: center;
   padding: 80px 20px;
   text-align: center;
-  color: var(--text-color-secondary);
+  color: var(--app-text-color-secondary);
   opacity: 0;
   animation: card-fade-in 0.5s ease-out forwards;
 }
@@ -281,8 +253,8 @@ export default {
 }
 
 @keyframes skeleton-flash {
-  0% { background-color: #f2f3f5; }
-  50% { background-color: #e6e8eb; }
-  100% { background-color: #f2f3f5; }
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 </style>

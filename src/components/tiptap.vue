@@ -17,6 +17,7 @@
     BulletList,
     OrderedList,
   } from 'element-tiptap';
+  import 'element-tiptap/lib/index.css';
   
   // 编辑器的 extensions
   // 它们将会按照你声明的顺序被添加到菜单栏和气泡菜单中
@@ -39,3 +40,25 @@
     <p>This Editor is awesome!</p>
   `);
   </script>
+
+  <style scoped lang="less">
+  :deep(.el-tiptap-editor) {
+    background-color: var(--app-content-bg-color);
+    color: var(--app-text-color-primary);
+    border-color: var(--app-border-color);
+
+    .el-tiptap-editor__toolbar {
+      background-color: var(--header-bg-color);
+      border-bottom-color: var(--app-border-color);
+    }
+
+    .el-tiptap-editor__content {
+      background-color: var(--app-content-bg-color);
+    }
+
+    .el-tiptap-editor__footer {
+      background-color: var(--header-bg-color);
+      border-top-color: var(--app-border-color);
+    }
+  }
+  </style>

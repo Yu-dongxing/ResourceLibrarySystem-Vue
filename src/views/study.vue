@@ -91,17 +91,20 @@ export default {
 .task-card {
   margin-bottom: 20px;
   transition: all 0.3s ease;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--app-border-color-light);
 }
 
 .task-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: var(--box-shadow-de);
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--app-text-color-primary);
 }
 
 .header-left {

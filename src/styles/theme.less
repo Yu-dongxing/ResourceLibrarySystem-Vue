@@ -1,0 +1,167 @@
+/* src/styles/theme.less */
+
+/* ==========================================================================
+   Global CSS Variables & Theme Configuration
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Light Theme (Default)
+   -------------------------------------------------------------------------- */
+:root {
+  /* --- Element Plus Color Overrides (Optional, but ensures consistency) --- */
+  /* We rely on Element Plus defaults for primary colors usually, but can override here */
+  /* --el-color-primary: #409eff; */
+
+  /* --- Application Semantic Colors --- */
+  /* Backgrounds */
+  --app-bg-color: #f8fafc;        /* Matches bg-background-light */
+  --app-content-bg-color: #ffffff; /* Content/Card background */
+  --app-overlay-bg-color: #ffffff; /* Modal/Dropdown background */
+
+  /* Text Colors */
+  --app-text-color-primary: #0f172a;   /* Matches text-slate-900 */
+  --app-text-color-regular: #475569;   /* Matches text-slate-600 */
+  --app-text-color-secondary: #94a3b8; /* Matches text-slate-400 */
+  --app-text-color-placeholder: #a8abb2;
+
+  /* Borders & Dividers */
+  --app-border-color: #e2e8f0; /* Matches border-slate-200 */
+  --app-border-color-light: #e4e7ed;
+  --app-divider-color: #ebeef5;
+
+  /* Layout Specifics */
+  --header-bg-color: rgba(255, 255, 255, 0.8); /* Matches bg-white/80 */
+  --header-border-color: #e2e8f0; /* Matches border-slate-200 */
+  --footer-bg-color: #f8fafc;
+  --sidebar-bg-color: #ffffff; /* Matches bg-white */
+
+  /* Legacy/Component Specific Mappings (Preserving for backward compatibility) */
+  --bg-100: #ffffff;
+  --bg-200: #f9f9f9;
+  --text-100: #0f172a;
+  --text-200: #475569;
+  --primary-100: #ecf5ff; /* Light primary */
+  --primary-200: #3b82f6; /* Main primary matches tailwind primary */
+  --box-shadow-de: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --border-radius-de: 0.75rem; /* Matches rounded-xl */
+  
+  --item-hover-bg-color: #f8fafc; /* Matches hover:bg-slate-50 */
+  
+  /* Custom Card/Component variables */
+  --card-bg-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Dark Theme
+   -------------------------------------------------------------------------- */
+html.dark {
+  /* --- Element Plus Dark Mode is handled by importing 'element-plus/theme-chalk/dark/css-vars.css' --- */
+  /* We align our variables to Element Plus dark variables */
+
+  /* --- Application Semantic Colors --- */
+  /* Backgrounds */
+  --app-bg-color: #0f172a;        /* Matches bg-background-dark */
+  --app-content-bg-color: #1e293b; /* Matches dark:bg-slate-800 */
+  --app-overlay-bg-color: #1e293b;
+
+  /* Text Colors */
+  --app-text-color-primary: #f1f5f9; /* Matches dark:text-slate-100 */
+  --app-text-color-regular: #94a3b8; /* Matches dark:text-slate-400 */
+  --app-text-color-secondary: #64748b; /* Darker secondary */
+  --app-text-color-placeholder: #8D9095;
+
+  /* Borders & Dividers */
+  --app-border-color: #1e293b; /* Matches dark:border-slate-800 */
+  --app-border-color-light: #334155; /* Matches dark:border-slate-700 */
+  --app-divider-color: #2b2b2c;
+
+  /* Layout Specifics */
+  --header-bg-color: rgba(15, 23, 42, 0.8); /* Matches dark:bg-slate-900/80 */
+  --header-border-color: #1e293b; /* Matches dark:border-slate-800 */
+  --footer-bg-color: #0f172a;
+  --sidebar-bg-color: #0f172a; /* Matches dark:bg-slate-900 */
+
+  /* Legacy/Component Specific Mappings */
+  --bg-100: #0f172a;
+  --bg-200: #1e293b; 
+  --text-100: #f1f5f9;
+  --text-200: #94a3b8;
+  --primary-100: #1e293b; 
+  --primary-200: #3b82f6; 
+  --box-shadow-de: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  
+  --item-hover-bg-color: #1e293b; /* Matches dark:hover:bg-slate-800 */
+  
+  --card-bg-color: #1e293b;
+
+  /* Ensure body gets the background */
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   Global Resets & Utils
+   -------------------------------------------------------------------------- */
+body {
+  background-color: var(--app-bg-color);
+  color: var(--app-text-color-primary);
+  transition: background-color 0.3s, color 0.3s;
+  margin: 0;
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+}
+
+a {
+  color: var(--primary-200);
+  text-decoration: none;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   External Library Overrides (wangEditor, etc.)
+   -------------------------------------------------------------------------- */
+html.dark {
+  /* wangEditor global variable overrides for dropdowns/modals */
+  --w-e-toolbar-bg-color: #1d1e1f;
+  --w-e-toolbar-color: #E5EAF3;
+  --w-e-toolbar-active-bg-color: #262727;
+  --w-e-toolbar-active-color: #409eff;
+  --w-e-toolbar-border-color: #4C4D4F;
+  
+  --w-e-editor-bg-color: #1d1e1f;
+  --w-e-editor-color: #E5EAF3;
+  
+  --w-e-textarea-bg-color: #1d1e1f;
+  --w-e-textarea-color: #E5EAF3;
+  --w-e-textarea-border-color: #4C4D4F;
+  
+  --w-e-modal-button-bg-color: #262727;
+  --w-e-modal-button-border-color: #4C4D4F;
+
+  /* wangEditor Z-Index and specific fixes */
+  .w-e-select-list, .w-e-modal, .w-e-bar-item-menus-container {
+      background-color: #1d1e1f !important;
+      color: #E5EAF3 !important;
+      border-color: #4C4D4F !important;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  .w-e-select-list ul li:hover {
+      background-color: #262727 !important;
+  }
+}

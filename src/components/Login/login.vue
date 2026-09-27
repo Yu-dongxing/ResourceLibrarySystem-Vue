@@ -209,7 +209,7 @@ onMounted(() => { getRoles(); });
   width: 100%;
   max-width: 450px; /* 卡片最大宽度 */
   padding: 30px 40px;
-  background-color: #ffffff;
+  background-color: var(--card-bg-color);
   border-radius: 12px;
   box-shadow: var(--el-box-shadow-light); /* Element Plus 的浅色阴影 */
   box-sizing: border-box;

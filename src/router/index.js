@@ -90,6 +90,12 @@ const routes = [
     name: '2505_index',
     component: () => import('@/components/2505/index.vue')
   },
+  {
+        path: '/2505main',
+        name: 'MainDashboard',
+        component: () => import('@/components/2505/main.vue'),
+        props: true 
+      },
   //测试文件系统
   {
     path: "/FileUploaderTruck",
