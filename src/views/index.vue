@@ -338,7 +338,7 @@ export default {
   }
   
   &.active {
-    background-color: rgba(59, 130, 246, 0.1); /* blue-50/blue-900/20 approx */
+    background-color: var(--primary-100);
     color: var(--primary-200);
   }
 }
@@ -357,9 +357,9 @@ export default {
   }
 }
 
-.text-blue { color: #3b82f6; }
-.text-green { color: #10b981; }
-.text-amber { color: #f59e0b; }
+.text-blue { color: var(--color-category-code); }
+.text-green { color: var(--color-category-docs); }
+.text-amber { color: var(--color-category-tools); }
 
 .sidebar-footer {
   padding: 16px;
