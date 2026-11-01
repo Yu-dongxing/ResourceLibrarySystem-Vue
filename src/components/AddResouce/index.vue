@@ -140,8 +140,8 @@ export default {
       this.isIconLoading = true;
       try {
         const parsedUrl = new URL(this.form.url);
-        // 使用更稳定的 favicon 服务, 比如 Google 的，或者你自己的后端服务
-        this.form.img = `https://api.akams.cn/favicon/${parsedUrl.hostname}`;
+        // 使用更稳定的 favicon 服务, 比如 Google 的，或者你自己的后端服务 https://favicon.run/favicon?domain=yuxs.top&sz=128
+        this.form.img = `https://favicon.run/favicon?domain=${parsedUrl.hostname}&sz=128`; 
       } catch (error) {
         ElMessage.error('无效的URL，无法提取域名');
         this.form.img = ''; // 清空图标
