@@ -248,14 +248,30 @@ export default {
 .resource-description {
   line-height: 1.8;
   color: var(--el-text-color-regular);
+  overflow-wrap: anywhere;
 
-  :deep(p) {
-    margin-bottom: 1em;
+  :deep(img) {
+    display: block;
+    width: auto !important;
+    max-width: min(100%, 960px) !important;
+    height: auto !important;
+    max-height: 680px;
+    margin: 16px auto;
+    object-fit: contain;
+    border-radius: 8px;
   }
 
-  :deep(h3) {
-    font-size: 1.2em;
-    margin-top: 1.5em;
+  :deep(video),
+  :deep(iframe) {
+    display: block;
+    max-width: 100% !important;
+    margin: 16px auto;
+  }
+
+  :deep(table),
+  :deep(pre) {
+    max-width: 100%;
+    overflow-x: auto;
   }
 }
 

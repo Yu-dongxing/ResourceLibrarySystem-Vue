@@ -89,7 +89,9 @@ export default {
 </script>
 <style scoped>
 .sys_config_card{
-    background-color: aliceblue;
+    background-color: var(--color-surface-subtle);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
     padding: 10px;
     border-radius: 20px;
 }

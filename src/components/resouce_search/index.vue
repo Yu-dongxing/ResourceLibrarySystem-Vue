@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <el-button type="primary" round color="#626aef" plain @click.stop="goDetail(item.id)">
+          <el-button type="primary" round plain @click.stop="goDetail(item.id)">
             查看详情
           </el-button>
         </div>

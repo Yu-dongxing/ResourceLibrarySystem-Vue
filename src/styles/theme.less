@@ -8,47 +8,72 @@
    Light Theme (Default)
    -------------------------------------------------------------------------- */
 :root {
-  /* --- Element Plus Color Overrides (Optional, but ensures consistency) --- */
-  /* We rely on Element Plus defaults for primary colors usually, but can override here */
-  /* --el-color-primary: #409eff; */
+  /* Semantic tokens. Components must consume these rather than raw colors. */
+  --color-canvas: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f1f5f9;
+  --color-text-primary: #0f172a;
+  --color-text-regular: #334155;
+  --color-text-secondary: #475569;
+  --color-text-placeholder: #5b6878;
+  --color-border: #cbd5e1;
+  --color-border-subtle: #e2e8f0;
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-subtle: #dbeafe;
+  --color-category-code: #2563eb;
+  --color-category-docs: #059669;
+  --color-category-tools: #b45309;
 
-  /* --- Application Semantic Colors --- */
-  /* Backgrounds */
-  --app-bg-color: #f8fafc;        /* Matches bg-background-light */
-  --app-content-bg-color: #ffffff; /* Content/Card background */
-  --app-overlay-bg-color: #ffffff; /* Modal/Dropdown background */
-
-  /* Text Colors */
-  --app-text-color-primary: #0f172a;   /* Matches text-slate-900 */
-  --app-text-color-regular: #475569;   /* Matches text-slate-600 */
-  --app-text-color-secondary: #94a3b8; /* Matches text-slate-400 */
-  --app-text-color-placeholder: #a8abb2;
-
-  /* Borders & Dividers */
-  --app-border-color: #e2e8f0; /* Matches border-slate-200 */
-  --app-border-color-light: #e4e7ed;
-  --app-divider-color: #ebeef5;
+  /* Application mappings retained for existing components. */
+  --app-bg-color: var(--color-canvas);
+  --app-content-bg-color: var(--color-surface);
+  --app-overlay-bg-color: var(--color-surface);
+  --app-text-color-primary: var(--color-text-primary);
+  --app-text-color-regular: var(--color-text-regular);
+  --app-text-color-secondary: var(--color-text-secondary);
+  --app-text-color-placeholder: var(--color-text-placeholder);
+  --app-border-color: var(--color-border-subtle);
+  --app-border-color-light: var(--color-border);
+  --app-divider-color: var(--color-border-subtle);
 
   /* Layout Specifics */
   --header-bg-color: rgba(255, 255, 255, 0.8); /* Matches bg-white/80 */
-  --header-border-color: #e2e8f0; /* Matches border-slate-200 */
-  --footer-bg-color: #f8fafc;
-  --sidebar-bg-color: #ffffff; /* Matches bg-white */
+  --header-border-color: var(--color-border-subtle);
+  --footer-bg-color: var(--color-canvas);
+  --sidebar-bg-color: var(--color-surface);
 
   /* Legacy/Component Specific Mappings (Preserving for backward compatibility) */
-  --bg-100: #ffffff;
-  --bg-200: #f9f9f9;
-  --text-100: #0f172a;
-  --text-200: #475569;
-  --primary-100: #ecf5ff; /* Light primary */
-  --primary-200: #3b82f6; /* Main primary matches tailwind primary */
+  --bg-100: var(--color-surface);
+  --bg-200: var(--color-surface-subtle);
+  --text-100: var(--color-text-primary);
+  --text-200: var(--color-text-regular);
+  --primary-100: var(--color-primary-subtle);
+  --primary-200: var(--color-primary);
   --box-shadow-de: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --border-radius-de: 0.75rem; /* Matches rounded-xl */
   
-  --item-hover-bg-color: #f8fafc; /* Matches hover:bg-slate-50 */
+  --item-hover-bg-color: var(--color-surface-subtle);
   
   /* Custom Card/Component variables */
-  --card-bg-color: #ffffff;
+  --card-bg-color: var(--color-surface);
+
+  /* Element Plus uses its own variables, so bind it to the same palette. */
+  --el-color-primary: var(--color-primary);
+  --el-color-primary-dark-2: var(--color-primary-hover);
+  --el-bg-color: var(--color-surface);
+  --el-bg-color-page: var(--color-canvas);
+  --el-bg-color-overlay: var(--color-surface);
+  --el-fill-color: var(--color-surface-subtle);
+  --el-fill-color-blank: var(--color-surface);
+  --el-fill-color-light: #f8fafc;
+  --el-text-color-primary: var(--color-text-primary);
+  --el-text-color-regular: var(--color-text-regular);
+  --el-text-color-secondary: var(--color-text-secondary);
+  --el-text-color-placeholder: var(--color-text-placeholder);
+  --el-border-color: var(--color-border);
+  --el-border-color-light: var(--color-border-subtle);
+  --el-border-color-lighter: #e2e8f0;
 }
 
 /* --------------------------------------------------------------------------
@@ -58,41 +83,56 @@ html.dark {
   /* --- Element Plus Dark Mode is handled by importing 'element-plus/theme-chalk/dark/css-vars.css' --- */
   /* We align our variables to Element Plus dark variables */
 
-  /* --- Application Semantic Colors --- */
-  /* Backgrounds */
-  --app-bg-color: #0f172a;        /* Matches bg-background-dark */
-  --app-content-bg-color: #1e293b; /* Matches dark:bg-slate-800 */
-  --app-overlay-bg-color: #1e293b;
-
-  /* Text Colors */
-  --app-text-color-primary: #f1f5f9; /* Matches dark:text-slate-100 */
-  --app-text-color-regular: #94a3b8; /* Matches dark:text-slate-400 */
-  --app-text-color-secondary: #64748b; /* Darker secondary */
-  --app-text-color-placeholder: #8D9095;
-
-  /* Borders & Dividers */
-  --app-border-color: #1e293b; /* Matches dark:border-slate-800 */
-  --app-border-color-light: #334155; /* Matches dark:border-slate-700 */
-  --app-divider-color: #2b2b2c;
+  --color-canvas: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-subtle: #273449;
+  --color-text-primary: #f8fafc;
+  --color-text-regular: #cbd5e1;
+  --color-text-secondary: #94a3b8;
+  --color-text-placeholder: #a8b5c7;
+  --color-border: #475569;
+  --color-border-subtle: #334155;
+  --color-primary: #60a5fa;
+  --color-primary-hover: #93c5fd;
+  --color-primary-subtle: #1e3a5f;
+  --color-category-code: #60a5fa;
+  --color-category-docs: #34d399;
+  --color-category-tools: #fbbf24;
 
   /* Layout Specifics */
   --header-bg-color: rgba(15, 23, 42, 0.8); /* Matches dark:bg-slate-900/80 */
-  --header-border-color: #1e293b; /* Matches dark:border-slate-800 */
-  --footer-bg-color: #0f172a;
-  --sidebar-bg-color: #0f172a; /* Matches dark:bg-slate-900 */
+  --header-border-color: var(--color-border-subtle);
+  --footer-bg-color: var(--color-canvas);
+  --sidebar-bg-color: var(--color-canvas);
 
   /* Legacy/Component Specific Mappings */
-  --bg-100: #0f172a;
-  --bg-200: #1e293b; 
-  --text-100: #f1f5f9;
-  --text-200: #94a3b8;
-  --primary-100: #1e293b; 
-  --primary-200: #3b82f6; 
+  --bg-100: var(--color-canvas);
+  --bg-200: var(--color-surface);
+  --text-100: var(--color-text-primary);
+  --text-200: var(--color-text-regular);
+  --primary-100: var(--color-primary-subtle);
+  --primary-200: var(--color-primary);
   --box-shadow-de: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
   
-  --item-hover-bg-color: #1e293b; /* Matches dark:hover:bg-slate-800 */
+  --item-hover-bg-color: var(--color-surface-subtle);
   
-  --card-bg-color: #1e293b;
+  --card-bg-color: var(--color-surface);
+
+  --el-color-primary: var(--color-primary);
+  --el-color-primary-dark-2: var(--color-primary-hover);
+  --el-bg-color: var(--color-surface);
+  --el-bg-color-page: var(--color-canvas);
+  --el-bg-color-overlay: var(--color-surface);
+  --el-fill-color: var(--color-surface-subtle);
+  --el-fill-color-blank: var(--color-surface);
+  --el-fill-color-light: #273449;
+  --el-text-color-primary: var(--color-text-primary);
+  --el-text-color-regular: var(--color-text-regular);
+  --el-text-color-secondary: var(--color-text-secondary);
+  --el-text-color-placeholder: var(--color-text-placeholder);
+  --el-border-color: var(--color-border);
+  --el-border-color-light: var(--color-border-subtle);
+  --el-border-color-lighter: #3b4a60;
 
   /* Ensure body gets the background */
   color-scheme: dark;
