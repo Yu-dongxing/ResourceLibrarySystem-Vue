@@ -151,9 +151,27 @@ html.dark {
 body {
   background-color: var(--app-bg-color);
   color: var(--app-text-color-primary);
-  transition: background-color 0.3s, color 0.3s;
   margin: 0;
   font-family: 'Inter', 'Noto Sans SC', sans-serif;
+}
+
+/* Capture the new theme before any component-level transition can run. */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+}
+
+html.theme-switching::view-transition {
+  pointer-events: none;
+}
+
+html.theme-switching::view-transition-group(root),
+html.theme-switching::view-transition-old(root),
+html.theme-switching::view-transition-new(root) {
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
 }
 
 a {
