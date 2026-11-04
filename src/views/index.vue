@@ -18,7 +18,7 @@
       </div>
       
       <nav class="sidebar-nav custom-scrollbar">
-        <router-link to="/" class="nav-item" active-class="active">
+        <router-link to="/" class="nav-item" exact-active-class="active">
           <el-icon><HomeFilled /></el-icon>
           <span class="nav-text">首页</span>
         </router-link>
@@ -85,7 +85,7 @@
         </div>
         
         <div class="header-actions">
-          <button class="add-btn" @click="$router.push('/add')">
+          <button type="button" class="add-btn" aria-label="添加资源" @click="$router.push('/add')">
             <el-icon size="20"><Plus /></el-icon>
             <span class="btn-text">添加资源</span>
           </button>
@@ -338,9 +338,16 @@ export default {
   }
   
   &.active {
-    background-color: var(--primary-100);
-    color: var(--primary-200);
+    background-color: var(--color-nav-active-bg);
+    color: var(--color-nav-active-text);
+    font-weight: 600;
   }
+}
+
+.nav-item:focus-visible,
+.add-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .nav-divider {
@@ -510,8 +517,8 @@ export default {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--primary-200);
-  color: #ffffff;
+  background-color: var(--color-primary-solid);
+  color: var(--color-on-primary);
   padding: 10px 20px;
   border-radius: 16px;
   border: none;
@@ -523,7 +530,7 @@ export default {
   white-space: nowrap;
   
   &:hover {
-    filter: brightness(1.1);
+    background-color: var(--color-primary-solid-hover);
     transform: translateY(-1px);
   }
 }
